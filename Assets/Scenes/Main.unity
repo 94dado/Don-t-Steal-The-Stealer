@@ -263,7 +263,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0ff8cb992c6ab8348a23d693723c2064, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1.98
+      value: 1.87
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0ff8cb992c6ab8348a23d693723c2064, type: 2}
       propertyPath: m_LocalPosition.z
@@ -303,6 +303,7 @@ GameObject:
   - component: {fileID: 1708593275}
   - component: {fileID: 1708593274}
   - component: {fileID: 1708593273}
+  - component: {fileID: 1708593277}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: Untagged
@@ -372,6 +373,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1708593277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1708593272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1be05c2375b649f3b931538c0a5c6dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 2051055409}
 --- !u!1001 &2051055404
 Prefab:
   m_ObjectHideFlags: 0
@@ -426,3 +439,25 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f64a07dff89c6e2438770494b1cff932, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &2051055405 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1546462088154850, guid: f64a07dff89c6e2438770494b1cff932,
+    type: 2}
+  m_PrefabInternal: {fileID: 2051055404}
+--- !u!114 &2051055406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2051055405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 239a75ef37af6481ab1831cb014d75f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+--- !u!4 &2051055409 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4536461809712558, guid: f64a07dff89c6e2438770494b1cff932,
+    type: 2}
+  m_PrefabInternal: {fileID: 2051055404}
