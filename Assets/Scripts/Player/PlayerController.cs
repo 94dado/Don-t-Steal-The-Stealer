@@ -31,10 +31,7 @@ public class PlayerController : MonoBehaviour {
     // check if player is colliding vertically
     bool CheckCollisionVertically(float vertical) {
         // check distance from collision
-        RaycastHit2D ray = Physics2D.Raycast(baricenter.position, Vector2.up * vertical, stopDistanceYFromObstacles, obstaclesMask);
-        Debug.DrawLine(baricenter.position, ray.point, Color.blue, 3f);
         if (Physics2D.Raycast(baricenter.position, Vector2.up * vertical, stopDistanceYFromObstacles, obstaclesMask)) {
-            Debug.DrawRay(baricenter.position, ray.point, Color.red, 3f);
             return true;
         }
         return false;
