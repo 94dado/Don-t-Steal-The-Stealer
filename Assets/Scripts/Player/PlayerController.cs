@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(SpriteRenderer))]
@@ -7,11 +6,8 @@ public class PlayerController : MonoBehaviour {
 
     // speed of the player
     public float speed;
-    [Range(0,1)] public float delay;
-    public float stopDistanceXFromObstacles;
-    public float stopDistanceYFromObstacles;
-    public Transform baricenter;
-    public LayerMask obstaclesMask;
+    public float collisionOnXAxe;
+    public float collisionOnYAxe;
 
     Animator animator;
     // where the last movemement is
@@ -28,24 +24,6 @@ public class PlayerController : MonoBehaviour {
         Move();
     }
 
-    // check if player is colliding vertically
-    bool CheckCollisionVertically(float vertical) {
-        // check distance from collision
-        if (Physics2D.Raycast(baricenter.position, Vector2.up * vertical, stopDistanceYFromObstacles, obstaclesMask)) {
-            return true;
-        }
-        return false;
-    }
-
-    // check if player is colliding horizontally
-    bool CheckCollisionHorizontally(float horizontal) {
-        // check distance from collision
-        if (Physics2D.Raycast(baricenter.position, Vector2.right * horizontal, stopDistanceXFromObstacles, obstaclesMask)) {
-            return true;
-        }
-        return false;
-    }
-
     // move the player
     void Move() {
         // get the stress value of the axes
@@ -53,14 +31,14 @@ public class PlayerController : MonoBehaviour {
         float vertical = Input.GetAxis("Vertical");
         // each frame, at the start player not run
         isRunning = false;
-        // movemement not start directly when we press the horizontal movement key and if there is an obstacle
-        if ((horizontal > delay || horizontal < -delay) && !CheckCollisionHorizontally(horizontal)) {
+        // movemement not start directly when we press the horizontal movement key and if there is not an obstacle
+        if (horizontal > 0f || horizontal < 0f) {
             transform.Translate(horizontal * speed * Time.deltaTime, 0f, 0f);
             isRunning = true;
             lastMovement = new Vector2(horizontal, 0f);
         }
-        // movemement not start directly when we press the vertical movement key and if there is an obstacle
-        if ((vertical > delay || vertical < -delay) && !CheckCollisionVertically(vertical)) {
+        // movemement not start directly when we press the vertical movement key and if there is not an obstacle
+        if (vertical > 0f || vertical < 0f) {
             transform.Translate(0f, vertical * speed * Time.deltaTime, 0f);
             isRunning = true;
             lastMovement = new Vector2(0f, vertical);
