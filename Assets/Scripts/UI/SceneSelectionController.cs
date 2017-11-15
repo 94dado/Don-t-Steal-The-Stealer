@@ -8,6 +8,9 @@ public class SceneSelectionController : MonoBehaviour {
     public GameObject startButtonGameObject;
     private Button startButton;
     private SceneLoader sceneLoader;
+    public GameObject newsPaper;
+    public Sprite newsPaperPage;
+    
 
     public void Start()
     {
@@ -20,5 +23,10 @@ public class SceneSelectionController : MonoBehaviour {
         sceneLoader.SetScene(level);
         if(!startButton.IsInteractable())
             startButton.interactable = true;
+        if (!newsPaper.activeSelf)
+            newsPaper.SetActive(true);
+        newsPaper.GetComponent<Image>().sprite = newsPaperPage;
     }
+
+
 }

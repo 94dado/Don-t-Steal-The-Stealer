@@ -18,9 +18,9 @@ TagManager:
   - Foreground
   - Enemies
   - Objects
-  - 
-  - 
-  - 
+  - Interactable
+  - Interacted
+  - Door
   - 
   - 
   - 
