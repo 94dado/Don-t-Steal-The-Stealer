@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour {
     // where the last movemement is
     Vector2 lastMovement;
     bool isRunning;
+    // used for diagonals
+    float currentSpeed;
 
     // Use this for initialization
     void Start() {
@@ -31,17 +33,24 @@ public class PlayerController : MonoBehaviour {
         float vertical = Input.GetAxis("Vertical");
         // each frame, at the start player not run
         isRunning = false;
-        // movemement not start directly when we press the horizontal movement key and if there is not an obstacle
+        // move horizontally
         if (horizontal > 0f || horizontal < 0f) {
-            transform.Translate(horizontal * speed * Time.deltaTime, 0f, 0f);
+            transform.Translate(horizontal * currentSpeed * Time.deltaTime, 0f, 0f);
             isRunning = true;
             lastMovement = new Vector2(horizontal, 0f);
         }
-        // movemement not start directly when we press the vertical movement key and if there is not an obstacle
+        // move vertically
         if (vertical > 0f || vertical < 0f) {
-            transform.Translate(0f, vertical * speed * Time.deltaTime, 0f);
+            transform.Translate(0f, vertical * currentSpeed * Time.deltaTime, 0f);
             isRunning = true;
             lastMovement = new Vector2(0f, vertical);
+        }
+        // check if we move in diagonal on the map and it reduces the speed
+        if (Mathf.Abs(horizontal) > 0.5f && Mathf.Abs(vertical) > 0.5f) {
+            currentSpeed = speed / Mathf.Sqrt(2f);
+        }
+        else {
+            currentSpeed = speed;
         }
         // set values of the parameters
         animator.SetFloat("RunX", horizontal);
