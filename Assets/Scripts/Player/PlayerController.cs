@@ -4,12 +4,15 @@
 [RequireComponent(typeof(SpriteRenderer))]
 public class PlayerController : MonoBehaviour {
 
-    // speed of the player
-    public float speed;
-    public Transform lineStart,lineEnd, lineEndWest,lineEndEast,lineEndSouth,LineEndNorth;
-    public GameObject interactionText;
+    // these variables are used for interactions with interactable objects
+    public Transform lineStart, lineEnd, lineEndWest, lineEndEast, lineEndSouth, LineEndNorth;
+    private GameObject gameManagerObject;
+    private GameManager gameManager;
     RaycastHit2D hitObject;
     bool interact = false;
+
+    // speed of the player
+    public float speed;
 
     Animator animator;
     // where the last movemement is
@@ -22,6 +25,8 @@ public class PlayerController : MonoBehaviour {
     // Use this for initialization
     void Start() {
         animator = GetComponent<Animator>();
+        gameManagerObject = GameObject.FindWithTag("GameManager");
+        gameManager = gameManagerObject.GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -72,6 +77,7 @@ public class PlayerController : MonoBehaviour {
         animator.SetBool("Running", isRunning);
     }
 
+    //cast a ray from the player to see if he can activate an interaction with an object
     void Raycast() {
         Debug.DrawLine(lineStart.position, lineEnd.position, Color.black);
 
@@ -79,15 +85,19 @@ public class PlayerController : MonoBehaviour {
         {
             hitObject = Physics2D.Linecast(lineStart.position, lineEnd.position, 1 << LayerMask.NameToLayer("Interactable"));
             interact = true;
-            interactionText.SetActive(true);
+            gameManager.ActivateInteractionText(true);
         }
         else
         {
             interact = false;
-            interactionText.SetActive(false);
+            gameManager.ActivateInteractionText(false);
         }
+
+        //if the user can interact with the object AND he presses E, he interacts
         if (Input.GetKeyDown(KeyCode.E) && interact == true)
-            hitObject.collider.gameObject.GetComponent<InteractableObject>().Interact();
+        {
+             gameManager.AddMoney(hitObject.collider.gameObject.GetComponent<InteractableObject>().Interact());
+        }
 
     }
 

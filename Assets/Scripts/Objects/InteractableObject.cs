@@ -5,15 +5,18 @@ using UnityEngine.UI;
 
 public class InteractableObject : MonoBehaviour {
     Animator animator;
+    public int value;
 
     // Use this for initialization
     void Start () {
         animator = GetComponent<Animator>();
     }
 	
-	public void Interact()
+	public int Interact()
     {
         animator.SetBool("Open", true);
         gameObject.layer = 14;
+
+        return value;
     }
 }
