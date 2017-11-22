@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4389136632994618}
   - component: {fileID: 212195542459060602}
   m_Layer: 0
-  m_Name: MarblePavement
+  m_Name: Marble
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
