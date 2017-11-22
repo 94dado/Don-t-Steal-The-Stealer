@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(SpriteRenderer))]
@@ -8,6 +9,7 @@ public class PlayerController : MonoBehaviour {
     public Transform lineStart, lineEnd, lineEndWest, lineEndEast, lineEndSouth, LineEndNorth;
     private GameObject gameManagerObject;
     private GameManager gameManager;
+    private List<string> gadgetList;
     RaycastHit2D hitObject;
     bool interact = false;
 
@@ -27,6 +29,11 @@ public class PlayerController : MonoBehaviour {
         animator = GetComponent<Animator>();
         gameManagerObject = GameObject.FindWithTag("GameManager");
         gameManager = gameManagerObject.GetComponent<GameManager>();
+        gadgetList = new List<string>();
+        gadgetList.Add("Theca");
+        gadgetList.Add("Painting");
+        gadgetList.Add("Safe");
+        gadgetList.Add("Door");
     }
 
     // Update is called once per frame
@@ -84,13 +91,19 @@ public class PlayerController : MonoBehaviour {
         if (Physics2D.Linecast(lineStart.position, lineEnd.position, 1 << LayerMask.NameToLayer("Interactable")))
         {
             hitObject = Physics2D.Linecast(lineStart.position, lineEnd.position, 1 << LayerMask.NameToLayer("Interactable"));
-            interact = true;
-            gameManager.ActivateInteractionText(true);
+            if (checkGadgetPresence(hitObject.collider.gameObject.GetComponent<InteractableObject>().getObjectType()))
+            {
+                gameManager.ActivateInteractionText(true);
+                interact = true;
+            }
+            else
+                gameManager.ActivateNoGadgetText(true);
         }
         else
         {
             interact = false;
             gameManager.ActivateInteractionText(false);
+            gameManager.ActivateNoGadgetText(false);
         }
 
         //if the user can interact with the object AND he presses E, he interacts
@@ -98,6 +111,17 @@ public class PlayerController : MonoBehaviour {
         {
              gameManager.AddMoney(hitObject.collider.gameObject.GetComponent<InteractableObject>().Interact());
         }
+
+    }
+
+    private bool checkGadgetPresence(string objectType)
+    {
+        foreach(string gadget in gadgetList)
+        {
+            if (objectType == gadget)
+                return true;
+        }
+        return false;
 
     }
 

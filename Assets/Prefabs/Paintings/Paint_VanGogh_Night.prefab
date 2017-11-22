@@ -20,7 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4810160666989290}
   - component: {fileID: 212361051338271302}
-  m_Layer: 0
+  - component: {fileID: 114028582394279448}
+  - component: {fileID: 61008320239941338}
+  m_Layer: 13
   m_Name: Paint_VanGogh_Night
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,6 +42,45 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &61008320239941338
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1698012010187476}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 15.36, y: 12.57}
+    newSize: {x: 15.36, y: 12.57}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 15.36, y: 12.57}
+  m_EdgeRadius: 0
+--- !u!114 &114028582394279448
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1698012010187476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d274ca9f4e1aa694fb367b1f2e7ec0cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: 200
+  stolenSprite: {fileID: 21300000, guid: ce471cf05b67a7e4aaf668fcd23d98a8, type: 3}
+  objectType: Painting
 --- !u!212 &212361051338271302
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -54,7 +95,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 573ef5698fea1a5429e6f8560d970e77, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

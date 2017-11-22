@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour {
 
     public GameObject interactionText;
+    public GameObject missingGadgetText;
     public Text moneyText;
     private int obtainedMoney;
 
@@ -23,6 +24,11 @@ public class GameManager : MonoBehaviour {
     {
         interactionText.SetActive(active);
     }
+    public void ActivateNoGadgetText(bool active)
+    {
+        missingGadgetText.SetActive(active);
+    }
+
     //add money to the total balance
     public void AddMoney(int money)
     {
