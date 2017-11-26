@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4907907236020854}
   - component: {fileID: 212123072995006024}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Musical Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}

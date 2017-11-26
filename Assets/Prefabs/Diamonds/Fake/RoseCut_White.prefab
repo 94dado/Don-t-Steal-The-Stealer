@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4918870457258762}
   - component: {fileID: 212493221725869038}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RoseCut_White
   m_TagString: Untagged
   m_Icon: {fileID: 0}

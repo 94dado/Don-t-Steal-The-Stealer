@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 212550044321676652}
   - component: {fileID: 61202258745106004}
   m_Layer: 13
-  m_Name: Door2D
+  m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

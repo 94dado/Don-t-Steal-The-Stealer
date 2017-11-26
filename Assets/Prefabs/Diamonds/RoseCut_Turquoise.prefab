@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4853444796269786}
   - component: {fileID: 212552920442784810}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RoseCut_Turquoise
   m_TagString: Untagged
   m_Icon: {fileID: 0}

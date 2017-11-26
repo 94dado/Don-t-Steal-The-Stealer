@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4660189133180216}
   - component: {fileID: 212726097109174172}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: OldSingleCut_Lavender
   m_TagString: Untagged
   m_Icon: {fileID: 0}

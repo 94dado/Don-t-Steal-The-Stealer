@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4318949601493566}
   - component: {fileID: 212333056011384200}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Furniture_Right 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

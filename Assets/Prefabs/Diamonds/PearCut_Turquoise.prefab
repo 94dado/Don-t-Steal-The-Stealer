@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4270711723274718}
   - component: {fileID: 212427890119734500}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PearCut_Turquoise
   m_TagString: Untagged
   m_Icon: {fileID: 0}

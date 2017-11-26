@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4389136632994618}
   - component: {fileID: 212195542459060602}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Marble
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 573ef5698fea1a5429e6f8560d970e77, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
