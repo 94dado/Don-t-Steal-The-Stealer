@@ -9,30 +9,22 @@ public class CameraController : MonoBehaviour {
     public Transform minBound;
 
     Camera cam;
-    // get the camera's aspect ratio
-    float camVertExtent;
-    float camHorzExtent;
-    // get bounds
-    float leftBound;
-    float rightBound;
-    float bottomBound;
-    float topBound;
 
     void Start() {
         cam = GetComponent<Camera>();
-
-        // get the camera's aspect ratio
-        camVertExtent = cam.orthographicSize;
-        camHorzExtent = cam.aspect * camVertExtent;
-
-        // get bounds
-        leftBound = minBound.position.x + camHorzExtent;
-        rightBound = maxBound.position.x - camHorzExtent;
-        bottomBound = minBound.position.y + camVertExtent;
-        topBound = maxBound.position.y - camVertExtent;
     }
 
     void Update() {
+        // get the camera's aspect ratio
+        float camVertExtent = cam.orthographicSize;
+        float camHorzExtent = cam.aspect * camVertExtent;
+
+        // get bounds
+        float leftBound = minBound.position.x + camHorzExtent;
+        float rightBound = maxBound.position.x - camHorzExtent;
+        float bottomBound = minBound.position.y + camVertExtent;
+        float topBound = maxBound.position.y - camVertExtent;
+
         // clamp camera to boundaries
         float camX = Mathf.Clamp(target.position.x, leftBound, rightBound);
         float camY = Mathf.Clamp(target.position.y, bottomBound, topBound);

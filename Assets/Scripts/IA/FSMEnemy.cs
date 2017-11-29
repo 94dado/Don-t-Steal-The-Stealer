@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class FSMEnemy : MonoBehaviour {
@@ -17,21 +19,24 @@ public class FSMEnemy : MonoBehaviour {
     public float speed;
     // point mask
     public LayerMask pointsMask;
-    // point wall
+    // wall mask
     public LayerMask obstaclesMask;
+    // interactable mask
+    public LayerMask interactableMask;
 
     FSM fsmMachine;
     // next position
     int next;
     Transform nextPosition;
     Transform throwablePosition;
-    // check if player is chought
-    bool isEnd;
+    // used to came back to the first known point
+    Queue<Transform> toThrowableAndBack = new Queue<Transform>();
+    bool isIdle;
     bool isMoving;
     bool isPositionReached;
     bool isReachingThrowable;
-    bool isCameBackToIdle;
     bool throwableIsReached;
+    // check if player is found
     bool isPlayer;
 
     void Start() {
@@ -39,6 +44,9 @@ public class FSMEnemy : MonoBehaviour {
     }
 
     void Update() {
+        // check collision with player or object
+        CheckCollision();
+        // check if we have to move
         if (isMoving || isReachingThrowable) {
             Moving();
         }
@@ -48,12 +56,14 @@ public class FSMEnemy : MonoBehaviour {
     void Moving() {
         // move player to next position if distance from element is less then the default
         if (maxDistanceUntilPoint > Vector2.Distance(transform.position, nextPosition.position)) {
+            // move
             transform.position = Vector2.MoveTowards(transform.position, nextPosition.position, speed * Time.deltaTime);
-            isPositionReached = true;
         }
         else {
+            // stop moving and came back to idle
             if (isMoving) {
                 isMoving = false;
+                isPositionReached = true;
             }
             else {
                 // you are arrived
@@ -70,7 +80,22 @@ public class FSMEnemy : MonoBehaviour {
         }
     }
 
-    public void StartFSM() {
+    // check enter collision
+    void CheckCollision() {
+        // get all the colliders in a certain radius
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(throwablePosition.position, overlapRadius);
+        for (int i = 0; i < colliders.Length; i++) {
+            if (colliders[i].transform.tag == "Player") {
+                // TODO: check just if player is in front direction
+                isPlayer = true;
+            }
+            if (colliders[i].transform.tag == "Throwable") {
+                throwablePosition = colliders[i].transform;
+            }
+        }
+    }
+
+    void StartFSM() {
 
         // Define states and link actions when enter/exit/stay
         FSMState idleAction = new FSMState {
@@ -112,29 +137,62 @@ public class FSMEnemy : MonoBehaviour {
         // Setup a FSA at initial state
         fsmMachine = new FSM(idleAction);
         // Start monitoring
-        StartCoroutine(PatrolFSM());
+        StartCoroutine("PatrolFSM");
+    }
+
+    // Periodic update, run forever
+    IEnumerator PatrolFSM() {
+        // if is not gameover or win
+        while (!GameManager.Instance.gameOver || !GameManager.Instance.win) {
+            fsmMachine.Update();
+            yield return new WaitForSeconds(FSMDelay);
+        }
     }
 
     // wait seconds before move
     void WaitBeforeMove() {
-        StartCoroutine(WaitToMove());
+        StartCoroutine("WaitToMove");
     }
 
     IEnumerator WaitToMove() {
         yield return new WaitForSeconds(idleTime);
-        isMoving = true;
+        // is ready to move to next point
+        isIdle = false;
     }
 
     // move the player to next position
     void Move() {
-        // it is came back to idle
-        if (!isCameBackToIdle) {
+        // it is came back to default path
+        if (toThrowableAndBack.Count == 0) {
+            // if it can't move thoward a door
+            if (!CheckDoor()) {
+                // reverse array and came back
+                next = points.Length - next;
+                Array.Reverse(points);
+            }
             next++;
             nextPosition = points[next];
+            // if we re at the end of the array
+            if (next + 1 == points.Length) {
+                // reverse array
+                Array.Reverse(points);
+                next = 0;
+            }
         }
         else {
-            isCameBackToIdle = false;
+            // came back to point path point by point
+            nextPosition = toThrowableAndBack.Dequeue();
         }
+        isMoving = true;
+    }
+
+    // check if door is open or close
+    bool CheckDoor() {
+        // if the door is closed
+        if (Physics2D.Raycast(transform.position, nextPosition.position, Vector2.Distance(transform.position, nextPosition.position), interactableMask)) {
+            return false;
+        }
+        return true;
     }
 
     // find position to be reached
@@ -150,7 +208,7 @@ public class FSMEnemy : MonoBehaviour {
             Transform min = null;
             for (int i = 0; i < colliders.Length; i++) {
                 // check if a wall is not between the point and the enemy
-                if (!Physics2D.Raycast(transform.position, colliders[i].transform.position, Vector2.Distance(throwablePosition.position, colliders[i].transform.position), obstaclesMask)) {
+                if (!Physics2D.Raycast(transform.position, colliders[i].transform.position, Vector2.Distance(transform.position, colliders[i].transform.position), obstaclesMask)) {
                     // get the min
                     if (min == null || (Vector2.Distance(minBetweenThrowableAndPoints.position, min.position) > Vector2.Distance(minBetweenThrowableAndPoints.position, colliders[i].transform.position))) {
                         min = colliders[i].transform;
@@ -159,9 +217,12 @@ public class FSMEnemy : MonoBehaviour {
             }
             nextPosition = min;
         }
+        // added position of point
+        toThrowableAndBack.Enqueue(nextPosition);
         isReachingThrowable = true;
     }
 
+    // return the min point near the throwable
     Transform GetMinBetweenThrowableAndPoints() {
         // get all the point near throwable
         Collider2D[] colliders = Physics2D.OverlapCircleAll(throwablePosition.position, overlapRadius, pointsMask);
@@ -180,22 +241,13 @@ public class FSMEnemy : MonoBehaviour {
 
     // game over
     void EndLevel() {
-        // TODO: closs scene
-        isEnd = true;
-    }
-
-    // Periodic update, run forever
-    IEnumerator PatrolFSM() {
-        while (!isEnd) {
-            fsmMachine.Update();
-            yield return new WaitForSeconds(FSMDelay);
-        }
+        // start gameover
+        GameManager.Instance.gameOver = true;
     }
 
     // check if is time to switch to move
     bool CheckTimeToMove() {
-        if (isMoving) {
-            isMoving = false;
+        if (!isIdle) {
             return true;
         }
         return false;
@@ -205,6 +257,8 @@ public class FSMEnemy : MonoBehaviour {
     bool CheckRechedPosition() {
         if (isPositionReached) {
             isPositionReached = false;
+            // idle until next time to move
+            isIdle = true;
             return true;
         }
         return false;
@@ -221,6 +275,8 @@ public class FSMEnemy : MonoBehaviour {
     // check if is time to reach to seek
     bool CheckNearObject() {
         if (throwablePosition != null) {
+            isIdle = false;
+            isMoving = false;
             return true;
         }
         return false;
@@ -230,20 +286,10 @@ public class FSMEnemy : MonoBehaviour {
     bool CheckReachedObject() {
         if (throwableIsReached) {
             throwableIsReached = false;
-            isCameBackToIdle = true;
+            // came back to idle
+            isIdle = true;
             return true;
         }
         return false;
-    }
-
-    // check enter collision
-    void OnCollisionEnter(Collision collision) {
-        if (collision.transform.tag == "Player") {
-            // TODO: check just if player is in front direction
-            isPlayer = true;
-        }
-        if (collision.transform.tag == "Throwable") {
-            throwablePosition = collision.transform;
-        }
     }
 }
