@@ -24,8 +24,8 @@ TagManager:
   - Interactable
   - Interacted
   - Door
-  - 
-  - 
+  - Wall
+  - Point
   - 
   - 
   - 
@@ -44,11 +44,11 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Characters
-    uniqueID: 1498403391
-    locked: 0
   - name: Background
     uniqueID: 4156845327
+    locked: 0
+  - name: Characters
+    uniqueID: 1498403391
     locked: 0
   - name: Foreground
     uniqueID: 3909692497
