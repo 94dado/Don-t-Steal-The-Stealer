@@ -7,8 +7,8 @@ public class PlayerController : MonoBehaviour {
 
     // these variables are used for interactions with interactable objects
     public int interactionRadius;
-    private GameObject lineEndWest, lineEndEast, lineEndSouth, lineEndNorth;
-    private Transform lineEnd, lineStart;
+    private Vector2 lineEndWest, lineEndEast, lineEndSouth, lineEndNorth;
+    private Vector2 lineEnd, lineStart;
     private GameObject gameManagerObject;
     private GameManager gameManager;
     private List<string> gadgetList;
@@ -31,22 +31,21 @@ public class PlayerController : MonoBehaviour {
         animator = GetComponent<Animator>();
         gameManagerObject = GameObject.FindWithTag("GameManager");
         gameManager = gameManagerObject.GetComponent<GameManager>();
+
+        //initializing gadgetList, this is temporary!!!!
         gadgetList = new List<string>();
         gadgetList.Add("Theca");
         gadgetList.Add("Painting");
         gadgetList.Add("Safe");
         gadgetList.Add("Door");
 
-        lineEndWest = new GameObject();
-        lineEndEast = new GameObject();
-        lineEndSouth = new GameObject();
-        lineEndNorth = new GameObject();
-        lineEndWest.transform.position = new Vector2(gameObject.transform.position.x - interactionRadius, gameObject.transform.position.y) ;
-        lineEndEast.transform.position = new Vector2(gameObject.transform.position.x + interactionRadius, gameObject.transform.position.y);
-        lineEndSouth.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y - interactionRadius);
-        lineEndNorth.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + interactionRadius);
-        lineEnd = lineEndSouth.transform;
-        lineStart = gameObject.transform;
+        //initializing player raycast
+        lineEndWest = new Vector2(gameObject.transform.position.x - interactionRadius, gameObject.transform.position.y) ;
+        lineEndEast = new Vector2(gameObject.transform.position.x + interactionRadius, gameObject.transform.position.y);
+        lineEndSouth = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y - interactionRadius);
+        lineEndNorth = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + interactionRadius);
+        lineEnd = lineEndSouth;
+        lineStart = gameObject.transform.position;
     }
 
     // Update is called once per frame
@@ -69,13 +68,13 @@ public class PlayerController : MonoBehaviour {
             lastMovement = new Vector2(horizontal, 0f);
             if (horizontal > 0f)
             {
-                lineEndEast.transform.position = new Vector2(gameObject.transform.position.x + interactionRadius, gameObject.transform.position.y);
-                lineEnd = lineEndEast.transform;
+                lineEndEast.Set(gameObject.transform.position.x + interactionRadius, gameObject.transform.position.y);
+                lineEnd = lineEndEast;
             }
             else
             {
-                lineEndWest.transform.position = new Vector2(gameObject.transform.position.x - interactionRadius, gameObject.transform.position.y);
-                lineEnd = lineEndWest.transform;
+                lineEndWest.Set(gameObject.transform.position.x - interactionRadius, gameObject.transform.position.y);
+                lineEnd = lineEndWest;
             }
         }
         // move vertically
@@ -85,13 +84,13 @@ public class PlayerController : MonoBehaviour {
             lastMovement = new Vector2(0f, vertical);
             if (vertical > 0f)
             {
-                lineEndNorth.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + interactionRadius);
-                lineEnd = lineEndNorth.transform;
+                lineEndNorth.Set(gameObject.transform.position.x, gameObject.transform.position.y + interactionRadius);
+                lineEnd = lineEndNorth;
             }
             else
             {
-                lineEndSouth.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y - interactionRadius);
-                lineEnd = lineEndSouth.transform;
+                lineEndSouth.Set(gameObject.transform.position.x, gameObject.transform.position.y - interactionRadius);
+                lineEnd = lineEndSouth;
             }
         }
         // check if we move in diagonal on the map and it reduces the speed
@@ -111,11 +110,12 @@ public class PlayerController : MonoBehaviour {
 
     //cast a ray from the player to see if he can activate an interaction with an object
     void Raycast() {
-        Debug.DrawLine(lineStart.position, lineEnd.position, Color.black);
+        lineStart = gameObject.transform.position;
+        Debug.DrawLine(lineStart, lineEnd, Color.black);
 
-        if (Physics2D.Linecast(lineStart.position, lineEnd.position, 1 << LayerMask.NameToLayer("Interactable")))
+        if (Physics2D.Linecast(lineStart, lineEnd, 1 << LayerMask.NameToLayer("Interactable")))
         {
-            hitObject = Physics2D.Linecast(lineStart.position, lineEnd.position, 1 << LayerMask.NameToLayer("Interactable"));
+            hitObject = Physics2D.Linecast(lineStart, lineEnd, 1 << LayerMask.NameToLayer("Interactable"));
             if (checkGadgetPresence(hitObject.collider.gameObject.GetComponent<InteractableObject>().getObjectType()))
             {
                 gameManager.ActivateInteractionText(true);
