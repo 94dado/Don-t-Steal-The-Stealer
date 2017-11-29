@@ -2554,6 +2554,14 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1699207782910414, guid: 4cf5311a161280b49986d9340e752b21, type: 2}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975944168191482, guid: 4cf5311a161280b49986d9340e752b21, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1404187495628230, guid: 4cf5311a161280b49986d9340e752b21, type: 2}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -4146,6 +4154,11 @@ Prefab:
       propertyPath: target
       value: 
       objectReference: {fileID: 1630335192}
+    - target: {fileID: 20296425331040478, guid: 4f74ba4c2a3fede49ad980eddd1a2e0d,
+        type: 2}
+      propertyPath: m_TargetTexture
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4f74ba4c2a3fede49ad980eddd1a2e0d, type: 2}
   m_IsPrefabParent: 0
@@ -6842,6 +6855,10 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: 0.5533898
       objectReference: {fileID: 0}
+    - target: {fileID: 4843514055325550, guid: d1eb1e57463914e2fbc99b2bbcca29e4, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1.92
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d1eb1e57463914e2fbc99b2bbcca29e4, type: 2}
   m_IsPrefabParent: 0
@@ -7528,11 +7545,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4349936336859938, guid: c1adc3c00c87f0b4480b880b5eea3927, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -2.27
+      value: -6.79
       objectReference: {fileID: 0}
     - target: {fileID: 4349936336859938, guid: c1adc3c00c87f0b4480b880b5eea3927, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -16.05
+      value: -12.25
       objectReference: {fileID: 0}
     - target: {fileID: 4349936336859938, guid: c1adc3c00c87f0b4480b880b5eea3927, type: 2}
       propertyPath: m_LocalPosition.z
