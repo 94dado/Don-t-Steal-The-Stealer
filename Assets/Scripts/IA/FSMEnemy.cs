@@ -37,7 +37,6 @@ public class FSMEnemy : MonoBehaviour {
     bool isMoving;
     bool isPositionReached;
     bool isReachingThrowable;
-    bool isCameBackToIdle;
     bool throwableIsReached;
     // check if player is found
     bool isPlayer;
@@ -61,7 +60,7 @@ public class FSMEnemy : MonoBehaviour {
         }
         else {
             // stop moving and came back to idle
-            if (!isIdle) {
+            if (isMoving) {
                 isMoving = false;
                 isPositionReached = true;
             }
@@ -73,8 +72,6 @@ public class FSMEnemy : MonoBehaviour {
                     throwableIsReached = true;
                 }
                 else {
-                    // add current position before search the next
-                    toThrowableAndBack.Enqueue(nextPosition);
                     // find the next position near the throwable
                     FindPosition();
                 }
@@ -82,7 +79,7 @@ public class FSMEnemy : MonoBehaviour {
         }
     }
 
-    public void StartFSM() {
+    void StartFSM() {
 
         // Define states and link actions when enter/exit/stay
         FSMState idleAction = new FSMState {
@@ -144,8 +141,8 @@ public class FSMEnemy : MonoBehaviour {
 
     // move the player to next position
     void Move() {
-        // it is came back to idle
-        if (!isCameBackToIdle) {
+        // it is came back to default path
+        if (toThrowableAndBack.Count == 0) {
             // if it can't move thoward a door
             if (!CheckDoor()) {
                 // reverse array and came back
@@ -154,7 +151,6 @@ public class FSMEnemy : MonoBehaviour {
             }
             next++;
             nextPosition = points[next];
-            isMoving = true;
             // if we re at the end of the array
             if (next + 1 == points.Length) {
                 // reverse array
@@ -163,8 +159,10 @@ public class FSMEnemy : MonoBehaviour {
             }
         }
         else {
-            isCameBackToIdle = false;
+            // came back to point path point by point
+            nextPosition = toThrowableAndBack.Dequeue();
         }
+        isMoving = true;
     }
 
     // check if door is open or close
@@ -189,7 +187,7 @@ public class FSMEnemy : MonoBehaviour {
             Transform min = null;
             for (int i = 0; i < colliders.Length; i++) {
                 // check if a wall is not between the point and the enemy
-                if (!Physics2D.Raycast(transform.position, colliders[i].transform.position, Vector2.Distance(throwablePosition.position, colliders[i].transform.position), obstaclesMask)) {
+                if (!Physics2D.Raycast(transform.position, colliders[i].transform.position, Vector2.Distance(transform.position, colliders[i].transform.position), obstaclesMask)) {
                     // get the min
                     if (min == null || (Vector2.Distance(minBetweenThrowableAndPoints.position, min.position) > Vector2.Distance(minBetweenThrowableAndPoints.position, colliders[i].transform.position))) {
                         min = colliders[i].transform;
@@ -198,9 +196,12 @@ public class FSMEnemy : MonoBehaviour {
             }
             nextPosition = min;
         }
+        // added position of point
+        toThrowableAndBack.Enqueue(nextPosition);
         isReachingThrowable = true;
     }
 
+    // return the min point near the throwable
     Transform GetMinBetweenThrowableAndPoints() {
         // get all the point near throwable
         Collider2D[] colliders = Physics2D.OverlapCircleAll(throwablePosition.position, overlapRadius, pointsMask);
@@ -261,6 +262,8 @@ public class FSMEnemy : MonoBehaviour {
     // check if is time to reach to seek
     bool CheckNearObject() {
         if (throwablePosition != null) {
+            isIdle = false;
+            isMoving = false;
             return true;
         }
         return false;
@@ -270,7 +273,8 @@ public class FSMEnemy : MonoBehaviour {
     bool CheckReachedObject() {
         if (throwableIsReached) {
             throwableIsReached = false;
-            isCameBackToIdle = true;
+            // came back to idle
+            isIdle = true;
             return true;
         }
         return false;
