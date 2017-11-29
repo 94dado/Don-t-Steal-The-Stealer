@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour {
         gadgetList.Add("Painting");
         gadgetList.Add("Safe");
         gadgetList.Add("Door");
+        gameManager = GameManager.instance;
 
         //initializing player raycast
         lineEndWest = new Vector2(gameObject.transform.position.x - interactionRadius, gameObject.transform.position.y) ;

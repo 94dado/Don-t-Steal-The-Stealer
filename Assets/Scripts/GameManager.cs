@@ -14,13 +14,11 @@ public class GameManager : MonoBehaviour {
     public bool win;
 
     int obtainedMoney;
-    static GameManager instance;
+    public static GameManager instance;
 
-    // sigleton
-    public static GameManager Instance {
-        get {
-            return instance;
-        }
+    private void Awake()
+    {
+        instance = this;
     }
 
     //activate the "press E to interact" text

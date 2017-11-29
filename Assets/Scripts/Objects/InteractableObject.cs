@@ -27,6 +27,11 @@ public class InteractableObject : MonoBehaviour
     {
         if (animator != null)
             animator.SetBool("interacted", true);
+        if (animator != null && objectType == "Door")
+        {
+
+        }
+
         if (child != null)
             child.GetComponent<SpriteRenderer>().sprite = stolenSprite;
         else if (stolenSprite != null)

@@ -143,7 +143,7 @@ public class FSMEnemy : MonoBehaviour {
     // Periodic update, run forever
     IEnumerator PatrolFSM() {
         // if is not gameover or win
-        while (!GameManager.Instance.gameOver || !GameManager.Instance.win) {
+        while (!GameManager.instance.gameOver || !GameManager.instance.win) {
             fsmMachine.Update();
             yield return new WaitForSeconds(FSMDelay);
         }
@@ -242,7 +242,7 @@ public class FSMEnemy : MonoBehaviour {
     // game over
     void EndLevel() {
         // start gameover
-        GameManager.Instance.gameOver = true;
+        GameManager.instance.gameOver = true;
     }
 
     // check if is time to switch to move
