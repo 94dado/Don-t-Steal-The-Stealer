@@ -36,8 +36,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1118832982774138}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.92, y: -8.27, z: -0.1}
-  m_LocalScale: {x: 0.07, y: 0.07, z: 1}
+  m_LocalPosition: {x: -46.17521, y: -74.55, z: 0}
+  m_LocalScale: {x: 0.14957266, y: 0.35, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 200
-  stolenSprite: {fileID: 21300000, guid: ce471cf05b67a7e4aaf668fcd23d98a8, type: 3}
+  stolenSprite: {fileID: 21300000, guid: b4bc6e01cdaa1b34fa624ce99077e56e, type: 3}
   objectType: Painting
 --- !u!212 &212394255808120790
 SpriteRenderer:
@@ -112,9 +112,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -385274799
+  m_SortingLayer: 3
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 4f80b8d476a954cc1b74320adc3d3562, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
