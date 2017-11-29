@@ -31,8 +31,6 @@ public class FSMEnemy : MonoBehaviour {
     Transform throwablePosition;
     // used to came back to the first known point
     Queue<Transform> toThrowableAndBack = new Queue<Transform>();
-    // check if player is chought
-    bool isEnd;
     bool isIdle;
     bool isMoving;
     bool isPositionReached;
@@ -144,7 +142,8 @@ public class FSMEnemy : MonoBehaviour {
 
     // Periodic update, run forever
     IEnumerator PatrolFSM() {
-        while (!isEnd) {
+        // if is not gameover or win
+        while (!GameManager.Instance.gameOver || !GameManager.Instance.win) {
             fsmMachine.Update();
             yield return new WaitForSeconds(FSMDelay);
         }
@@ -242,8 +241,8 @@ public class FSMEnemy : MonoBehaviour {
 
     // game over
     void EndLevel() {
-        // TODO: closs scene
-        isEnd = true;
+        // start gameover
+        GameManager.Instance.gameOver = true;
     }
 
     // check if is time to switch to move

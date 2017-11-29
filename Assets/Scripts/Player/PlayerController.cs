@@ -52,8 +52,11 @@ public class PlayerController : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        Move();
-        Raycast();
+        // check game over
+        if (!GameManager.Instance.gameOver && !GameManager.Instance.win) {
+            Move();
+            Raycast();
+        }
     }
 
     // move the player
