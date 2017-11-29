@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class FSMEnemy : MonoBehaviour {
@@ -17,21 +19,27 @@ public class FSMEnemy : MonoBehaviour {
     public float speed;
     // point mask
     public LayerMask pointsMask;
-    // point wall
+    // wall mask
     public LayerMask obstaclesMask;
+    // interactable mask
+    public LayerMask interactableMask;
 
     FSM fsmMachine;
     // next position
     int next;
     Transform nextPosition;
     Transform throwablePosition;
+    // used to came back to the first known point
+    Queue<Transform> toThrowableAndBack = new Queue<Transform>();
     // check if player is chought
     bool isEnd;
+    bool isIdle;
     bool isMoving;
     bool isPositionReached;
     bool isReachingThrowable;
     bool isCameBackToIdle;
     bool throwableIsReached;
+    // check if player is found
     bool isPlayer;
 
     void Start() {
@@ -48,12 +56,14 @@ public class FSMEnemy : MonoBehaviour {
     void Moving() {
         // move player to next position if distance from element is less then the default
         if (maxDistanceUntilPoint > Vector2.Distance(transform.position, nextPosition.position)) {
+            // move
             transform.position = Vector2.MoveTowards(transform.position, nextPosition.position, speed * Time.deltaTime);
-            isPositionReached = true;
         }
         else {
-            if (isMoving) {
+            // stop moving and came back to idle
+            if (!isIdle) {
                 isMoving = false;
+                isPositionReached = true;
             }
             else {
                 // you are arrived
@@ -63,6 +73,8 @@ public class FSMEnemy : MonoBehaviour {
                     throwableIsReached = true;
                 }
                 else {
+                    // add current position before search the next
+                    toThrowableAndBack.Enqueue(nextPosition);
                     // find the next position near the throwable
                     FindPosition();
                 }
@@ -117,24 +129,51 @@ public class FSMEnemy : MonoBehaviour {
 
     // wait seconds before move
     void WaitBeforeMove() {
-        StartCoroutine(WaitToMove());
+        StartCoroutine("WaitToMove");
     }
 
     IEnumerator WaitToMove() {
-        yield return new WaitForSeconds(idleTime);
-        isMoving = true;
+        yield return null;
+        // if is not already moving
+        if (isIdle) {
+            yield return new WaitForSeconds(idleTime);
+            // is ready to move to next point
+            isIdle = false;
+        }
     }
 
     // move the player to next position
     void Move() {
         // it is came back to idle
         if (!isCameBackToIdle) {
+            // if it can't move thoward a door
+            if (!CheckDoor()) {
+                // reverse array and came back
+                next = points.Length - next;
+                Array.Reverse(points);
+            }
             next++;
             nextPosition = points[next];
+            isMoving = true;
+            // if we re at the end of the array
+            if (next + 1 == points.Length) {
+                // reverse array
+                Array.Reverse(points);
+                next = 0;
+            }
         }
         else {
             isCameBackToIdle = false;
         }
+    }
+
+    // check if door is open or close
+    bool CheckDoor() {
+        // if the door is closed
+        if (Physics2D.Raycast(transform.position, nextPosition.position, Vector2.Distance(transform.position, nextPosition.position), interactableMask)) {
+            return false;
+        }
+        return true;
     }
 
     // find position to be reached
@@ -194,8 +233,7 @@ public class FSMEnemy : MonoBehaviour {
 
     // check if is time to switch to move
     bool CheckTimeToMove() {
-        if (isMoving) {
-            isMoving = false;
+        if (!isIdle) {
             return true;
         }
         return false;
@@ -205,6 +243,8 @@ public class FSMEnemy : MonoBehaviour {
     bool CheckRechedPosition() {
         if (isPositionReached) {
             isPositionReached = false;
+            // idle until next time to move
+            isIdle = true;
             return true;
         }
         return false;
