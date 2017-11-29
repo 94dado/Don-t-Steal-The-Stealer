@@ -6,7 +6,9 @@ using System.Collections.Generic;
 public class PlayerController : MonoBehaviour {
 
     // these variables are used for interactions with interactable objects
-    public Transform lineStart, lineEnd, lineEndWest, lineEndEast, lineEndSouth, LineEndNorth;
+    public int interactionRadius;
+    private GameObject lineEndWest, lineEndEast, lineEndSouth, lineEndNorth;
+    private Transform lineEnd, lineStart;
     private GameObject gameManagerObject;
     private GameManager gameManager;
     private List<string> gadgetList;
@@ -34,6 +36,17 @@ public class PlayerController : MonoBehaviour {
         gadgetList.Add("Painting");
         gadgetList.Add("Safe");
         gadgetList.Add("Door");
+
+        lineEndWest = new GameObject();
+        lineEndEast = new GameObject();
+        lineEndSouth = new GameObject();
+        lineEndNorth = new GameObject();
+        lineEndWest.transform.position = new Vector2(gameObject.transform.position.x - interactionRadius, gameObject.transform.position.y) ;
+        lineEndEast.transform.position = new Vector2(gameObject.transform.position.x + interactionRadius, gameObject.transform.position.y);
+        lineEndSouth.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y - interactionRadius);
+        lineEndNorth.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + interactionRadius);
+        lineEnd = lineEndSouth.transform;
+        lineStart = gameObject.transform;
     }
 
     // Update is called once per frame
@@ -55,9 +68,15 @@ public class PlayerController : MonoBehaviour {
             isRunning = true;
             lastMovement = new Vector2(horizontal, 0f);
             if (horizontal > 0f)
-                lineEnd = lineEndEast;
+            {
+                lineEndEast.transform.position = new Vector2(gameObject.transform.position.x + interactionRadius, gameObject.transform.position.y);
+                lineEnd = lineEndEast.transform;
+            }
             else
-                lineEnd = lineEndWest;
+            {
+                lineEndWest.transform.position = new Vector2(gameObject.transform.position.x - interactionRadius, gameObject.transform.position.y);
+                lineEnd = lineEndWest.transform;
+            }
         }
         // move vertically
         if (vertical > 0f || vertical < 0f) {
@@ -65,9 +84,15 @@ public class PlayerController : MonoBehaviour {
             isRunning = true;
             lastMovement = new Vector2(0f, vertical);
             if (vertical > 0f)
-                lineEnd = LineEndNorth;
+            {
+                lineEndNorth.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + interactionRadius);
+                lineEnd = lineEndNorth.transform;
+            }
             else
-                lineEnd = lineEndSouth;
+            {
+                lineEndSouth.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y - interactionRadius);
+                lineEnd = lineEndSouth.transform;
+            }
         }
         // check if we move in diagonal on the map and it reduces the speed
         if (Mathf.Abs(horizontal) > 0.5f && Mathf.Abs(vertical) > 0.5f) {
