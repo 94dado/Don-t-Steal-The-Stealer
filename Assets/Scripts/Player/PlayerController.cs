@@ -31,8 +31,6 @@ public class PlayerController : MonoBehaviour {
     void Start() {
         animator = GetComponent<Animator>();
         myRigidbody = GetComponent<Rigidbody2D>();
-        gameManagerObject = GameObject.FindWithTag("GameManager");
-        gameManager = gameManagerObject.GetComponent<GameManager>();
 
         //initializing gadgetList, this is temporary!!!!
         gadgetList = new List<string>();
@@ -53,7 +51,7 @@ public class PlayerController : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         // check game over
-        if (!GameManager.Instance.gameOver && !GameManager.Instance.win) {
+        if (!GameManager.instance.gameOver && !GameManager.instance.win) {
             Move();
             Raycast();
         }
@@ -68,7 +66,7 @@ public class PlayerController : MonoBehaviour {
         isRunning = false;
         // move horizontally
         if (horizontal > 0f || horizontal < 0f) {
-            myRigidbody.velocity = new Vector2(horizontal * currentSpeed * Time.deltaTime, 0f);
+            myRigidbody.MovePosition(new Vector2(transform.position.x + horizontal * speed * Time.deltaTime, transform.position.y + vertical * speed * Time.deltaTime));
             isRunning = true;
             lastMovement = new Vector2(horizontal, 0f);
             if (horizontal > 0f)
@@ -84,7 +82,7 @@ public class PlayerController : MonoBehaviour {
         }
         // move vertically
         if (vertical > 0f || vertical < 0f) {
-            myRigidbody.velocity = new Vector2(0f, vertical * currentSpeed * Time.deltaTime);
+            myRigidbody.MovePosition(new Vector2(transform.position.x + horizontal * speed * Time.deltaTime, transform.position.y + vertical * speed * Time.deltaTime));
             isRunning = true;
             lastMovement = new Vector2(0f, vertical);
             if (vertical > 0f)
