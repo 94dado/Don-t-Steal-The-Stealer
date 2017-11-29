@@ -25,10 +25,12 @@ public class PlayerController : MonoBehaviour {
     bool isRunning;
     // used for diagonals
     float currentSpeed;
+    Rigidbody2D myRigidbody;
 
     // Use this for initialization
     void Start() {
         animator = GetComponent<Animator>();
+        myRigidbody = GetComponent<Rigidbody2D>();
         gameManagerObject = GameObject.FindWithTag("GameManager");
         gameManager = gameManagerObject.GetComponent<GameManager>();
 
@@ -63,7 +65,7 @@ public class PlayerController : MonoBehaviour {
         isRunning = false;
         // move horizontally
         if (horizontal > 0f || horizontal < 0f) {
-            transform.Translate(horizontal * currentSpeed * Time.deltaTime, 0f, 0f);
+            myRigidbody.velocity = new Vector2(horizontal * currentSpeed * Time.deltaTime, 0f);
             isRunning = true;
             lastMovement = new Vector2(horizontal, 0f);
             if (horizontal > 0f)
@@ -79,7 +81,7 @@ public class PlayerController : MonoBehaviour {
         }
         // move vertically
         if (vertical > 0f || vertical < 0f) {
-            transform.Translate(0f, vertical * currentSpeed * Time.deltaTime, 0f);
+            myRigidbody.velocity = new Vector2(0f, vertical * currentSpeed * Time.deltaTime);
             isRunning = true;
             lastMovement = new Vector2(0f, vertical);
             if (vertical > 0f)

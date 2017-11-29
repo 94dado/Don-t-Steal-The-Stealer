@@ -46,6 +46,9 @@ public class FSMEnemy : MonoBehaviour {
     }
 
     void Update() {
+        // check collision with player or object
+        CheckCollision();
+        // check if we have to move
         if (isMoving || isReachingThrowable) {
             Moving();
         }
@@ -75,6 +78,21 @@ public class FSMEnemy : MonoBehaviour {
                     // find the next position near the throwable
                     FindPosition();
                 }
+            }
+        }
+    }
+
+    // check enter collision
+    void CheckCollision() {
+        // get all the colliders in a certain radius
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(throwablePosition.position, overlapRadius);
+        for (int i = 0; i < colliders.Length; i++) {
+            if (colliders[i].transform.tag == "Player") {
+                // TODO: check just if player is in front direction
+                isPlayer = true;
+            }
+            if (colliders[i].transform.tag == "Throwable") {
+                throwablePosition = colliders[i].transform;
             }
         }
     }
@@ -121,7 +139,15 @@ public class FSMEnemy : MonoBehaviour {
         // Setup a FSA at initial state
         fsmMachine = new FSM(idleAction);
         // Start monitoring
-        StartCoroutine(PatrolFSM());
+        StartCoroutine("PatrolFSM");
+    }
+
+    // Periodic update, run forever
+    IEnumerator PatrolFSM() {
+        while (!isEnd) {
+            fsmMachine.Update();
+            yield return new WaitForSeconds(FSMDelay);
+        }
     }
 
     // wait seconds before move
@@ -130,13 +156,9 @@ public class FSMEnemy : MonoBehaviour {
     }
 
     IEnumerator WaitToMove() {
-        yield return null;
-        // if is not already moving
-        if (isIdle) {
-            yield return new WaitForSeconds(idleTime);
-            // is ready to move to next point
-            isIdle = false;
-        }
+        yield return new WaitForSeconds(idleTime);
+        // is ready to move to next point
+        isIdle = false;
     }
 
     // move the player to next position
@@ -224,14 +246,6 @@ public class FSMEnemy : MonoBehaviour {
         isEnd = true;
     }
 
-    // Periodic update, run forever
-    IEnumerator PatrolFSM() {
-        while (!isEnd) {
-            fsmMachine.Update();
-            yield return new WaitForSeconds(FSMDelay);
-        }
-    }
-
     // check if is time to switch to move
     bool CheckTimeToMove() {
         if (!isIdle) {
@@ -278,16 +292,5 @@ public class FSMEnemy : MonoBehaviour {
             return true;
         }
         return false;
-    }
-
-    // check enter collision
-    void OnCollisionEnter(Collision collision) {
-        if (collision.transform.tag == "Player") {
-            // TODO: check just if player is in front direction
-            isPlayer = true;
-        }
-        if (collision.transform.tag == "Throwable") {
-            throwablePosition = collision.transform;
-        }
     }
 }
