@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class PlayerController : MonoBehaviour {
 
     // these variables are used for interactions with interactable objects
-    public int interactionRadius;
+    public float interactionRadius;
     private Vector2 lineEndWest, lineEndEast, lineEndSouth, lineEndNorth;
     private Vector2 lineEnd, lineStart;
     private GameObject gameManagerObject;
