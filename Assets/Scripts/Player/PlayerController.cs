@@ -138,7 +138,7 @@ public class PlayerController : MonoBehaviour {
         //if the user can interact with the object AND he presses E, he interacts
         if (Input.GetKeyDown(KeyCode.E) && interact == true)
         {
-             gameManager.AddMoney(hitObject.collider.gameObject.GetComponent<InteractableObject>().Interact());
+             gameManager.AddMoney(hitObject.collider.gameObject.GetComponent<InteractableObject>().Interact(),hitObject.collider.gameObject.tag);
         }
 
     }

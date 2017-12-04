@@ -64,9 +64,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1039299893330840}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.14, y: 1.77, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.5000019, y: -3.5500002, z: 0.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4875145876598734}
   m_Father: {fileID: 0}
@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 300
-  stolenSprite: {fileID: 21300000, guid: a16b17adce842df4997d865ca9c1203d, type: 3}
+  stolenSprite: {fileID: 21300000, guid: 4c35d8daae363b44889ba74bc0e69bcd, type: 3}
   objectType: Theca
 --- !u!212 &212350380628455018
 SpriteRenderer:
@@ -142,7 +142,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -138121969
+  m_SortingLayerID: 1498403391
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 3de1bf0ae43c6124db2cb43fe27d4716, type: 3}

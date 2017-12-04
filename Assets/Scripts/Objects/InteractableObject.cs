@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,20 +30,22 @@ public class InteractableObject : MonoBehaviour
             animator.SetBool("interacted", true);
         if (animator != null && objectType == "Door")
         {
-
+            Collider2D[] colliders;
+            colliders = this.gameObject.GetComponents<Collider2D>() as Collider2D[];
+            colliders[0].enabled = false;
+            colliders[1].enabled = true;
         }
 
         if (child != null)
             child.GetComponent<SpriteRenderer>().sprite = stolenSprite;
         else if (stolenSprite != null)
         {
-            //this code resizes the painting and the box collider
+            //this code resizes the painting and the box collider (in case the object is a painting)
             int oldHeight = this.gameObject.GetComponent<SpriteRenderer>().sprite.texture.height;
             int oldWidth = this.gameObject.GetComponent<SpriteRenderer>().sprite.texture.width;
             float oldColliderScaleX = this.gameObject.GetComponent<BoxCollider2D>().size.x;
             float oldColliderScaleY = this.gameObject.GetComponent<BoxCollider2D>().size.y;
 
-            Debug.Log(oldWidth);
             float newWidth = (this.gameObject.transform.localScale.x * oldWidth) / stolenSprite.texture.width;
             float newHeight = (this.gameObject.transform.localScale.y * oldHeight) / stolenSprite.texture.height;
             float newColliderWidth = (oldColliderScaleX * stolenSprite.texture.width) / oldWidth;
@@ -54,14 +57,18 @@ public class InteractableObject : MonoBehaviour
             this.gameObject.GetComponent<SpriteRenderer>().sprite = stolenSprite;
         }
 
-        gameObject.layer = 14;
+        gameObject.layer = LayerMask.NameToLayer("Interacted");
 
         return value;
     }
+
+   
 
     public string getObjectType()
     {
         return this.objectType;
     }
+
+ 
 }
 
