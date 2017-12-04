@@ -27,6 +27,7 @@ public class FSMEnemy : MonoBehaviour {
 
     FSM fsmMachine;
     FSMMovement movement;
+    Animator animator;
     // next position
     int next;
     // current speed;
@@ -44,8 +45,9 @@ public class FSMEnemy : MonoBehaviour {
     bool isPlayer;
 
     void Start() {
+        animator = GetComponent<Animator>();
         // initialize movement
-        movement = new FSMMovement(GetComponent<Animator>(), transform.position, speed);
+        movement = new FSMMovement(animator, transform.position, speed);
         // initialize FSM
         StartFSM();
     }
@@ -97,14 +99,28 @@ public class FSMEnemy : MonoBehaviour {
         // get all the colliders in a certain radius
         Collider2D[] colliders = Physics2D.OverlapCircleAll(throwablePosition.position, overlapRadius);
         for (int i = 0; i < colliders.Length; i++) {
+            // check if player is visible
             if (colliders[i].transform.tag == "Player") {
-                // TODO: check just if player is in front direction
-                isPlayer = true;
+                // check position
+                isPlayer |= PlayerIsVisible(colliders[i].transform.position);
             }
             if (colliders[i].transform.tag == "Throwable") {
                 throwablePosition = colliders[i].transform;
             }
         }
+    }
+
+    // check if player is visible from the IA
+    bool PlayerIsVisible(Vector3 playerPosition) {
+        Vector3 playerDirection = playerPosition - transform.position;
+        float x = animator.GetFloat("LastRunX");
+        float y = animator.GetFloat("LastRunY");
+        // check if the IA can see the player
+        if (Math.Abs(Mathf.Sign(x) + Mathf.Sign(playerDirection.x)) > 1f && Math.Abs(Mathf.Sign(y) + Mathf.Sign(playerDirection.y)) > 1f) {
+            // player found
+            return true;
+        }
+        return false;
     }
 
     void StartFSM() {
