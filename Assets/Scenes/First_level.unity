@@ -1305,12 +1305,12 @@ Prefab:
     - target: {fileID: 212947734593901658, guid: 4bb220534124c3544820c99f79fc8134,
         type: 2}
       propertyPath: m_SortingLayerID
-      value: -138121969
+      value: 1498403391
       objectReference: {fileID: 0}
     - target: {fileID: 212947734593901658, guid: 4bb220534124c3544820c99f79fc8134,
         type: 2}
       propertyPath: m_SortingLayer
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 61139455612477656, guid: 4bb220534124c3544820c99f79fc8134,
         type: 2}
@@ -3876,12 +3876,12 @@ Prefab:
     - target: {fileID: 224819868793194064, guid: 4cf5311a161280b49986d9340e752b21,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 195.5
+      value: 430
       objectReference: {fileID: 0}
     - target: {fileID: 224819868793194064, guid: 4cf5311a161280b49986d9340e752b21,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 110
+      value: 200.5
       objectReference: {fileID: 0}
     - target: {fileID: 224819868793194064, guid: 4cf5311a161280b49986d9340e752b21,
         type: 2}
@@ -10418,7 +10418,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!108 &2094112465
 Light:
   m_ObjectHideFlags: 0
