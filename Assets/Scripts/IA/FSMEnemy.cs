@@ -71,7 +71,7 @@ public class FSMEnemy : MonoBehaviour {
         // move player to next position if distance from element is less then the default
         if (maxDistanceUntilPoint > Vector2.Distance(transform.position, nextPosition.position)) {
             // move
-            transform.position = Vector2.MoveTowards(transform.position, nextPosition.position, speed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, nextPosition.position, currentSpeed * Time.deltaTime);
         }
         else {
             // stop moving and came back to idle
