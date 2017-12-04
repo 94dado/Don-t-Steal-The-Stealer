@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour {
         // each frame, at the start player not run
         isRunning = false;
         // move horizontally
-        if (horizontal > 0f || horizontal < 0f) {
+        if (Mathf.Abs(horizontal) > 0f) {
             myRigidbody.MovePosition(new Vector2(transform.position.x + horizontal * speed * Time.deltaTime, transform.position.y + vertical * speed * Time.deltaTime));
             isRunning = true;
             lastMovement = new Vector2(horizontal, 0f);
@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour {
             }
         }
         // move vertically
-        if (vertical > 0f || vertical < 0f) {
+        if (Mathf.Abs(vertical) > 0f) {
             myRigidbody.MovePosition(new Vector2(transform.position.x + horizontal * speed * Time.deltaTime, transform.position.y + vertical * speed * Time.deltaTime));
             isRunning = true;
             lastMovement = new Vector2(0f, vertical);

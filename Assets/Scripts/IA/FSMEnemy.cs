@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class FSMEnemy : MonoBehaviour {
 
     // point that enemy have to reach
@@ -25,8 +26,11 @@ public class FSMEnemy : MonoBehaviour {
     public LayerMask interactableMask;
 
     FSM fsmMachine;
+    FSMMovement movement;
     // next position
     int next;
+    // current speed;
+    float currentSpeed;
     Transform nextPosition;
     Transform throwablePosition;
     // used to came back to the first known point
@@ -40,12 +44,20 @@ public class FSMEnemy : MonoBehaviour {
     bool isPlayer;
 
     void Start() {
+        // initialize movement
+        movement = new FSMMovement(GetComponent<Animator>(), transform.position, speed);
+        // initialize FSM
         StartFSM();
     }
 
     void Update() {
         // check collision with player or object
         CheckCollision();
+        // check the movement boolean
+        movement.isRunning = isMoving;
+        movement.isSpot = isPlayer;
+        // animate the player
+        currentSpeed = movement.Move(transform.position);
         // check if we have to move
         if (isMoving || isReachingThrowable) {
             Moving();

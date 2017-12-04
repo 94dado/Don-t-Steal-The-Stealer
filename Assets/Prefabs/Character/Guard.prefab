@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 212758065006250040}
   - component: {fileID: 50424420148197604}
   - component: {fileID: 61072746471660088}
+  - component: {fileID: 95899053124005740}
+  - component: {fileID: 114334174727970680}
   m_Layer: 8
   m_Name: Guard
   m_TagString: Untagged
@@ -87,6 +89,49 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.255785, y: 2.0612621}
   m_EdgeRadius: 0
+--- !u!95 &95899053124005740
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1068924374511044}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c9b534627f30c4af1916670a9a9ae66b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114334174727970680
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1068924374511044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fae25d81cd05049969059698db2426c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  points: []
+  overlapRadius: 20
+  FSMDelay: 1
+  idleTime: 3
+  maxDistanceUntilPoint: 0.5
+  speed: 3
+  pointsMask:
+    serializedVersion: 2
+    m_Bits: 131072
+  obstaclesMask:
+    serializedVersion: 2
+    m_Bits: 65536
+  interactableMask:
+    serializedVersion: 2
+    m_Bits: 8192
 --- !u!212 &212758065006250040
 SpriteRenderer:
   m_ObjectHideFlags: 1
