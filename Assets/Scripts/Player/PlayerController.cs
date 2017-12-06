@@ -69,6 +69,7 @@ public class PlayerController : MonoBehaviour {
 		else {
 			animator.SetBool ("Saw", true);
             Cursor.visible = true;
+            GetComponent<AudioSource>().Stop();
 		}
     }
 
