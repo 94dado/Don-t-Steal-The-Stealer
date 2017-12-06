@@ -24,7 +24,6 @@ GameObject:
   - component: {fileID: 61072746471660088}
   - component: {fileID: 95899053124005740}
   - component: {fileID: 114334174727970680}
-  - component: {fileID: 114531872143222594}
   m_Layer: 8
   m_Name: Guard
   m_TagString: Untagged
@@ -400,21 +399,6 @@ MonoBehaviour:
   collisionMask:
     serializedVersion: 2
     m_Bits: 8448
---- !u!114 &114531872143222594
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1068924374511044}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff28878e4b1ed794f81b88a2669cb90e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  up: {fileID: 4215298949571262}
-  down: {fileID: 4020286465610328}
-  left: {fileID: 4158151154130658}
-  right: {fileID: 4787170148681892}
 --- !u!212 &212758065006250040
 SpriteRenderer:
   m_ObjectHideFlags: 1
