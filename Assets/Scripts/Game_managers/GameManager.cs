@@ -1,11 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
-    public GameObject interactionText;
-    public GameObject missingGadgetText;
-    public GameObject noKeyText;
+    
+    public Text screenText;
+    
+    public GameOverManager gameOverManager;
     public Text moneyText;
     public Text timeText;
     [HideInInspector]
@@ -44,24 +46,39 @@ public class GameManager : MonoBehaviour {
         //keep increasing timer untill the game has finished
         if (!gameOver && !win)
             showTimer();
+        else if (gameOver)
+            gameOverManager.activateGameOverMenu();
+        else
+            gameOverManager.activateVictoryMenu();
+            
         if(oldObtainedMoney < newObtainedMoney)
             updateMoney();
     }
 
     //activate the "press E to interact" text
-    public void ActivateInteractionText(bool active)
+    public void ActivateInteractionText()
     {
-        interactionText.SetActive(active);
+        screenText.text = "Press E to interact";
     }
     //activate the "missing gadget" text
-    public void ActivateNoGadgetText(bool active)
+    public void ActivateNoGadgetText()
     {
-        missingGadgetText.SetActive(active);
+        screenText.text = "You don't have the right gadget";
     }
 
-    public void ActivateNoKeyText(bool active)
+    public void ActivateNoKeyText()
     {
-        noKeyText.SetActive(active);
+        screenText.text = "The door is locked";
+    }
+
+    public void ActivateExitText()
+    {
+        screenText.text = "Press E to Exit";
+    }
+
+    public void deactivateText()
+    {
+        screenText.text = "";
     }
 
     //add money to the total balance
@@ -140,4 +157,6 @@ public class GameManager : MonoBehaviour {
             oldObtainedMoney = newObtainedMoney;
         moneyText.text = "Money: " + oldObtainedMoney + "$";
     }
+
+    
 }

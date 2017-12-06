@@ -27,10 +27,10 @@ public class FSMMovement {
 
     // move the IA using animator
     public float Move(Vector2 position) {
-        // get the shift
-        direction = (position - lastPosition).normalized;
         // if IA is moving and player hasn't seen
         if (isRunning && !isSpot) {
+			// get the shift
+			direction = (position - lastPosition).normalized;
             // move horizontally
             if (Mathf.Abs(direction.x) > 0f) {
                 lastMovement = new Vector2(direction.x, 0f);
@@ -41,15 +41,15 @@ public class FSMMovement {
             }
             // set position like the last
             lastPosition = position;
-			// set the animator with new data
-			SetAnimator();
-            // check if we move in diagonal on the map and it reduces the speed
-            if (Mathf.Abs(direction.x) > 0f && Mathf.Abs(direction.y) > 0f) {
-                return speed / Mathf.Sqrt(2f);
-            }
         }
-        // return the speed of the IA
-        return speed;
+		// set the animator with new data
+		SetAnimator();
+		// check if we move in diagonal on the map and it reduces the speed
+		if (Mathf.Abs (direction.x) > 0f && Mathf.Abs (direction.y) > 0f) {
+			return speed / Mathf.Sqrt (2f);
+		} 
+		// return the speed of the IA
+		return speed;
     }
 
     // set the animator of the IA

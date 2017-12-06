@@ -38,13 +38,12 @@ public class FSMEnemy : MonoBehaviour {
     Transform throwablePosition;
     // used to came back to the first known point
     Queue<Transform> toThrowableAndBack = new Queue<Transform>();
+	// last direction
+	Vector2 lastDir;
     bool isIdle;
-    bool isMoving;
     bool isPositionReached;
     bool isReachingThrowable;
     bool throwableIsReached;
-    // check if player is found
-    bool isPlayer;
 
     void Start() {
         animator = GetComponent<Animator>();
@@ -58,25 +57,18 @@ public class FSMEnemy : MonoBehaviour {
     }
 
     void Update() {
-		if (transform.name == "Guard 4") {
-			Debug.Log (isMoving);
-			//Debug.Log (GetDirection (movement.direction.x, movement.direction.y));
-		}
         // check collision with player or object
         CheckCollision();
-		movement.isSpot = GameManager.instance.gameOver || GameManager.instance.win;
 		// check the movement boolean
 		if (movement.isSpot) {
 			// stop moving
 			movement.isRunning = false;
+			Time.timeScale = 0;
 		} 
-		else {
-			movement.isRunning = isMoving;
-		}
         // animate the player
         currentSpeed = movement.Move(transform.position);
         // check if we have to move
-		if ((isMoving || isReachingThrowable) && !movement.isSpot) {
+		if ((movement.isRunning || isReachingThrowable) && !movement.isSpot) {
             Moving();
         }
     }
@@ -90,8 +82,8 @@ public class FSMEnemy : MonoBehaviour {
         }
         else {
             // stop moving and came back to idle
-            if (isMoving) {
-                isMoving = false;
+			if (movement.isRunning) {
+				movement.isRunning = false;
                 isPositionReached = true;
             }
             else {
@@ -117,7 +109,7 @@ public class FSMEnemy : MonoBehaviour {
             // check if player is visible
             if (colliders[i].transform.tag == "Player") {
                 // check position
-                isPlayer |= PlayerIsVisible(colliders[i].transform.position);
+				movement.isSpot |= PlayerIsVisible(colliders[i].transform.position);
             }
             if (colliders[i].transform.tag == "Throwable") {
                 throwablePosition = colliders[i].transform;
@@ -127,11 +119,10 @@ public class FSMEnemy : MonoBehaviour {
 
     // check if player is visible from the IA
     bool PlayerIsVisible(Vector3 playerPosition) {
-		Vector3 playerDirection = playerPosition - transform.position;
-        // check if the IA can see the player
-		// Debug.Log(GetDirection(movement.direction.x, movement.direction.y) + " , " + GetDirection(playerDirection.x, playerPosition.y));
-		if (/*Math.Abs(Mathf.Sign(movement.direction.x) + Mathf.Sign(playerDirection.x)) == Math.Abs(Mathf.Sign(movement.direction.y) + Mathf.Sign(playerDirection.y))
-			&&*/ GetDirection(movement.direction.x, movement.direction.y) == GetDirection(playerDirection.x, playerPosition.y)) {
+		Vector2 playerDirection = (playerPosition - transform.position).normalized;
+		Vector2 dir = GetDirection (movement.direction.x, movement.direction.y);
+		float dot = Vector2.Dot (dir, playerDirection);
+		if (dot > 0.9f) {
             // player found
 			Debug.Log("Found by " + transform.name);
             return true;
@@ -139,28 +130,34 @@ public class FSMEnemy : MonoBehaviour {
         return false;
     }
 
-    //get the actual direction of the AI
-    public Directions GetCurrentDirection() {
-        return GetDirection(movement.direction.x, movement.direction.y);
-    }
-
 	// get the direction of the transform given
-	Directions GetDirection(float x, float y) {
+	Vector2 GetDirection(float x, float y) {
 		// top
-		if (x >= 0f && y >= 0.5f) {
-			return Directions.Up;
+		if (x > 0f && y > 0f) {
+			return lastDir = Vector2.up;
+		}
+		// up left
+		else if (x < 0f && y > 0f) {
+			return lastDir = Vector2.up;
 		}
 		// right
-		else if (x >= 0f && y > -0.5f && y < 0.5f) {
-			return Directions.Right;
+		else if (x > 0f && y == 0f) {
+			return lastDir = Vector2.right;
 		}
 		// down
-		else if (x <= 0f && y <= -0.5f) {
-			return Directions.Down;
+		else if (x < 0f && y < 0f) {
+			return lastDir = Vector2.down;
+		}
+		// down right
+		else if (x > 0f && y < 0f) {
+			return lastDir = Vector2.down;
 		}
 		// left
+		else if (x < 0f && y == 0f) {
+			return lastDir = Vector2.left;
+		} 
 		else {
-			return Directions.Left;
+			return lastDir;
 		}
 	}
 
@@ -212,7 +209,7 @@ public class FSMEnemy : MonoBehaviour {
     // Periodic update, run forever
     IEnumerator PatrolFSM() {
         // if is not gameover or win
-		while (!movement.isSpot) {
+		while (!GameManager.instance.gameOver && !GameManager.instance.win) {
             fsmMachine.Update();
             yield return new WaitForSeconds(FSMDelay);
         }
@@ -252,7 +249,7 @@ public class FSMEnemy : MonoBehaviour {
             // came back to point path point by point
             nextPosition = toThrowableAndBack.Dequeue();
         }
-        isMoving = true;
+		movement.isRunning = true;
     }
 
     // check if door is open or close
@@ -336,7 +333,7 @@ public class FSMEnemy : MonoBehaviour {
 
     // check if is time to switch to gameover
     bool CheckPlayer() {
-        if (isPlayer) {
+		if (movement.isSpot) {
             return true;
         }
         return false;
@@ -346,7 +343,7 @@ public class FSMEnemy : MonoBehaviour {
     bool CheckNearObject() {
         if (throwablePosition != null) {
             isIdle = false;
-            isMoving = false;
+			movement.isRunning = false;
             return true;
         }
         return false;

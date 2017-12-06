@@ -59,12 +59,13 @@ public class PlayerController : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         // check game over
-		if (!GameManager.instance.gameOver && !GameManager.instance.win) {
+		if (!gameManager.gameOver && !gameManager.win) {
 			Move ();
 			Raycast ();
 		} 
 		else {
 			animator.SetBool ("Saw", true);
+            Debug.Log("wewew");
 		}
     }
 
@@ -124,7 +125,8 @@ public class PlayerController : MonoBehaviour {
     }
 
     //cast a ray from the player to see if he can activate an interaction with an object
-    void Raycast() {
+    void Raycast()
+    {
 
         lineStart = gameObject.transform.position;
         Debug.DrawLine(lineStart, lineEnd, Color.black);
@@ -135,28 +137,44 @@ public class PlayerController : MonoBehaviour {
             InteractableObject myObject = hitObject.collider.gameObject.GetComponent<InteractableObject>();
             if (checkGadgetPresence(myObject) == 0)
             {
-                gameManager.ActivateInteractionText(true);
+                gameManager.ActivateInteractionText();
                 interact = true;
             }
             else if (checkGadgetPresence(myObject) == 1)
-                gameManager.ActivateNoGadgetText(true);
-            else
-                gameManager.ActivateNoKeyText(true);
+                gameManager.ActivateNoGadgetText();
+            else if (checkGadgetPresence(myObject) == 2)
+                gameManager.ActivateNoKeyText();
+            else if (checkGadgetPresence(myObject) == 3)
+            {
+                gameManager.ActivateExitText();
+                interact = true;
+            }
+
         }
+
         else
         {
             interact = false;
-            gameManager.ActivateInteractionText(false);
-            gameManager.ActivateNoGadgetText(false);
-            gameManager.ActivateNoKeyText(false);
+            gameManager.deactivateText();
+
         }
 
         //if the user can interact with the object AND he presses E, he interacts
         if (Input.GetKeyDown(KeyCode.E) && interact == true)
         {
             InteractableObject myObject = hitObject.collider.gameObject.GetComponent<InteractableObject>();
-            gameManager.AddMoney(myObject.Interact(),myObject.tag);
-            if(myObject.getObjectType() == "Key")
+            if (myObject.getObjectType() != "Endgame")
+            {
+                gameManager.AddMoney(myObject.Interact(), myObject.tag);
+            }
+
+            else
+            {
+                gameManager.deactivateText();
+                gameManager.win = true;
+            }
+
+            if (myObject.getObjectType() == "Key")
             {
                 keyList.Add(((Key)myObject).getKeyID());
             }
@@ -167,9 +185,11 @@ public class PlayerController : MonoBehaviour {
     private int checkGadgetPresence(InteractableObject myObject)
     {
         //0 you can interact with the object
-        //1 you are missing a key
-        //2 you are missing a gadget
+        //1 you are missing a gadget
+        //2 you are missing a key
+        //3 you still need to steal an object to exit
 
+        // if the object is a door, check that the player has the key if he does return 0, else return 1
         if (myObject.getObjectType() == "Door")
         {
             foreach (int keyId in keyList)
@@ -177,11 +197,17 @@ public class PlayerController : MonoBehaviour {
                 if (((Door)myObject).getDoorID() == keyId)
                     return 0;
             }
+            return 2;
         }
-
+        // if the object is the exit mat and the player still needs to steal at least an item, return 3
+        else if (myObject.getObjectType() == "Endgame" && gameManager.newObtainedMoney == 0)
+            return 4;
+        // if the object is a key or the mat (in this case the player has stolen at least one object) return 0
         else if (myObject.getObjectType() == "Key")
             return 0;
-
+        else if (myObject.getObjectType() == "Endgame")
+            return 3;
+        //if we are here, the interacted object is neither a door, a key or a mat. We must check if the player has the right gadget
         else
         {
             foreach (string gadget in gadgetList)
@@ -189,11 +215,11 @@ public class PlayerController : MonoBehaviour {
                 if (myObject.getObjectType() == gadget)
                     return 0;
             }
+            return 1;
         }
 
-        if (myObject.getObjectType() == "Key")
-            return 1;
-        else return 2;
+
+
     }
 
 }
