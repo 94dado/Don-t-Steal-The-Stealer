@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour {
     //activate the "press E to interact" text
     public void ActivateInteractionText()
     {
-        screenText.text = "Press E to interact";
+        screenText.text = "Click to interact";
     }
     //activate the "missing gadget" text
     public void ActivateNoGadgetText()
@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour {
 
     public void ActivateExitText()
     {
-        screenText.text = "Press E to Exit";
+        screenText.text = "Click to Exit";
     }
 
     public void deactivateText()

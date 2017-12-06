@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 239a75ef37af6481ab1831cb014d75f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactionRadius: 0.7
+  interactionRadius: 1.5
   speed: 3
 --- !u!212 &212590989426294672
 SpriteRenderer:

@@ -110,6 +110,8 @@ public class FSMEnemy : MonoBehaviour {
             if (colliders[i].transform.tag == "Player") {
                 // check position
 				movement.isSpot |= PlayerIsVisible(colliders[i].transform.position);
+                //check if the match has to end
+                if (movement.isSpot) GameManager.instance.gameOver = true;
             }
             if (colliders[i].transform.tag == "Throwable") {
                 throwablePosition = colliders[i].transform;

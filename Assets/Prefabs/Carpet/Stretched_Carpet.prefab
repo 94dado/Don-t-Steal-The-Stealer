@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212136305078018676}
   - component: {fileID: 114619106838794754}
   - component: {fileID: 58966506914843074}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Stretched_Carpet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

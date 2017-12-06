@@ -54,6 +54,9 @@ public class PlayerController : MonoBehaviour {
         lineEndNorth = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + interactionRadius);
         lineEnd = lineEndSouth;
         lineStart = gameObject.transform.position;
+
+        //hide cursor
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -65,7 +68,7 @@ public class PlayerController : MonoBehaviour {
 		} 
 		else {
 			animator.SetBool ("Saw", true);
-            Debug.Log("wewew");
+            Cursor.visible = true;
 		}
     }
 
@@ -160,7 +163,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         //if the user can interact with the object AND he presses E, he interacts
-        if (Input.GetKeyDown(KeyCode.E) && interact == true)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && interact == true)
         {
             InteractableObject myObject = hitObject.collider.gameObject.GetComponent<InteractableObject>();
             if (myObject.getObjectType() != "Endgame")
