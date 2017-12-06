@@ -58,15 +58,25 @@ public class FSMEnemy : MonoBehaviour {
     }
 
     void Update() {
+		if (transform.name == "Guard 4") {
+			Debug.Log (isMoving);
+			//Debug.Log (GetDirection (movement.direction.x, movement.direction.y));
+		}
         // check collision with player or object
         CheckCollision();
-        // check the movement boolean
-        movement.isRunning = isMoving;
 		movement.isSpot = GameManager.instance.gameOver || GameManager.instance.win;
+		// check the movement boolean
+		if (movement.isSpot) {
+			// stop moving
+			movement.isRunning = false;
+		} 
+		else {
+			movement.isRunning = isMoving;
+		}
         // animate the player
         currentSpeed = movement.Move(transform.position);
         // check if we have to move
-        if (isMoving || isReachingThrowable) {
+		if ((isMoving || isReachingThrowable) && !movement.isSpot) {
             Moving();
         }
     }
@@ -117,17 +127,37 @@ public class FSMEnemy : MonoBehaviour {
 
     // check if player is visible from the IA
     bool PlayerIsVisible(Vector3 playerPosition) {
-        Vector3 playerDirection = playerPosition - transform.position;
-        float x = animator.GetFloat("LastRunX");
-        float y = animator.GetFloat("LastRunY");
+		Vector3 playerDirection = playerPosition - transform.position;
         // check if the IA can see the player
-        if (Math.Abs(Mathf.Sign(x) + Mathf.Sign(playerDirection.x)) > 1f && Math.Abs(Mathf.Sign(y) + Mathf.Sign(playerDirection.y)) > 1f) {
+		// Debug.Log(GetDirection(movement.direction.x, movement.direction.y) + " , " + GetDirection(playerDirection.x, playerPosition.y));
+		if (/*Math.Abs(Mathf.Sign(movement.direction.x) + Mathf.Sign(playerDirection.x)) == Math.Abs(Mathf.Sign(movement.direction.y) + Mathf.Sign(playerDirection.y))
+			&&*/ GetDirection(movement.direction.x, movement.direction.y) == GetDirection(playerDirection.x, playerPosition.y)) {
             // player found
 			Debug.Log("Found by " + transform.name);
             return true;
         }
         return false;
     }
+
+	// get the direction of the transform given
+	int GetDirection(float x, float y) {
+		// top
+		if (x >= 0f && y >= 0.5f) {
+			return Directions.Up;
+		}
+		// right
+		else if (x >= 0f && y > -0.5f && y < 0.5f) {
+			return Directions.Right;
+		}
+		// down
+		else if (x <= 0f && y <= -0.5f) {
+			return Directions.Down;
+		}
+		// left
+		else {
+			return Directions.Left;
+		}
+	}
 
     void StartFSM() {
 
@@ -177,7 +207,7 @@ public class FSMEnemy : MonoBehaviour {
     // Periodic update, run forever
     IEnumerator PatrolFSM() {
         // if is not gameover or win
-        while (!GameManager.instance.gameOver || !GameManager.instance.win) {
+		while (!movement.isSpot) {
             fsmMachine.Update();
             yield return new WaitForSeconds(FSMDelay);
         }

@@ -60,9 +60,12 @@ public class PlayerController : MonoBehaviour {
     void Update() {
         // check game over
 		if (!GameManager.instance.gameOver && !GameManager.instance.win) {
-            Move();
-            Raycast();
-        }
+			Move ();
+			Raycast ();
+		} 
+		else {
+			animator.SetBool ("Saw", true);
+		}
     }
 
     // move the player
@@ -117,7 +120,7 @@ public class PlayerController : MonoBehaviour {
         animator.SetFloat("LastRunX", lastMovement.x);
         animator.SetFloat("LastRunY", lastMovement.y);
         animator.SetBool("Running", isRunning);
-		animator.SetBool ("Saw", GameManager.instance.gameOver || GameManager.instance.win);
+		animator.SetBool ("Saw", false);
     }
 
     //cast a ray from the player to see if he can activate an interaction with an object
