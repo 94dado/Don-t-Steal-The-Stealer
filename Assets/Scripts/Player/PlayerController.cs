@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         // check game over
-        if (!GameManager.instance.gameOver && !GameManager.instance.win) {
+		if (!GameManager.instance.gameOver && !GameManager.instance.win) {
             Move();
             Raycast();
         }
@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour {
         isRunning = false;
         // move horizontally
         if (Mathf.Abs(horizontal) > 0f) {
-            myRigidbody.MovePosition(new Vector2(transform.position.x + horizontal * speed * Time.deltaTime, transform.position.y + vertical * speed * Time.deltaTime));
+			myRigidbody.MovePosition(new Vector2(transform.position.x + horizontal * speed * Time.deltaTime, transform.position.y + vertical * currentSpeed * Time.deltaTime));
             isRunning = true;
             lastMovement = new Vector2(horizontal, 0f);
             if (horizontal > 0f)
@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour {
         }
         // move vertically
         if (Mathf.Abs(vertical) > 0f) {
-            myRigidbody.MovePosition(new Vector2(transform.position.x + horizontal * speed * Time.deltaTime, transform.position.y + vertical * speed * Time.deltaTime));
+			myRigidbody.MovePosition(new Vector2(transform.position.x + horizontal * speed * Time.deltaTime, transform.position.y + vertical * currentSpeed * Time.deltaTime));
             isRunning = true;
             lastMovement = new Vector2(0f, vertical);
             if (vertical > 0f)
@@ -117,6 +117,7 @@ public class PlayerController : MonoBehaviour {
         animator.SetFloat("LastRunX", lastMovement.x);
         animator.SetFloat("LastRunY", lastMovement.y);
         animator.SetBool("Running", isRunning);
+		animator.SetBool ("Saw", GameManager.instance.gameOver || GameManager.instance.win);
     }
 
     //cast a ray from the player to see if he can activate an interaction with an object

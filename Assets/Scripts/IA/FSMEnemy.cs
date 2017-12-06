@@ -62,7 +62,7 @@ public class FSMEnemy : MonoBehaviour {
         CheckCollision();
         // check the movement boolean
         movement.isRunning = isMoving;
-		movement.isSpot = GameManager.instance.gameOver;
+		movement.isSpot = GameManager.instance.gameOver || GameManager.instance.win;
         // animate the player
         currentSpeed = movement.Move(transform.position);
         // check if we have to move
