@@ -20,8 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4995364650846618}
   - component: {fileID: 212393634366268678}
-  - component: {fileID: 114741762390521646}
   - component: {fileID: 61901383462322590}
+  - component: {fileID: 114741762390521646}
   m_Layer: 13
   m_Name: Key_Silver
   m_TagString: Untagged
