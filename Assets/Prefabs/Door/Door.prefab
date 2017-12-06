@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4673720701898778}
   - component: {fileID: 95866251678149034}
-  - component: {fileID: 114963946090840494}
+  - component: {fileID: 114361435526557060}
   - component: {fileID: 212550044321676652}
   - component: {fileID: 61202258745106004}
   - component: {fileID: 61741522010121546}
@@ -111,7 +111,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114963946090840494
+--- !u!114 &114361435526557060
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -119,12 +119,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1449221306676336}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d274ca9f4e1aa694fb367b1f2e7ec0cd, type: 3}
+  m_Script: {fileID: 11500000, guid: 718398001dc4e15419a1c9e69b0fd9bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   value: 0
   stolenSprite: {fileID: 0}
   objectType: Door
+  doorID: 0
 --- !u!212 &212550044321676652
 SpriteRenderer:
   m_ObjectHideFlags: 1

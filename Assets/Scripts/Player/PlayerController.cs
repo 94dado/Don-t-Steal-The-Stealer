@@ -12,6 +12,9 @@ public class PlayerController : MonoBehaviour {
     private GameObject gameManagerObject;
     private GameManager gameManager;
     private List<string> gadgetList;
+
+    private List<int> keyList;
+
     RaycastHit2D hitObject;
     bool interact = false;
 
@@ -32,8 +35,12 @@ public class PlayerController : MonoBehaviour {
         animator = GetComponent<Animator>();
         myRigidbody = GetComponent<Rigidbody2D>();
 
-        //initializing gadgetList, this is temporary!!!!
+        
         gadgetList = new List<string>();
+        keyList = new List<int>();
+
+        //initializing gadgetList and keyList, this is temporary!!!!
+        
         gadgetList.Add("Theca");
         gadgetList.Add("Painting");
         gadgetList.Add("Safe");
@@ -114,44 +121,75 @@ public class PlayerController : MonoBehaviour {
 
     //cast a ray from the player to see if he can activate an interaction with an object
     void Raycast() {
+
         lineStart = gameObject.transform.position;
         Debug.DrawLine(lineStart, lineEnd, Color.black);
 
         if (Physics2D.Linecast(lineStart, lineEnd, 1 << LayerMask.NameToLayer("Interactable")))
         {
             hitObject = Physics2D.Linecast(lineStart, lineEnd, 1 << LayerMask.NameToLayer("Interactable"));
-            if (checkGadgetPresence(hitObject.collider.gameObject.GetComponent<InteractableObject>().getObjectType()))
+            InteractableObject myObject = hitObject.collider.gameObject.GetComponent<InteractableObject>();
+            if (checkGadgetPresence(myObject) == 0)
             {
                 gameManager.ActivateInteractionText(true);
                 interact = true;
             }
-            else
+            else if (checkGadgetPresence(myObject) == 1)
                 gameManager.ActivateNoGadgetText(true);
+            else
+                gameManager.ActivateNoKeyText(true);
         }
         else
         {
             interact = false;
             gameManager.ActivateInteractionText(false);
             gameManager.ActivateNoGadgetText(false);
+            gameManager.ActivateNoKeyText(false);
         }
 
         //if the user can interact with the object AND he presses E, he interacts
         if (Input.GetKeyDown(KeyCode.E) && interact == true)
         {
-             gameManager.AddMoney(hitObject.collider.gameObject.GetComponent<InteractableObject>().Interact(),hitObject.collider.gameObject.tag);
+            InteractableObject myObject = hitObject.collider.gameObject.GetComponent<InteractableObject>();
+            gameManager.AddMoney(myObject.Interact(),myObject.tag);
+            if(myObject.getObjectType() == "Key")
+            {
+                keyList.Add(((Key)myObject).getKeyID());
+            }
         }
 
     }
 
-    private bool checkGadgetPresence(string objectType)
+    private int checkGadgetPresence(InteractableObject myObject)
     {
-        foreach(string gadget in gadgetList)
-        {
-            if (objectType == gadget)
-                return true;
-        }
-        return false;
+        //0 you can interact with the object
+        //1 you are missing a key
+        //2 you are missing a gadget
 
+        if (myObject.getObjectType() == "Door")
+        {
+            foreach (int keyId in keyList)
+            {
+                if (((Door)myObject).getDoorID() == keyId)
+                    return 0;
+            }
+        }
+
+        else if (myObject.getObjectType() == "Key")
+            return 0;
+
+        else
+        {
+            foreach (string gadget in gadgetList)
+            {
+                if (myObject.getObjectType() == gadget)
+                    return 0;
+            }
+        }
+
+        if (myObject.getObjectType() == "Key")
+            return 1;
+        else return 2;
     }
 
 }

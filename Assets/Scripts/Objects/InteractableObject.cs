@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class InteractableObject : MonoBehaviour
 {
-    Animator animator;
+    protected Animator animator;
     public int value;
     private GameObject child;
     public Sprite stolenSprite;
@@ -24,17 +24,12 @@ public class InteractableObject : MonoBehaviour
     
     }
 
+    virtual
     public int Interact()
     {
         if (animator != null)
             animator.SetBool("interacted", true);
-        if (animator != null && objectType == "Door")
-        {
-            Collider2D[] colliders;
-            colliders = this.gameObject.GetComponents<Collider2D>() as Collider2D[];
-            colliders[0].enabled = false;
-            colliders[1].enabled = true;
-        }
+       
 
         if (child != null)
             child.GetComponent<SpriteRenderer>().sprite = stolenSprite;
