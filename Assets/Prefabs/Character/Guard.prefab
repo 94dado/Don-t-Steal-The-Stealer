@@ -117,11 +117,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fae25d81cd05049969059698db2426c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  points: []
+  allPoints: {fileID: 0}
+  pos: 0
   overlapRadius: 20
-  FSMDelay: 1
-  idleTime: 3
-  maxDistanceUntilPoint: 0.5
+  FSMDelay: 0.5
+  idleTime: 4
   speed: 3
   pointsMask:
     serializedVersion: 2
