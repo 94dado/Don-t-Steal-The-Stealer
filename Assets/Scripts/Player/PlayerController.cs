@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         // check game over
-		if (!GameManager.instance.gameOver && !GameManager.instance.win) {
+		if (!gameManager.gameOver && !gameManager.win) {
 			Move ();
 			Raycast ();
 		} 
