@@ -5721,6 +5721,11 @@ Prefab:
       propertyPath: m_Name
       value: Guard 4
       objectReference: {fileID: 0}
+    - target: {fileID: 50424420148197604, guid: 7c9ff52a7a34c1544b75a3d71ed3fe6f,
+        type: 2}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7c9ff52a7a34c1544b75a3d71ed3fe6f, type: 2}
   m_IsPrefabParent: 0
@@ -11092,7 +11097,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &2094112465
 Light:
   m_ObjectHideFlags: 0
