@@ -14,8 +14,6 @@ public class FSMEnemy : MonoBehaviour {
     [Range(0.1f, 5f)] public float FSMDelay;
     // time to wait before move to the next point
     [Range(1f, 10f)] public float idleTime;
-    // time to wait before move to the next point
-    [Range(0.1f, 1f)] public float maxDistanceUntilPoint;
     // spped of enemy
     public float speed;
     // point mask
@@ -68,8 +66,8 @@ public class FSMEnemy : MonoBehaviour {
 
     // move the player
     void Moving() {
-        // move player to next position if distance from element is less then the default
-        if (maxDistanceUntilPoint > Vector2.Distance(transform.position, nextPosition.position)) {
+        // move player to next position until it will reach it
+        if (Vector2.Distance(transform.position, nextPosition.position) > 0f) {
             // move
             transform.position = Vector2.MoveTowards(transform.position, nextPosition.position, currentSpeed * Time.deltaTime);
         }
@@ -97,7 +95,7 @@ public class FSMEnemy : MonoBehaviour {
     // check enter collision
     void CheckCollision() {
         // get all the colliders in a certain radius
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(throwablePosition.position, overlapRadius);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, overlapRadius);
         for (int i = 0; i < colliders.Length; i++) {
             // check if player is visible
             if (colliders[i].transform.tag == "Player") {
@@ -195,7 +193,7 @@ public class FSMEnemy : MonoBehaviour {
             // if it can't move thoward a door
             if (!CheckDoor()) {
                 // reverse array and came back
-                next = points.Length - next;
+                next = points.Length - next -1;
                 Array.Reverse(points);
             }
             next++;
@@ -216,9 +214,12 @@ public class FSMEnemy : MonoBehaviour {
 
     // check if door is open or close
     bool CheckDoor() {
-        // if the door is closed
-        if (Physics2D.Raycast(transform.position, nextPosition.position, Vector2.Distance(transform.position, nextPosition.position), interactableMask)) {
-            return false;
+        if (next + 1 != points.Length) {
+            Vector3 pos = points[next + 1].position;
+            // if the door is closed
+			if (Physics2D.Raycast(transform.position, (pos - transform.position).normalized, Vector2.Distance(transform.position, pos), interactableMask)) {
+				return false;
+            }
         }
         return true;
     }

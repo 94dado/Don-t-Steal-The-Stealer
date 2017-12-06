@@ -57,6 +57,6 @@ public class FSMMovement {
         animator.SetFloat("LastRunX", lastMovement.x);
         animator.SetFloat("LastRunY", lastMovement.y);
         animator.SetBool("Running", isRunning);
-        animator.SetBool("Spotting", isRunning);
+        animator.SetBool("Spotting", isSpot);
     }
 }
