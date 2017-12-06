@@ -139,8 +139,13 @@ public class FSMEnemy : MonoBehaviour {
         return false;
     }
 
+    //get the actual direction of the AI
+    public Directions GetCurrentDirection() {
+        return GetDirection(movement.direction.x, movement.direction.y);
+    }
+
 	// get the direction of the transform given
-	int GetDirection(float x, float y) {
+	Directions GetDirection(float x, float y) {
 		// top
 		if (x >= 0f && y >= 0.5f) {
 			return Directions.Up;
