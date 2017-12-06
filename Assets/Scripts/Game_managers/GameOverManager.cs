@@ -38,14 +38,6 @@ public class GameOverManager : MonoBehaviour {
         gameManager = GameManager.instance;
 	}
 
-    private void Update()
-    {
-        //just for testing
-        if (gameOver)
-            activateGameOverMenu();
-        if (win)
-            activateVictoryMenu();
-    }
 
     //call this method to activate victory menu
     public void activateVictoryMenu()
@@ -73,8 +65,7 @@ public class GameOverManager : MonoBehaviour {
 
             victoryMenu.SetActive(true);
             winActivated = true;
-            //REMOVE THIS LINEEEE
-            gameManager.win = true;
+            
         }
     }
 
@@ -101,8 +92,6 @@ public class GameOverManager : MonoBehaviour {
 
             gameOverMenu.SetActive(true);
             gameOverActivated = true;
-            //REMOVE THIS LINEEEE
-            gameManager.gameOver = true;
         }
         
     }
