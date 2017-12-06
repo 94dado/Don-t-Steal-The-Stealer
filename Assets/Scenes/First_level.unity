@@ -8931,11 +8931,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4349936336859938, guid: c1adc3c00c87f0b4480b880b5eea3927, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -23.77
+      value: -3.9
       objectReference: {fileID: 0}
     - target: {fileID: 4349936336859938, guid: c1adc3c00c87f0b4480b880b5eea3927, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 3.54
+      value: -20.36
       objectReference: {fileID: 0}
     - target: {fileID: 4349936336859938, guid: c1adc3c00c87f0b4480b880b5eea3927, type: 2}
       propertyPath: m_LocalPosition.z
@@ -8960,6 +8960,10 @@ Prefab:
     - target: {fileID: 4349936336859938, guid: c1adc3c00c87f0b4480b880b5eea3927, type: 2}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1461531703759914, guid: c1adc3c00c87f0b4480b880b5eea3927, type: 2}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c1adc3c00c87f0b4480b880b5eea3927, type: 2}
@@ -10393,6 +10397,11 @@ Prefab:
     - target: {fileID: 1068924374511044, guid: 7c9ff52a7a34c1544b75a3d71ed3fe6f, type: 2}
       propertyPath: m_Name
       value: Guard 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114334174727970680, guid: 7c9ff52a7a34c1544b75a3d71ed3fe6f,
+        type: 2}
+      propertyPath: collisionMask.m_Bits
+      value: 8448
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7c9ff52a7a34c1544b75a3d71ed3fe6f, type: 2}
