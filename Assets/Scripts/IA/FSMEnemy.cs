@@ -23,8 +23,9 @@ public class FSMEnemy : MonoBehaviour {
     public LayerMask pointsMask;
     // wall mask
     public LayerMask obstaclesMask;
-    // interactable mask
     public LayerMask interactableMask;
+	// collision wih player and iteractable object
+	public LayerMask collisionMask;
 
     FSM fsmMachine;
     FSMMovement movement;
@@ -61,7 +62,7 @@ public class FSMEnemy : MonoBehaviour {
         CheckCollision();
         // check the movement boolean
         movement.isRunning = isMoving;
-        movement.isSpot = isPlayer;
+		movement.isSpot = GameManager.instance.gameOver || GameManager.instance.win;
         // animate the player
         currentSpeed = movement.Move(transform.position);
         // check if we have to move
@@ -101,7 +102,7 @@ public class FSMEnemy : MonoBehaviour {
     // check enter collision
     void CheckCollision() {
         // get all the colliders in a certain radius
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, overlapRadius);
+		Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, overlapRadius, collisionMask);
         for (int i = 0; i < colliders.Length; i++) {
             // check if player is visible
             if (colliders[i].transform.tag == "Player") {
@@ -122,6 +123,7 @@ public class FSMEnemy : MonoBehaviour {
         // check if the IA can see the player
         if (Math.Abs(Mathf.Sign(x) + Mathf.Sign(playerDirection.x)) > 1f && Math.Abs(Mathf.Sign(y) + Mathf.Sign(playerDirection.y)) > 1f) {
             // player found
+			Debug.Log("Found by " + transform.name);
             return true;
         }
         return false;

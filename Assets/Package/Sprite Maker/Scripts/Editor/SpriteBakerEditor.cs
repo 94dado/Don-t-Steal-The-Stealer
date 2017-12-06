@@ -155,7 +155,7 @@ public class SpriteBakerEditor : EditorWindow {
 			time *= clips[clipIndex].length;
 			clips[clipIndex].SampleAnimation ((target as Animator).gameObject, time);
 		}else if(target is ParticleSystem){
-			time*=((target as ParticleSystem).duration+0.5f);
+			time*=((target as ParticleSystem).main.duration+0.5f);
 			(target as ParticleSystem).Simulate(time);
 		}
 		Repaint ();

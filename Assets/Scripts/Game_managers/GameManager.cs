@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour {
 
     public GameObject interactionText;
     public GameObject missingGadgetText;
+    public GameObject noKeyText;
     public Text moneyText;
     public Text timeText;
     [HideInInspector]
@@ -56,6 +57,11 @@ public class GameManager : MonoBehaviour {
     public void ActivateNoGadgetText(bool active)
     {
         missingGadgetText.SetActive(active);
+    }
+
+    public void ActivateNoKeyText(bool active)
+    {
+        noKeyText.SetActive(active);
     }
 
     //add money to the total balance

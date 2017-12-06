@@ -383,7 +383,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allPoints: {fileID: 0}
   pos: 0
-  overlapRadius: 20
+  overlapRadius: 5
   FSMDelay: 0.5
   idleTime: 4
   speed: 3
@@ -396,6 +396,9 @@ MonoBehaviour:
   interactableMask:
     serializedVersion: 2
     m_Bits: 8192
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 8448
 --- !u!212 &212758065006250040
 SpriteRenderer:
   m_ObjectHideFlags: 1
