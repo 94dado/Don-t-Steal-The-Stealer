@@ -1,13 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 public class FSMEnemy : MonoBehaviour {
 
-    // point that enemy have to reach
-    public Transform[] points;
+	// all th points
+	public Transform allPoints;
+	// uset to calculate the next position
+	public int pos;
     // radious of overlap circle
     public float overlapRadius;
     // patrol time
@@ -26,10 +29,10 @@ public class FSMEnemy : MonoBehaviour {
     FSM fsmMachine;
     FSMMovement movement;
     Animator animator;
-    // next position
-    int next;
     // current speed;
     float currentSpeed;
+	// point that enemy have to reach
+	Transform[] points;
     Transform nextPosition;
     Transform throwablePosition;
     // used to came back to the first known point
@@ -46,6 +49,9 @@ public class FSMEnemy : MonoBehaviour {
         animator = GetComponent<Animator>();
         // initialize movement
         movement = new FSMMovement(animator, transform.position, speed);
+		// create the points for the movement
+		points = allPoints.GetComponentsInChildren<Transform>();
+		points = points.Skip(1).ToArray();
         // initialize FSM
         StartFSM();
     }
@@ -190,19 +196,19 @@ public class FSMEnemy : MonoBehaviour {
     void Move() {
         // it is came back to default path
         if (toThrowableAndBack.Count == 0) {
-            // if it can't move thoward a door
-            if (!CheckDoor()) {
+            // if it can't move thoward a door and is not at the last point
+			if (!CheckDoor() && pos + 1 != points.Length) {
                 // reverse array and came back
-                next = points.Length - next -1;
+                pos = points.Length - pos -1;
                 Array.Reverse(points);
             }
-            next++;
-            nextPosition = points[next];
+            pos++;
+            nextPosition = points[pos];
             // if we re at the end of the array
-            if (next + 1 == points.Length) {
+            if (pos + 1 == points.Length) {
                 // reverse array
                 Array.Reverse(points);
-                next = 0;
+                pos = 0;
             }
         }
         else {
@@ -214,12 +220,10 @@ public class FSMEnemy : MonoBehaviour {
 
     // check if door is open or close
     bool CheckDoor() {
-        if (next + 1 != points.Length) {
-            Vector3 pos = points[next + 1].position;
-            // if the door is closed
-			if (Physics2D.Raycast(transform.position, (pos - transform.position).normalized, Vector2.Distance(transform.position, pos), interactableMask)) {
-				return false;
-            }
+        Vector3 nextPos = points[pos + 1].position;
+        // if the door is closed
+		if (Physics2D.Raycast(transform.position, (nextPos - transform.position).normalized, Vector2.Distance(transform.position, nextPos), interactableMask)) {
+			return false;
         }
         return true;
     }
