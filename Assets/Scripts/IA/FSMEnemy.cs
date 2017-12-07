@@ -9,6 +9,7 @@ public class FSMEnemy : MonoBehaviour {
 
 	// all th points
 	public Transform allPoints;
+	[Range(0.1f, 179.99f)] public float FOVAngle;
 	// uset to calculate the next position
 	public int pos;
     // radious of overlap circle
@@ -60,18 +61,19 @@ public class FSMEnemy : MonoBehaviour {
 		if (GameManager.instance.gameOver) {
 			// stop moving
 			movement.isRunning = false;
+			movement.isSpot = true;
 			Time.timeScale = 0;
 		} 
 		else {
 			// check collision with player or object
 			CheckCollision();
-			// animate the player
-			currentSpeed = movement.Move(transform.position);
 			// check if we have to move
 			if (movement.isRunning || isReachingThrowable) {
 				Moving();
 			}
 		}
+		// animate the player
+		currentSpeed = movement.Move(transform.position);
     }
 
     // move the player
@@ -110,7 +112,7 @@ public class FSMEnemy : MonoBehaviour {
             // check if player is visible
             if (colliders[i].transform.tag == "Player") {
                 // check position
-				movement.isSpot |= PlayerIsVisible(colliders[i].transform.position);
+				PlayerIsVisible(colliders[i].transform.position);
             }
             if (colliders[i].transform.tag == "Throwable") {
                 throwablePosition = colliders[i].transform;
@@ -118,17 +120,40 @@ public class FSMEnemy : MonoBehaviour {
         }
     }
 
-    // check if player is visible from the IA
-    bool PlayerIsVisible(Vector3 playerPosition) {
+//    // check if player is visible from the IA
+//    void PlayerIsVisible(Vector3 playerPosition) {
+//		Vector2 playerDirection = (playerPosition - transform.position).normalized;
+//		Vector2 dir = GetDirection (movement.direction.x, movement.direction.y);
+//		// if guard facing player and there are no wall between them
+//		if (Vector2.Dot (dir, playerDirection) > 0.9f && !Physics2D.Raycast(transform.position, playerDirection, Vector2.Distance(transform.position, playerDirection), obstaclesMask)) {
+//			// game over
+//			GameManager.instance.gameOver = true;
+//        }
+//    }
+
+	// check if player is visible from the IA
+	void PlayerIsVisible(Vector3 playerPosition) {
 		Vector2 playerDirection = (playerPosition - transform.position).normalized;
-		Vector2 dir = GetDirection (movement.direction.x, movement.direction.y);
 		// if guard facing player and there are no wall between them
-		if (Vector2.Dot (dir, playerDirection) > 0.9f && !Physics2D.Raycast(transform.position, playerDirection, Vector2.Distance(transform.position, playerDirection), obstaclesMask)) {
+		if (IsLookingAtObject(playerPosition, playerDirection) && !Physics2D.Raycast(transform.position, playerDirection, Vector2.Distance(transform.position, playerDirection), obstaclesMask)) {
 			// game over
-			return GameManager.instance.gameOver = true;
-        }
-        return false;
-    }
+			GameManager.instance.gameOver = true;
+		}
+	}
+		
+	// check the face to face between player and IA
+	bool IsLookingAtObject(Vector2 targetPos, Vector2 direction) {
+		// divide by 2 isn't necessary, just a bit easier to understand when looking at the angles.
+		float checkAngle = Mathf.Min(FOVAngle,359.99f) / 2f;
+		// check the face to face with dot
+		float dot = Vector2.Dot(GetDirection (movement.direction.x, movement.direction.y), direction);
+		// convert the dot product value into a 180 degree representation (or *180 if you don't divide by 2 earlier)
+		// check the view angle
+		if (((1 - dot) * 90f) <= checkAngle) {
+			return true;
+		} 
+		return false;
+	}
 
 	// get the direction of the transform given
 	Vector2 GetDirection(float x, float y) {

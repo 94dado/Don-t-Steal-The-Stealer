@@ -55,15 +55,18 @@ public class FSMMovement {
     // set the animator of the IA
     void SetAnimator() {
 		// optimize IA movement
-		if (direction.x < 0.1f && direction.x > -0.1f ) {
-			direction.x = 0;
+		if (direction.x < 0.1f && direction.x > -0.1f) {
+			animator.SetFloat ("RunX", 0f);
+		} else {
+			animator.SetFloat("RunX", direction.x);
 		}
-		if (direction.y < 0.1f && direction.y > -0.1f ) {
-			direction.y = 0;
+		if (direction.y < 0.1f && direction.y > -0.1f) {
+			animator.SetFloat ("RunY", 0f);
+		} 
+		else {
+			animator.SetFloat("RunY", direction.y);
 		}
         // set values of the parameters
-        animator.SetFloat("RunX", direction.x);
-        animator.SetFloat("RunY", direction.y);
         animator.SetFloat("LastRunX", lastMovement.x);
         animator.SetFloat("LastRunY", lastMovement.y);
         animator.SetBool("Running", isRunning);
