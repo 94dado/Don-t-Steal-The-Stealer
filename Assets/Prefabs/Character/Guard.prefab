@@ -184,9 +184,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allPoints: {fileID: 0}
+  FOVAngle: 75
   pos: 0
   overlapRadius: 5
-  FSMDelay: 0.5
+  FSMDelay: 0.1
   idleTime: 4
   speed: 3
   pointsMask:

@@ -15,7 +15,7 @@ public class FSMEnemy : MonoBehaviour {
     // radious of overlap circle
     public float overlapRadius;
     // patrol time
-    [Range(0.1f, 5f)] public float FSMDelay;
+    [Range(0.01f, 1f)] public float FSMDelay;
     // time to wait before move to the next point
     [Range(1f, 10f)] public float idleTime;
     // spped of enemy
@@ -39,8 +39,6 @@ public class FSMEnemy : MonoBehaviour {
     Transform throwablePosition;
     // used to came back to the first known point
     Queue<Transform> toThrowableAndBack = new Queue<Transform>();
-	// last direction
-	Vector2 lastDir;
     bool isIdle;
     bool isReachingThrowable;
     bool throwableIsReached;
@@ -48,7 +46,7 @@ public class FSMEnemy : MonoBehaviour {
     void Start() {
         animator = GetComponent<Animator>();
         // initialize movement
-        movement = new FSMMovement(animator, transform.position, speed);
+		movement = new FSMMovement(animator, transform.position, speed);
 		// create the points for the movement
 		points = allPoints.GetComponentsInChildren<Transform>();
 		points = points.Skip(1).ToArray();
@@ -62,7 +60,6 @@ public class FSMEnemy : MonoBehaviour {
 			// stop moving
 			movement.isRunning = false;
 			movement.isSpot = true;
-			Time.timeScale = 0;
 		} 
 		else {
 			// check collision with player or object
@@ -120,17 +117,6 @@ public class FSMEnemy : MonoBehaviour {
         }
     }
 
-//    // check if player is visible from the IA
-//    void PlayerIsVisible(Vector3 playerPosition) {
-//		Vector2 playerDirection = (playerPosition - transform.position).normalized;
-//		Vector2 dir = GetDirection (movement.direction.x, movement.direction.y);
-//		// if guard facing player and there are no wall between them
-//		if (Vector2.Dot (dir, playerDirection) > 0.9f && !Physics2D.Raycast(transform.position, playerDirection, Vector2.Distance(transform.position, playerDirection), obstaclesMask)) {
-//			// game over
-//			GameManager.instance.gameOver = true;
-//        }
-//    }
-
 	// check if player is visible from the IA
 	void PlayerIsVisible(Vector3 playerPosition) {
 		Vector2 playerDirection = (playerPosition - transform.position).normalized;
@@ -146,44 +132,13 @@ public class FSMEnemy : MonoBehaviour {
 		// divide by 2 isn't necessary, just a bit easier to understand when looking at the angles.
 		float checkAngle = Mathf.Min(FOVAngle,359.99f) / 2f;
 		// check the face to face with dot
-		float dot = Vector2.Dot(GetDirection (movement.direction.x, movement.direction.y), direction);
+		float dot = Vector2.Dot(movement.lastDir, direction);
 		// convert the dot product value into a 180 degree representation (or *180 if you don't divide by 2 earlier)
 		// check the view angle
 		if (((1 - dot) * 90f) <= checkAngle) {
 			return true;
 		} 
 		return false;
-	}
-
-	// get the direction of the transform given
-	Vector2 GetDirection(float x, float y) {
-		// top and top right
-		if (x > 0f && y > 0f) {
-			return lastDir = Vector2.up;
-		}
-		// up left
-		else if (x < 0f && y > 0f) {
-			return lastDir = Vector2.up;
-		}
-		// right
-		else if (x > 0f && y == 0f) {
-			return lastDir = Vector2.right;
-		}
-		// down and down left
-		else if (x < 0f && y < 0f) {
-			return lastDir = Vector2.down;
-		}
-		// down right
-		else if (x > 0f && y < 0f) {
-			return lastDir = Vector2.down;
-		}
-		// left
-		else if (x < 0f && y == 0f) {
-			return lastDir = Vector2.left;
-		} 
-		else {
-			return lastDir;
-		}
 	}
 
     void StartFSM() {
