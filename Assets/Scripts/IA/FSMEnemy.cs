@@ -41,7 +41,6 @@ public class FSMEnemy : MonoBehaviour {
 	// last direction
 	Vector2 lastDir;
     bool isIdle;
-    bool isPositionReached;
     bool isReachingThrowable;
     bool throwableIsReached;
 
@@ -57,20 +56,22 @@ public class FSMEnemy : MonoBehaviour {
     }
 
     void Update() {
-        // check collision with player or object
-        CheckCollision();
 		// check the movement boolean
-		if (movement.isSpot) {
+		if (GameManager.instance.gameOver) {
 			// stop moving
 			movement.isRunning = false;
 			Time.timeScale = 0;
 		} 
-        // animate the player
-        currentSpeed = movement.Move(transform.position);
-        // check if we have to move
-		if ((movement.isRunning || isReachingThrowable) && !movement.isSpot) {
-            Moving();
-        }
+		else {
+			// check collision with player or object
+			CheckCollision();
+			// animate the player
+			currentSpeed = movement.Move(transform.position);
+			// check if we have to move
+			if (movement.isRunning || isReachingThrowable) {
+				Moving();
+			}
+		}
     }
 
     // move the player
@@ -84,7 +85,7 @@ public class FSMEnemy : MonoBehaviour {
             // stop moving and came back to idle
 			if (movement.isRunning) {
 				movement.isRunning = false;
-                isPositionReached = true;
+				isIdle = true;
             }
             else {
                 // you are arrived
@@ -110,8 +111,6 @@ public class FSMEnemy : MonoBehaviour {
             if (colliders[i].transform.tag == "Player") {
                 // check position
 				movement.isSpot |= PlayerIsVisible(colliders[i].transform.position);
-                //check if the match has to end
-                if (movement.isSpot) GameManager.instance.gameOver = true;
             }
             if (colliders[i].transform.tag == "Throwable") {
                 throwablePosition = colliders[i].transform;
@@ -123,18 +122,17 @@ public class FSMEnemy : MonoBehaviour {
     bool PlayerIsVisible(Vector3 playerPosition) {
 		Vector2 playerDirection = (playerPosition - transform.position).normalized;
 		Vector2 dir = GetDirection (movement.direction.x, movement.direction.y);
-		float dot = Vector2.Dot (dir, playerDirection);
-		if (dot > 0.9f) {
-            // player found
-			Debug.Log("Found by " + transform.name);
-            return true;
+		// if guard facing player and there are no wall between them
+		if (Vector2.Dot (dir, playerDirection) > 0.9f && !Physics2D.Raycast(transform.position, playerDirection, Vector2.Distance(transform.position, playerDirection), obstaclesMask)) {
+			// game over
+			return GameManager.instance.gameOver = true;
         }
         return false;
     }
 
 	// get the direction of the transform given
 	Vector2 GetDirection(float x, float y) {
-		// top
+		// top and top right
 		if (x > 0f && y > 0f) {
 			return lastDir = Vector2.up;
 		}
@@ -146,7 +144,7 @@ public class FSMEnemy : MonoBehaviour {
 		else if (x > 0f && y == 0f) {
 			return lastDir = Vector2.right;
 		}
-		// down
+		// down and down left
 		else if (x < 0f && y < 0f) {
 			return lastDir = Vector2.down;
 		}
@@ -167,7 +165,7 @@ public class FSMEnemy : MonoBehaviour {
 
         // Define states and link actions when enter/exit/stay
         FSMState idleAction = new FSMState {
-            enterActions = new FSMAction[] { WaitBeforeMove }
+            enterActions = new FSMAction[] { Idle }
         };
 
         FSMState moveAction = new FSMState {
@@ -178,29 +176,19 @@ public class FSMEnemy : MonoBehaviour {
             enterActions = new FSMAction[] { FindPosition }
         };
 
-        FSMState catchAction = new FSMState {
-            enterActions = new FSMAction[] { EndLevel }
-        };
-
         // Define transitions
         FSMTransition fromIdleToMove = new FSMTransition(CheckTimeToMove);
         FSMTransition fromMoveToIdle = new FSMTransition(CheckRechedPosition);
-        FSMTransition fromIdleToCatch = new FSMTransition(CheckPlayer);
         FSMTransition fromIdleToSeek = new FSMTransition(CheckNearObject);
         FSMTransition fromSeekToIdle = new FSMTransition(CheckReachedObject);
-        FSMTransition fromSeekToCatch = new FSMTransition(CheckPlayer);
         FSMTransition fromMoveToSeek = new FSMTransition(CheckNearObject);
-        FSMTransition fromMoveToCatch = new FSMTransition(CheckPlayer);
 
         // Link states with transitions
         idleAction.AddTransition(fromIdleToMove, moveAction);
-        idleAction.AddTransition(fromIdleToCatch, catchAction);
         idleAction.AddTransition(fromIdleToSeek, seekAction);
         moveAction.AddTransition(fromMoveToIdle, idleAction);
         moveAction.AddTransition(fromMoveToSeek, seekAction);
-        moveAction.AddTransition(fromMoveToCatch, catchAction);
         seekAction.AddTransition(fromSeekToIdle, idleAction);
-        seekAction.AddTransition(fromSeekToCatch, catchAction);
 
         // Setup a FSA at initial state
         fsmMachine = new FSM(idleAction);
@@ -218,7 +206,7 @@ public class FSMEnemy : MonoBehaviour {
     }
 
     // wait seconds before move
-    void WaitBeforeMove() {
+    void Idle() {
         StartCoroutine("WaitToMove");
     }
 
@@ -308,12 +296,6 @@ public class FSMEnemy : MonoBehaviour {
         return min;
     }
 
-    // game over
-    void EndLevel() {
-        // start gameover
-        GameManager.instance.gameOver = true;
-    }
-
     // check if is time to switch to move
     bool CheckTimeToMove() {
         if (!isIdle) {
@@ -324,18 +306,7 @@ public class FSMEnemy : MonoBehaviour {
 
     // check if is time to switch to idle
     bool CheckRechedPosition() {
-        if (isPositionReached) {
-            isPositionReached = false;
-            // idle until next time to move
-            isIdle = true;
-            return true;
-        }
-        return false;
-    }
-
-    // check if is time to switch to gameover
-    bool CheckPlayer() {
-		if (movement.isSpot) {
+		if (isIdle) {
             return true;
         }
         return false;
