@@ -30,8 +30,8 @@ public class GameOverManager : MonoBehaviour {
     private GameManager gameManager;
 
     //remove this variables
-    public bool gameOver;
-    public bool win;
+    [HideInInspector]
+    public bool gameOver, win;
 
     // Use this for initialization
     void Start () {

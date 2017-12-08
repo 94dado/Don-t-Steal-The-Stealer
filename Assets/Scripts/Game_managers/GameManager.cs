@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,6 +29,9 @@ public class GameManager : MonoBehaviour {
     public int obtainableObjects;
     [HideInInspector]
     public float time;
+
+    //list of all interactable that aren't stealable
+    public string[] notStealable;
     
 
     public static GameManager instance;
@@ -87,7 +91,7 @@ public class GameManager : MonoBehaviour {
         newObtainedMoney = newObtainedMoney +money;
         
 
-        if (tag != "Door")
+        if (IsStealable(tag))
             obtainedObjects = obtainedObjects + 1;
     }
 
@@ -95,15 +99,26 @@ public class GameManager : MonoBehaviour {
     private int getInteractableObjectsNumber(int layer)
     {
         int interactableObjectNumber = 0;
+        //get all the objects from the scene
         GameObject[] goArray = FindObjectsOfType(typeof(GameObject)) as GameObject[];
-        for (int i = 0; i < goArray.Length; i++)
+        //filter all the object to only get the interactable ones
+        List<GameObject> filtered = new List<GameObject>(goArray.Where(x => x.layer == layer));
+        foreach (GameObject obj in filtered)
         {
-            if (goArray[i].layer == layer && goArray[i].tag != "Door")
+            if (IsStealable(obj.tag))
             {
                 interactableObjectNumber = interactableObjectNumber + 1;
             }
         }
         return interactableObjectNumber;
+    }
+
+    //used to check if an item is stealable
+    private bool IsStealable(string itemTag) {
+        foreach(string tag in notStealable) {
+            if (itemTag == tag) return false;
+        }
+        return true;
     }
 
     //shows the timer in a hh:mm:ss 

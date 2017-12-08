@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4430152284793454}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: White Vertical Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   - component: {fileID: 4843514055325550}
   - component: {fileID: 212382994036864634}
   - component: {fileID: 61299928855303566}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ GameObject:
   - component: {fileID: 4669626921581750}
   - component: {fileID: 212441998325848410}
   - component: {fileID: 61344881009784282}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Side
   m_TagString: Untagged
   m_Icon: {fileID: 0}
