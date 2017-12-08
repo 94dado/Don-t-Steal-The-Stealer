@@ -634,7 +634,7 @@ GameObject:
   m_Component:
   - component: {fileID: 116577802}
   m_Layer: 0
-  m_Name: IA
+  m_Name: IA Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2490,7 +2490,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4077474073848742, guid: 6930138a341aab049b235ac1cbd9f85e, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 15.3
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4077474073848742, guid: 6930138a341aab049b235ac1cbd9f85e, type: 2}
       propertyPath: m_LocalPosition.z
@@ -4025,12 +4025,12 @@ Prefab:
     - target: {fileID: 224819868793194064, guid: 4cf5311a161280b49986d9340e752b21,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 704.5
+      value: 497.5
       objectReference: {fileID: 0}
     - target: {fileID: 224819868793194064, guid: 4cf5311a161280b49986d9340e752b21,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 396.5
+      value: 280
       objectReference: {fileID: 0}
     - target: {fileID: 224819868793194064, guid: 4cf5311a161280b49986d9340e752b21,
         type: 2}
@@ -9520,6 +9520,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114334174727970680, guid: 7c9ff52a7a34c1544b75a3d71ed3fe6f,
+        type: 2}
+      propertyPath: pos
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7c9ff52a7a34c1544b75a3d71ed3fe6f, type: 2}
   m_IsPrefabParent: 0
@@ -10926,12 +10931,12 @@ Prefab:
     - target: {fileID: 224294912487908714, guid: d859c6ebe9923074ca06eb774848079c,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 704.5
+      value: 497.5
       objectReference: {fileID: 0}
     - target: {fileID: 224294912487908714, guid: d859c6ebe9923074ca06eb774848079c,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 396.5
+      value: 280
       objectReference: {fileID: 0}
     - target: {fileID: 224294912487908714, guid: d859c6ebe9923074ca06eb774848079c,
         type: 2}

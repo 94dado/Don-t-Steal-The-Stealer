@@ -40,8 +40,7 @@ public class FSMEnemy : MonoBehaviour {
     Transform throwablePosition;
     // used to came back to the first known point
     Queue<Transform> toThrowableAndBack = new Queue<Transform>();
-    bool isIdle;
-	bool isReachedPosition;
+	bool isIdle = true;
     bool isReachingThrowable;
     bool throwableIsReached;
 
@@ -50,8 +49,7 @@ public class FSMEnemy : MonoBehaviour {
         // initialize movement
 		movement = new FSMMovement(animator, transform.position, speed);
 		// create the points for the movement
-		points = allPoints.GetComponentsInChildren<Transform>();
-		points = points.Skip(1).ToArray();
+		points = allPoints.GetComponentsInChildren<Transform>().Skip(1).ToArray();
         // initialize FSM
         StartFSM();
     }
@@ -91,7 +89,7 @@ public class FSMEnemy : MonoBehaviour {
             // stop moving and came back to idle
 			if (movement.isRunning) {
 				movement.isRunning = false;
-				isReachedPosition = true;
+				isIdle = true;
             }
             else {
                 // you are arrived
@@ -288,9 +286,8 @@ public class FSMEnemy : MonoBehaviour {
 
     // checks if is time to switch to idle
     bool CheckRechedPosition() {
-		if (isReachedPosition) {
-			isReachedPosition = false;
-			return isIdle = true;
+		if (isIdle) {
+			return true;
         }
         return false;
     }
@@ -310,8 +307,7 @@ public class FSMEnemy : MonoBehaviour {
         if (throwableIsReached) {
             throwableIsReached = false;
             // came back to idle
-            isIdle = true;
-            return true;
+			return isIdle = true;
         }
         return false;
     }
