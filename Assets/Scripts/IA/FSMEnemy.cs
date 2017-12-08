@@ -9,7 +9,8 @@ public class FSMEnemy : MonoBehaviour {
 
 	// all th points
 	public Transform allPoints;
-	[Range(0.1f, 179.99f)] public float FOVAngle;
+	// field of view of the guard
+	[Range(0f, 180f)] public float FOVAngle;
 	// uset to calculate the next position
 	public int pos;
     // radious of overlap circle
@@ -40,6 +41,7 @@ public class FSMEnemy : MonoBehaviour {
     // used to came back to the first known point
     Queue<Transform> toThrowableAndBack = new Queue<Transform>();
     bool isIdle;
+	bool isReachedPosition;
     bool isReachingThrowable;
     bool throwableIsReached;
 
@@ -55,25 +57,30 @@ public class FSMEnemy : MonoBehaviour {
     }
 
     void Update() {
-		// check the movement boolean
+		// checks the movement boolean
 		if (GameManager.instance.gameOver) {
 			// stop moving
 			movement.isRunning = false;
 			movement.isSpot = true;
 		} 
 		else {
-			// check collision with player or object
+			// checks collision with player or object
 			CheckCollision();
 			// check if we have to move
 			if (movement.isRunning || isReachingThrowable) {
 				Moving();
 			}
 		}
-		// animate the player
+		// animates the player
 		currentSpeed = movement.Move(transform.position);
     }
 
-    // move the player
+	// checks collision with palyer
+	void OnTriggerEnter(Collider other) {
+		GameManager.instance.gameOver |= other.transform.tag == "Player";
+	}
+
+    // moves the player
     void Moving() {
         // move player to next position until it will reach it
         if (Vector2.Distance(transform.position, nextPosition.position) > 0f) {
@@ -84,7 +91,7 @@ public class FSMEnemy : MonoBehaviour {
             // stop moving and came back to idle
 			if (movement.isRunning) {
 				movement.isRunning = false;
-				isIdle = true;
+				isReachedPosition = true;
             }
             else {
                 // you are arrived
@@ -101,7 +108,7 @@ public class FSMEnemy : MonoBehaviour {
         }
     }
 
-    // check enter collision
+    // checks enter collision
     void CheckCollision() {
         // get all the colliders in a certain radius
 		Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, overlapRadius, collisionMask);
@@ -117,27 +124,22 @@ public class FSMEnemy : MonoBehaviour {
         }
     }
 
-	// check if player is visible from the IA
+	// checks if player is visible from the IA
 	void PlayerIsVisible(Vector3 playerPosition) {
 		Vector2 playerDirection = (playerPosition - transform.position).normalized;
 		// if guard facing player and there are no wall between them
-		if (IsLookingAtObject(playerPosition, playerDirection) && !Physics2D.Raycast(transform.position, playerDirection, Vector2.Distance(transform.position, playerDirection), obstaclesMask)) {
+		if (IsFacingPlayer(playerDirection) && !CheckLayerWithRaycast(transform.position, playerPosition, obstaclesMask, true)) {
 			// game over
 			GameManager.instance.gameOver = true;
 		}
 	}
 		
-	// check the face to face between player and IA
-	bool IsLookingAtObject(Vector2 targetPos, Vector2 direction) {
-		// divide by 2 isn't necessary, just a bit easier to understand when looking at the angles.
-		float checkAngle = Mathf.Min(FOVAngle,359.99f) / 2f;
-		// check the face to face with dot
-		float dot = Vector2.Dot(movement.lastDir, direction);
-		// convert the dot product value into a 180 degree representation (or *180 if you don't divide by 2 earlier)
-		// check the view angle
-		if (((1 - dot) * 90f) <= checkAngle) {
+	// checks the face to face between player and IA
+	bool IsFacingPlayer(Vector2 direction) {
+		// check the face to face with dot, convert the dot product value into a 180 degree representation and check the view angle
+		if (((1 - Vector2.Dot(movement.lastDir, direction)) * 180f) <= Mathf.Min(FOVAngle,360f)) {
 			return true;
-		} 
+		}
 		return false;
 	}
 
@@ -176,7 +178,7 @@ public class FSMEnemy : MonoBehaviour {
         StartCoroutine("PatrolFSM");
     }
 
-    // Periodic update, run forever
+    // Periodically updates, runs forever
     IEnumerator PatrolFSM() {
         // if is not gameover or win
 		while (!GameManager.instance.gameOver && !GameManager.instance.win) {
@@ -185,7 +187,7 @@ public class FSMEnemy : MonoBehaviour {
         }
     }
 
-    // wait seconds before move
+    // waits seconds before move
     void Idle() {
         StartCoroutine("WaitToMove");
     }
@@ -196,7 +198,7 @@ public class FSMEnemy : MonoBehaviour {
         isIdle = false;
     }
 
-    // move the player to next position
+    // moves the player to next position
     void Move() {
         // it is came back to default path
         if (toThrowableAndBack.Count == 0) {
@@ -222,17 +224,17 @@ public class FSMEnemy : MonoBehaviour {
 		movement.isRunning = true;
     }
 
-    // check if door is open or close
+    // checks if door is open or close
     bool CheckDoor() {
         Vector3 nextPos = points[pos + 1].position;
         // if the door is closed
-		if (Physics2D.Raycast(transform.position, (nextPos - transform.position).normalized, Vector2.Distance(transform.position, nextPos), interactableMask)) {
+		if (CheckLayerWithRaycast(transform.position, nextPos, interactableMask, true)) {
 			return false;
         }
         return true;
     }
 
-    // find position to be reached
+    // finds position to be reached
     void FindPosition() {
         Transform minBetweenThrowableAndPoints = GetMinBetweenThrowableAndPoints();
         // if there are no point the nearest is the throwable itself
@@ -245,7 +247,7 @@ public class FSMEnemy : MonoBehaviour {
             Transform min = null;
             for (int i = 0; i < colliders.Length; i++) {
                 // check if a wall is not between the point and the enemy
-                if (!Physics2D.Raycast(transform.position, colliders[i].transform.position, Vector2.Distance(transform.position, colliders[i].transform.position), obstaclesMask)) {
+				if (!CheckLayerWithRaycast(transform.position, colliders[i].transform.position, obstaclesMask, false)) {
                     // get the min
                     if (min == null || (Vector2.Distance(minBetweenThrowableAndPoints.position, min.position) > Vector2.Distance(minBetweenThrowableAndPoints.position, colliders[i].transform.position))) {
                         min = colliders[i].transform;
@@ -259,14 +261,14 @@ public class FSMEnemy : MonoBehaviour {
         isReachingThrowable = true;
     }
 
-    // return the min point near the throwable
+    // returns the min point near the throwable
     Transform GetMinBetweenThrowableAndPoints() {
         // get all the point near throwable
         Collider2D[] colliders = Physics2D.OverlapCircleAll(throwablePosition.position, overlapRadius, pointsMask);
         Transform min = null;
         for (int i = 0; i < colliders.Length; i++) {
             // check if a wall is not between the point and the throwable
-            if (!Physics2D.Raycast(throwablePosition.position, colliders[i].transform.position, Vector2.Distance(throwablePosition.position, colliders[i].transform.position), obstaclesMask)) {
+			if (!CheckLayerWithRaycast(throwablePosition.position, colliders[i].transform.position, obstaclesMask, false)) {
                 // get the min
                 if (min == null || (Vector2.Distance(throwablePosition.position, min.position) > Vector2.Distance(throwablePosition.position, colliders[i].transform.position))) {
                     min = colliders[i].transform;
@@ -276,7 +278,7 @@ public class FSMEnemy : MonoBehaviour {
         return min;
     }
 
-    // check if is time to switch to move
+    // checks if is time to switch to move
     bool CheckTimeToMove() {
         if (!isIdle) {
             return true;
@@ -284,15 +286,16 @@ public class FSMEnemy : MonoBehaviour {
         return false;
     }
 
-    // check if is time to switch to idle
+    // checks if is time to switch to idle
     bool CheckRechedPosition() {
-		if (isIdle) {
-            return true;
+		if (isReachedPosition) {
+			isReachedPosition = false;
+			return isIdle = true;
         }
         return false;
     }
 
-    // check if is time to reach to seek
+    // checks if is time to reach to seek
     bool CheckNearObject() {
         if (throwablePosition != null) {
             isIdle = false;
@@ -302,7 +305,7 @@ public class FSMEnemy : MonoBehaviour {
         return false;
     }
 
-    // check if is time to came back to idle
+    // checks if is time to came back to idle
     bool CheckReachedObject() {
         if (throwableIsReached) {
             throwableIsReached = false;
@@ -312,4 +315,20 @@ public class FSMEnemy : MonoBehaviour {
         }
         return false;
     }
+
+	// throws a raycast between two point to check if layer is between them
+	bool CheckLayerWithRaycast(Vector2 pointA, Vector2 pointB, LayerMask layerMask, bool revert) {
+		if(Physics2D.Raycast(pointA, RevertRayDirection(pointA, pointB, revert), Vector2.Distance(pointA, pointB), layerMask)) {
+			return true;
+		}
+		return false;
+	}
+
+	// revert the direction of the ray if needed
+	Vector2 RevertRayDirection(Vector2 pointA, Vector2 pointB, bool revert) {
+		if(revert) {
+			return (pointB - pointA).normalized;
+		}
+		return (pointA - pointB).normalized;
+	}
 }

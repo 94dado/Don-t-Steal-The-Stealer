@@ -37,8 +37,11 @@ public class FSMMovement {
         }
 		// getDirection
 		GetDirection();
-		// set the animator with new data
-		SetAnimator();
+		// set values of the parameters
+		animator.SetFloat("RunX", direction.x);
+		animator.SetFloat("RunY", direction.y);
+		animator.SetBool("Running", isRunning);
+		animator.SetBool("Spotting", isSpot);
 		// check if we move in diagonal on the map and it reduces the speed
 		if (Mathf.Abs (direction.x) > 0f && Mathf.Abs (direction.y) > 0f) {
 			return speed / Mathf.Sqrt (2f);
@@ -47,17 +50,8 @@ public class FSMMovement {
 		return speed;
     }
 
-    // set the animator of the IA
-    public void SetAnimator() {
-		// set values of the parameters
-		animator.SetFloat("RunX", direction.x);
-		animator.SetFloat("RunY", direction.y);
-        animator.SetBool("Running", isRunning);
-        animator.SetBool("Spotting", isSpot);
-    }
-
 	// get the direction of the transform given
-	public Vector2 GetDirection() {
+	Vector2 GetDirection() {
 		// top
 		if (direction.y > 0f && direction.y > Mathf.Abs(direction.x)) {
 			return lastDir = Vector2.up;
