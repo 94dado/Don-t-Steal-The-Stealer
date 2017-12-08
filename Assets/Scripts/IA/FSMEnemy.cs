@@ -1,18 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System;
-using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 public class FSMEnemy : MonoBehaviour {
 
-	// all th points
-	public Transform allPoints;
 	// field of view of the guard
 	[Range(0f, 180f)] public float FOVAngle;
-	// uset to calculate the next position
-	public int pos;
     // radious of overlap circle
     public float overlapRadius;
     // patrol time
@@ -36,6 +31,8 @@ public class FSMEnemy : MonoBehaviour {
     float currentSpeed;
 	// point that enemy have to reach
 	Transform[] points;
+	// uset to calculate the next position
+	int currentPos;
     Transform nextPosition;
     Transform throwablePosition;
     // used to came back to the first known point
@@ -43,38 +40,44 @@ public class FSMEnemy : MonoBehaviour {
 	bool isIdle = true;
     bool isReachingThrowable;
     bool throwableIsReached;
+	// start FSM
+	bool isFSMStarted;
 
-    void Start() {
+	// initialize the FSM of the guard with points to follow and the start position
+	public void InitializeFSM(Transform[] allPoints, int startPos) {
         animator = GetComponent<Animator>();
         // initialize movement
 		movement = new FSMMovement(animator, transform.position, speed);
-		// create the points for the movement
-		points = allPoints.GetComponentsInChildren<Transform>().Skip(1).ToArray();
+		points = allPoints;
+		currentPos = startPos;
         // initialize FSM
         StartFSM();
     }
 
     void Update() {
-		// checks the movement boolean
-		if (GameManager.instance.gameOver) {
-			// stop moving
-			movement.isRunning = false;
-			movement.isSpot = true;
-		} 
-		else {
-			// checks collision with player or object
-			CheckCollision();
-			// check if we have to move
-			if (movement.isRunning || isReachingThrowable) {
-				Moving();
+		if(isFSMStarted) {
+			// checks the movement boolean
+			if(GameManager.instance.gameOver) {
+				// stop moving
+				movement.isRunning = false;
+				movement.isSpot = true;
+				isFSMStarted = false;
 			}
+			else {
+				// checks collision with player or object
+				CheckCollision();
+				// check if we have to move
+				if(movement.isRunning || isReachingThrowable) {
+					Moving();
+				}
+			}
+			// animates the player
+			currentSpeed = movement.Move(transform.position);
 		}
-		// animates the player
-		currentSpeed = movement.Move(transform.position);
     }
 
-	// checks collision with palyer
-	void OnTriggerEnter(Collider other) {
+	// checks collision with player
+	void OnCollisionEnter2D(Collision2D other) {
 		GameManager.instance.gameOver |= other.transform.tag == "Player";
 	}
 
@@ -172,6 +175,7 @@ public class FSMEnemy : MonoBehaviour {
 
         // Setup a FSA at initial state
         fsmMachine = new FSM(idleAction);
+		isFSMStarted = true;
         // Start monitoring
         StartCoroutine("PatrolFSM");
     }
@@ -179,7 +183,7 @@ public class FSMEnemy : MonoBehaviour {
     // Periodically updates, runs forever
     IEnumerator PatrolFSM() {
         // if is not gameover or win
-		while (!GameManager.instance.gameOver && !GameManager.instance.win) {
+		while (isFSMStarted) {
             fsmMachine.Update();
             yield return new WaitForSeconds(FSMDelay);
         }
@@ -201,18 +205,18 @@ public class FSMEnemy : MonoBehaviour {
         // it is came back to default path
         if (toThrowableAndBack.Count == 0) {
             // if it can't move thoward a door and is not at the last point
-			if (!CheckDoor() && pos + 1 != points.Length) {
+			if (!CheckDoor() && currentPos + 1 != points.Length) {
                 // reverse array and came back
-                pos = points.Length - pos -1;
+                currentPos = points.Length - currentPos -1;
                 Array.Reverse(points);
             }
-            pos++;
-            nextPosition = points[pos];
+            currentPos++;
+            nextPosition = points[currentPos];
             // if we re at the end of the array
-            if (pos + 1 == points.Length) {
+            if (currentPos + 1 == points.Length) {
                 // reverse array
                 Array.Reverse(points);
-                pos = 0;
+                currentPos = 0;
             }
         }
         else {
@@ -224,7 +228,7 @@ public class FSMEnemy : MonoBehaviour {
 
     // checks if door is open or close
     bool CheckDoor() {
-        Vector3 nextPos = points[pos + 1].position;
+        Vector3 nextPos = points[currentPos + 1].position;
         // if the door is closed
 		if (CheckLayerWithRaycast(transform.position, nextPos, interactableMask, true)) {
 			return false;
