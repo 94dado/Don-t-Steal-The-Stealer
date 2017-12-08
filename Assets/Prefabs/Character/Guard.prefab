@@ -186,7 +186,7 @@ MonoBehaviour:
   allPoints: {fileID: 0}
   FOVAngle: 45
   pos: 0
-  overlapRadius: 5
+  overlapRadius: 3.5
   FSMDelay: 0.1
   idleTime: 4
   speed: 3
