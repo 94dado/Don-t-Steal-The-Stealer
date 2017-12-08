@@ -184,7 +184,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FOVAngle: 45
-  overlapRadius: 5
+  pos: 0
+  overlapRadius: 3.5
   FSMDelay: 0.1
   idleTime: 4
   speed: 3

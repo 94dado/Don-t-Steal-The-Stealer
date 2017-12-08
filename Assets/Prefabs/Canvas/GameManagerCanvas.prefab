@@ -213,6 +213,10 @@ MonoBehaviour:
   obtainedObjects: 0
   obtainableObjects: 0
   time: 0
+  notStealable:
+  - Door
+  - Key
+  - Carpet
 --- !u!114 &114488150289319690
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -370,16 +374,16 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1090295483698490}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.024993896, y: -0.00022888184, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224819868793194064}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.024979, y: -0.00022692}
-  m_SizeDelta: {x: 799.95, y: 450.11}
+  m_AnchorMin: {x: -0.01, y: -0.03}
+  m_AnchorMax: {x: 1.01, y: 1.03}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224583394324597774
 RectTransform:
