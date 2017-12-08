@@ -1194,6 +1194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 1
+  levelString: Manual
 --- !u!114 &114584697495804388
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1755,6 +1756,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 1
+  levelString: Manual
 --- !u!114 &114977981886136154
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1975,7 +1977,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!224 &224060994173939800
 RectTransform:
