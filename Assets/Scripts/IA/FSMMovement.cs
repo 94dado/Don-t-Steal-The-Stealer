@@ -37,6 +37,12 @@ public class FSMMovement {
         }
 		// getDirection
 		GetDirection();
+        //round direction to have only -1, 0 and 1 as possible directions
+        direction = new Vector2(Mathf.Round(direction.x), Mathf.Round(direction.y));
+        //remove diagonal directions (to avoid light position interpolation)
+        if(direction.x != 0f && direction.y != 0f) {
+            direction = new Vector2(0f, direction.y);
+        }
 		// set values of the parameters
 		animator.SetFloat("RunX", direction.x);
 		animator.SetFloat("RunY", direction.y);
