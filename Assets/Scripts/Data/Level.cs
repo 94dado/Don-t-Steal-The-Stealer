@@ -4,6 +4,7 @@
 public class Level : ScriptableObject {
 
 	public string levelName;
+	public int positionCountInSceneArray;
 	public int timeLimit;
 	public int maxObject;
 	public bool isLocked;
