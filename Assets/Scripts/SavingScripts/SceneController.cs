@@ -6,80 +6,73 @@ using System.IO;
 
 public class SceneController : MonoBehaviour {
 
-	public Level[] levels;
-	public int money;
-	public Gadget[] gadgets;
-	public Intelligence[] intelligences;
-	// at start he create a new scenes manager
-	[HideInInspector]
-	public static SceneData data = new SceneData();
+	public GameData data;
 
 	// path to save data
-	static string dataPath;
+	string dataPath;
 
 	void Awake () {
+		// data are stored on this path
 		dataPath = Path.Combine(Application.persistentDataPath, "data.json");
+		MakePersistent();
+	}
+
+	// make the gameobject persistent between scenes
+	void MakePersistent() {
 		// remove the copy of the scene controller if exist
 		GameObject[] objs = GameObject.FindGameObjectsWithTag("SceneManager");
 		if (objs.Length > 1) {
 			Destroy(this.gameObject);
 		}
-		// ave the scene after the reload
+		// save the scene after the reload
 		DontDestroyOnLoad(this.gameObject);
 	}
 
-	// save data
-	public void Save() {
-		SaveData.Save(dataPath, SaveData.scene);
-	}
-
-	// load data
-	public void Load() {
-		SaveData.Load(dataPath);
-	}
-
-	// store data in serializable object
-	void StoreData() {
-		data.levels = levels;
-		data.money = money;
-		data.gadgets = gadgets;
-		data.intelligences = intelligences;
-	}
-
-	// load data from serializable object
-	void LoadData() {
-		this.levels = data.levels;
-		this.money = data.money;
-		this.gadgets = data.gadgets;
-		this.intelligences = data.intelligences;
-	}
-
-	// load data from serializable object
-	void ApplyData() {
-		SaveData.AddSceneManagerData(data);
-	}
-
-	// called when apen the game
+	// called when open the game
 	void OnEnable() {
-		SaveData.OnLoaded += LoadData;
-		// we want store data and after apply them
-		SaveData.OnBeforeSave += StoreData;
-		SaveData.OnBeforeSave += ApplyData;
+		GameData newData = LoadSceneManager(dataPath);
+		// if data to reload exist (used to check the first time we load data)
+		if (newData != null) {
+			// load data
+			data = newData;
+		}
 	}
 
 	// called when close the game
 	void OnDisable() {
-		// remove function
-		SaveData.OnLoaded -= LoadData;
-		// we want store data and after apply them
-		SaveData.OnBeforeSave -= StoreData;
-		SaveData.OnBeforeSave -= ApplyData;
+		SaveData();
 	}
+
+	// load the scene from a path
+	GameData LoadSceneManager(string path) {
+		// reload all the text of a file if exist
+		if(File.Exists(path)) {
+			// we return it as scene container
+			return JsonUtility.FromJson<GameData>(File.ReadAllText(path));
+		}
+		return null;
+	}
+
+	// save the scene in a path
+	void SaveSceneManager(string path, GameData gameData) {
+		// create the file if not exist
+		File.CreateText(path).Close();
+		// create the json from the scene and add to the file created
+		File.WriteAllText(path, JsonUtility.ToJson(gameData));
+	}
+
+	// used to save new data on json file wherever is necessary
+	public void SaveData() {
+		// save data on json
+		SaveSceneManager(dataPath, data);
+	}
+
+	// 
 }
 
 [Serializable]
 // store the data of all the scenes
-public class SceneData {
+public class GameData {
 	public Level[] levels;
 	public int money;
 	public Gadget[] gadgets;
