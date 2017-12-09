@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cef8995aceada4239b8ca55306dde93b, type: 3}
   m_Name: Electronic Safe Opener
   m_EditorClassIdentifier: 
-  gadgetName: 
+  gadgetName: Electronic Safe Opener
   isLocked: 0
-  price: 0
+  price: 200
   description: 

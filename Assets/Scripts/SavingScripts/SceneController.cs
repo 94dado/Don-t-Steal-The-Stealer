@@ -20,7 +20,7 @@ public class SceneController : MonoBehaviour {
 	void Awake () {
 		dataPath = Path.Combine(Application.persistentDataPath, "data.json");
 		// remove the copy of the scene controller if exist
-		GameObject[] objs = GameObject.FindGameObjectsWithTag("Scene manager");
+		GameObject[] objs = GameObject.FindGameObjectsWithTag("SceneManager");
 		if (objs.Length > 1) {
 			Destroy(this.gameObject);
 		}

@@ -205,19 +205,19 @@ public class FSMEnemy : MonoBehaviour {
         // it is came back to default path
         if (toThrowableAndBack.Count == 0) {
             // if it can't move thoward a door and is not at the last point
-			if (!CheckDoor() && currentPos + 1 != points.Length) {
+			if (!CheckDoor() && currentPos != points.Length -1) {
                 // reverse array and came back
                 currentPos = points.Length - currentPos -1;
                 Array.Reverse(points);
             }
-            currentPos++;
-            nextPosition = points[currentPos];
             // if we re at the end of the array
-            if (currentPos + 1 == points.Length) {
+            if (currentPos == points.Length -1) {
                 // reverse array
                 Array.Reverse(points);
                 currentPos = 0;
             }
+			currentPos++;
+			nextPosition = points[currentPos];
         }
         else {
             // came back to point path point by point

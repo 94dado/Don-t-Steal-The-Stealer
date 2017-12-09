@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Name: Intelligence 1
   m_EditorClassIdentifier: 
   levels: []
-  price: 0
+  price: 500
   description: 
