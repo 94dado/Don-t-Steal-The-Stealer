@@ -21,7 +21,7 @@ public class DataManager : MonoBehaviour {
 	// make the gameobject persistent between scenes
 	void MakePersistent() {
 		// remove the copy of the scene controller if exist
-		GameObject[] objs = GameObject.FindGameObjectsWithTag("SceneManager");
+		GameObject[] objs = GameObject.FindGameObjectsWithTag("DataManager");
 		if (objs.Length > 1) {
 			Destroy(this.gameObject);
 		}

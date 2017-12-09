@@ -9,7 +9,7 @@ TagManager:
   - Door
   - Key
   - Carpet
-  - SceneManager
+  - DataManager
   layers:
   - Default
   - TransparentFX
