@@ -39,43 +39,37 @@ public class FSMMovement {
 		GetDirection();
         //round direction to have only -1, 0 and 1 as possible directions
         direction = new Vector2(Mathf.Round(direction.x), Mathf.Round(direction.y));
+        float newSpeed = speed;
         //remove diagonal directions (to avoid light position interpolation)
-        if(direction.x != 0f && direction.y != 0f) {
+        if(Mathf.Abs(direction.x) > 0f && Mathf.Abs(direction.y) > 0f) {
             direction = new Vector2(0f, direction.y);
+            // check if we move in diagonal on the map and it reduces the speed
+            newSpeed = speed / Mathf.Sqrt(2f);
         }
 		// set values of the parameters
 		animator.SetFloat("RunX", direction.x);
 		animator.SetFloat("RunY", direction.y);
 		animator.SetBool("Running", isRunning);
 		animator.SetBool("Spotting", isSpot);
-		// check if we move in diagonal on the map and it reduces the speed
-		if (Mathf.Abs (direction.x) > 0f && Mathf.Abs (direction.y) > 0f) {
-			return speed / Mathf.Sqrt (2f);
-		} 
 		// return the speed of the IA
-		return speed;
+        return newSpeed;
     }
 
 	// get the direction of the transform given
 	Vector2 GetDirection() {
-		// top
-		if (direction.y > 0f && direction.y > Mathf.Abs(direction.x)) {
-			return lastDir = Vector2.up;
-		}
-		// right
-		else if (direction.x > 0f && direction.y <= Mathf.Abs(direction.x)) {
-			return lastDir = Vector2.right;
-		}
-		// down
-		else if (direction.x < 0f && direction.y > Mathf.Abs(direction.x)) {
-			return lastDir = Vector2.down;
-		}
-		// left
-		else if (direction.x < 0f && direction.y <= Mathf.Abs(direction.x)) {
-			return lastDir = Vector2.left;
-		} 
-		else {
-			return lastDir;
-		}
-	}
+        // top
+        if (direction.y > 0f && direction.y > Mathf.Abs(direction.x)) {
+            return lastDir = Vector2.up;
+        }
+        if (direction.x > 0f && direction.y <= Mathf.Abs(direction.x)) {
+            return lastDir = Vector2.right;
+        }
+        if (direction.x < 0f && direction.y > Mathf.Abs(direction.x)) {
+            return lastDir = Vector2.down;
+        }
+        if (direction.x < 0f && direction.y <= Mathf.Abs(direction.x)) {
+            return lastDir = Vector2.left;
+        }
+        return lastDir;
+    }
 }

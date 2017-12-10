@@ -205,7 +205,7 @@ public class FSMEnemy : MonoBehaviour {
         // it is came back to default path
         if (toThrowableAndBack.Count == 0) {
             // if it can't move thoward a door and is not at the last point
-			if (currentPos < points.Length -1 && !CheckDoor()) {
+			if (currentPos < points.Length -1 && !IsDoorClosed()) {
                 // reverse array and came back
                 currentPos = points.Length - currentPos -1;
                 Array.Reverse(points);
@@ -227,7 +227,7 @@ public class FSMEnemy : MonoBehaviour {
     }
 
     // checks if door is open or close
-    bool CheckDoor() {
+    bool IsDoorClosed() {
         // if the door is closed
 		if (CheckLayerWithRaycast(transform.position, points[currentPos + 1].position, interactableMask, true)) {
 			return false;
