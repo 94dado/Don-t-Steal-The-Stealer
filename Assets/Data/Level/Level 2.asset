@@ -11,11 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0af4ae3b859f4492c9751be5cde64648, type: 3}
   m_Name: Level 2
   m_EditorClassIdentifier: 
-  levelName: Level 2
+  levelName: Villa
   positionCountInSceneArray: 0
   timeLimit: 0
   maxObject: 0
-  isLocked: 0
+  isLocked: 1
   description: 
   objectsScore: 0
   timeScore: 0
