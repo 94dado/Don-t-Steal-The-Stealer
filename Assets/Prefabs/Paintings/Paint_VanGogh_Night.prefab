@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 200
-  stolenSprite: {fileID: 21300000, guid: b4bc6e01cdaa1b34fa624ce99077e56e, type: 3}
+  stolenSprite: {fileID: 21300000, guid: 70759b44b40f38a46a7197737d3310d3, type: 3}
   objectType: Painting
 --- !u!212 &212361051338271302
 SpriteRenderer:

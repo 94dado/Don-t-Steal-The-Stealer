@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4561723444007736}
   - component: {fileID: 212463489184804344}
   m_Layer: 0
-  m_Name: Paint_Swag
+  m_Name: Paint_Pino_Swag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
