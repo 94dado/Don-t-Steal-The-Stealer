@@ -52,8 +52,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1753543095748852}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.383, y: -1.495, z: 0}
-  m_LocalScale: {x: 0.14327656, y: 0.14327656, z: 0.14327656}
+  m_LocalPosition: {x: 33.649998, y: -120.34, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4485285826295098}
   m_Father: {fileID: 0}
@@ -84,7 +84,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -2.6278267}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -95,7 +95,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7.21, y: 10.36}
+  m_Size: {x: 7.21, y: 5.104347}
   m_EdgeRadius: 0
 --- !u!114 &114585282909001506
 MonoBehaviour:
@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d274ca9f4e1aa694fb367b1f2e7ec0cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 300
+  value: 50
   stolenSprite: {fileID: 0}
   objectType: Theca
 --- !u!212 &212579465075681464
