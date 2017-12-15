@@ -9,43 +9,43 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1990278746578376}
+  m_RootGameObject: {fileID: 1544731716122320}
   m_IsPrefabParent: 1
---- !u!1 &1990278746578376
+--- !u!1 &1544731716122320
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4561723444007736}
-  - component: {fileID: 212463489184804344}
+  - component: {fileID: 4108248088025046}
+  - component: {fileID: 212344168186364948}
   m_Layer: 0
-  m_Name: Paint_Pino_Swag
+  m_Name: Paint_Pino_Swag 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4561723444007736
+--- !u!4 &4108248088025046
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1990278746578376}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.36, y: 1.7, z: 0}
-  m_LocalScale: {x: 0.05, y: 0.05, z: 1}
+  m_GameObject: {fileID: 1544731716122320}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -8.46044, y: -2.2080536, z: -9.021463}
+  m_LocalScale: {x: 0.08, y: 0.08, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &212463489184804344
+--- !u!212 &212344168186364948
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1990278746578376}
+  m_GameObject: {fileID: 1544731716122320}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
