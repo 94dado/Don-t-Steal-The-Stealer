@@ -26,9 +26,6 @@ public class PlayerController : SpriteOffset {
     bool nearADoor = false;
     bool nearASafe = false;
 
-    // speed of the player
-    public float speed;
-
     //boosted speed variables
     [SerializeField]
     private float boostedSpeed;
