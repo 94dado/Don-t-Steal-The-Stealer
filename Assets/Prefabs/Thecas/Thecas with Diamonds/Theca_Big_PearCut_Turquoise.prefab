@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d274ca9f4e1aa694fb367b1f2e7ec0cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 300
+  value: 50
   stolenSprite: {fileID: 0}
   objectType: Theca
 --- !u!212 &212680922424344972
@@ -142,8 +142,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -385274799
-  m_SortingLayer: 3
+  m_SortingLayerID: 1498403391
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ae877402fc6ed8f428acc3321b5a86e3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

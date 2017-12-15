@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(SpriteRenderer))]
-public class PlayerController : MonoBehaviour {
+public class PlayerController : SpriteOffset {
 
     // these variables are used for interactions with interactable objects
     public float interactionRadius;
