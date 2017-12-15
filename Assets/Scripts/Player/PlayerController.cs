@@ -7,6 +7,11 @@ public class PlayerController : MonoBehaviour {
 
     // these variables are used for interactions with interactable objects
     public float interactionRadius;
+    // aim
+    public GameObject crosshair;
+    // speed of the player
+    public float speed;
+
     private Vector2 lineEndWest, lineEndEast, lineEndSouth, lineEndNorth;
     private Vector2 lineEnd, lineStart;
     private GameObject gameManagerObject;
@@ -17,9 +22,6 @@ public class PlayerController : MonoBehaviour {
 
     RaycastHit2D hitObject;
     bool interact = false;
-
-    // speed of the player
-    public float speed;
 
     Animator animator;
     // where the last movemement is
@@ -71,6 +73,19 @@ public class PlayerController : MonoBehaviour {
             Cursor.visible = true;
             GetComponent<AudioSource>().Stop();
 		}
+        // if player press aim appear
+        if (Input.GetMouseButton(1)) {
+            // activate crosshair
+            crosshair.gameObject.SetActive(true);
+        }
+        // if it release the button thrown an object
+        if (Input.GetMouseButtonUp(1)) {
+            // deactivate crosshair
+            crosshair.gameObject.SetActive(false);
+            if (crosshair.isThrowable) {
+                // TODO: thrown
+            }
+        }
     }
 
     // move the player

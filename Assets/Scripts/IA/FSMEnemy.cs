@@ -138,7 +138,7 @@ public class FSMEnemy : MonoBehaviour {
 	// checks the face to face between player and IA
 	bool IsFacingPlayer(Vector2 direction) {
 		// check the face to face with dot, convert the dot product value into a 180 degree representation and check the view angle
-		if (((1 - Vector2.Dot(movement.lastDir, direction)) * 180f) <= Mathf.Min(FOVAngle,360f)) {
+		if (((1 - Vector2.Dot(movement.lastDir, direction)) * 180f) <= Mathf.Min(FOVAngle,359.99f)) {
 			return true;
 		}
 		return false;
