@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
-public class FSMEnemy : MonoBehaviour {
+public class FSMEnemy : SpriteOffset {
 
 	// field of view of the guard
 	[Range(0f, 180f)] public float FOVAngle;

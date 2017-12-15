@@ -11,12 +11,30 @@ public class GameManager : MonoBehaviour {
     public GameOverManager gameOverManager;
     public Text moneyText;
     public Text timeText;
+    public Text itemText;
+    public Text keyText;
+    public Text coolDownText;
+    public Image gadgetImage;
+    public Text gadgetText;
+
+    
+    
+    
+
     [HideInInspector]
     // check if we are in game over
     public bool gameOver;
     [HideInInspector]
     // check if we are win
     public bool win;
+
+    //gadget variables
+    [HideInInspector]
+    public List<Gadget> gadgetList;
+    [HideInInspector]
+    public int currentGadgetNumber;
+    public Gadget currentGadget;
+    private int gadgetNumber;
 
     [HideInInspector]
     public int oldObtainedMoney;
@@ -29,12 +47,22 @@ public class GameManager : MonoBehaviour {
     public int obtainableObjects;
     [HideInInspector]
     public float time;
+    [HideInInspector]
+    public int keyNumber;
+    [HideInInspector]
+    public int obtainedKeys;
 
     //list of all interactable that aren't stealable
     public string[] notStealable;
-    
+
+    //map variables
+    private bool mapActive;
+    public GameObject map;
+
 
     public static GameManager instance;
+
+
 
     private void Awake()
     {
@@ -43,6 +71,23 @@ public class GameManager : MonoBehaviour {
         newObtainedMoney = 0;
         obtainedObjects = 0;
         obtainableObjects = getInteractableObjectsNumber(LayerMask.NameToLayer("Interactable"));
+
+        DataManager dataManager = GameObject.FindGameObjectWithTag("DataManager").GetComponent<DataManager>();
+        gadgetList = new List<Gadget>();
+        Gadget[] allGadgets;
+        allGadgets = dataManager.Gadgets;
+
+        foreach(Gadget g in allGadgets)
+        {
+            if(!g.isLocked)
+            {
+                gadgetList.Add(g);
+            }
+        }
+
+        gadgetNumber = gadgetList.Count;
+        currentGadget = gadgetList[0];
+
     }
 
     private void Update()
@@ -57,6 +102,9 @@ public class GameManager : MonoBehaviour {
             
         if(oldObtainedMoney < newObtainedMoney)
             updateMoney();
+
+        MapUpdate();
+        ShowGadget();
     }
 
     //activate the "press E to interact" text
@@ -65,9 +113,9 @@ public class GameManager : MonoBehaviour {
         screenText.text = "Click to interact";
     }
     //activate the "missing gadget" text
-    public void ActivateNoGadgetText()
+    public void ActivateSafeText()
     {
-        screenText.text = "You don't have the right gadget";
+        screenText.text = "You need an Electronic Safe Opener";
     }
 
     public void ActivateNoKeyText()
@@ -89,10 +137,12 @@ public class GameManager : MonoBehaviour {
     public void AddMoney(int money,string tag)
     {
         newObtainedMoney = newObtainedMoney +money;
-        
+
 
         if (IsStealable(tag))
             obtainedObjects = obtainedObjects + 1;
+        else if (tag == "Key")
+            obtainedKeys++;
     }
 
     //used when creating the gameOver menu, coounts all interactable objects
@@ -105,6 +155,10 @@ public class GameManager : MonoBehaviour {
         List<GameObject> filtered = new List<GameObject>(goArray.Where(x => x.layer == layer));
         foreach (GameObject obj in filtered)
         {
+            if((obj.GetComponent<InteractableObject>()).getObjectType() == "Key")
+            {
+                keyNumber++;
+            }
             if (IsStealable(obj.tag))
             {
                 interactableObjectNumber = interactableObjectNumber + 1;
@@ -112,6 +166,7 @@ public class GameManager : MonoBehaviour {
         }
         return interactableObjectNumber;
     }
+
 
     //used to check if an item is stealable
     private bool IsStealable(string itemTag) {
@@ -173,5 +228,66 @@ public class GameManager : MonoBehaviour {
         moneyText.text = "Money: " + oldObtainedMoney + "$";
     }
 
-    
+    //open and close map
+    void MapUpdate()
+    {
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            if (!mapActive)
+            {
+                map.SetActive(true);
+                mapActive = true;
+            }
+            else
+            {
+                map.SetActive(false);
+                mapActive = false;
+            }
+        }
+
+        itemText.text = "Items: " + obtainedObjects + "/" + obtainableObjects;
+        keyText.text = "Keys: " + obtainedKeys + "/" + keyNumber;
+    }
+
+    void ShowGadget()
+    {
+
+        
+     float scroll = Input.GetAxis("Mouse ScrollWheel");
+    if (scroll > 0)
+            {
+                if (currentGadgetNumber == gadgetNumber - 1)
+                    currentGadgetNumber = 0;
+                else
+                    currentGadgetNumber++;
+            }
+    if (scroll < 0)
+            {
+                if (currentGadgetNumber == 0)
+                    currentGadgetNumber = gadgetNumber - 1;
+                else
+                    currentGadgetNumber--;
+            }
+
+    if(scroll != 0)
+        {
+            currentGadget = gadgetList[currentGadgetNumber];
+            gadgetImage.sprite = currentGadget.image;
+            if (currentGadget.name != "Turbo Shoes")
+            {
+                gadgetImage.color = new Color(1, 1, 1);
+                coolDownText.text = "";
+            }
+            gadgetText.text = currentGadget.name;
+        }
+        
+        
+            
+           
+        
+            
+        
+    }
+
 }

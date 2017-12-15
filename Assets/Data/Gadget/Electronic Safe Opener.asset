@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Name: Electronic Safe Opener
   m_EditorClassIdentifier: 
   gadgetName: Electronic Safe Opener
+  image: {fileID: 0}
+  positionCountInSceneArray: 1
   isLocked: 0
-  price: 200
+  price: 1000
   description: 

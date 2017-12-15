@@ -4,6 +4,7 @@
 public class Gadget : ScriptableObject {
 
 	public string gadgetName;
+    public Sprite image;
 	public int positionCountInSceneArray;
 	public bool isLocked;
 	public int price;

@@ -11,7 +11,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0af4ae3b859f4492c9751be5cde64648, type: 3}
   m_Name: Level 1
   m_EditorClassIdentifier: 
-  levelName: Level 1
+  levelName: Museum
+  positionCountInSceneArray: 0
   timeLimit: 300
   maxObject: 12
   isLocked: 0

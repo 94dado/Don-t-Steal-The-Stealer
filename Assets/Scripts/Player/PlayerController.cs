@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(SpriteRenderer))]
-public class PlayerController : MonoBehaviour {
+public class PlayerController : SpriteOffset {
 
     // these variables are used for interactions with interactable objects
     public float interactionRadius;
@@ -14,14 +14,32 @@ public class PlayerController : MonoBehaviour {
 
     private Vector2 lineEndWest, lineEndEast, lineEndSouth, lineEndNorth;
     private Vector2 lineEnd, lineStart;
-    private GameObject gameManagerObject;
     private GameManager gameManager;
-    private List<string> gadgetList;
+
+    
 
     private List<int> keyList;
 
+    //variables user in player interaction with objects
     RaycastHit2D hitObject;
     bool interact = false;
+    bool nearADoor = false;
+    bool nearASafe = false;
+
+    // speed of the player
+    public float speed;
+
+    //boosted speed variables
+    [SerializeField]
+    private float boostedSpeed;
+    [SerializeField]
+    private float boostCooldown;
+    [SerializeField]
+    private float boostDuration;
+    [SerializeField]
+    private float boostCoolDownTimer;
+    [SerializeField]
+    private float boostDurationTimer;
 
     Animator animator;
     // where the last movemement is
@@ -38,15 +56,11 @@ public class PlayerController : MonoBehaviour {
         myRigidbody = GetComponent<Rigidbody2D>();
 
         
-        gadgetList = new List<string>();
         keyList = new List<int>();
 
-        //initializing gadgetList and keyList, this is temporary!!!!
         
-        gadgetList.Add("Theca");
-        gadgetList.Add("Painting");
-        gadgetList.Add("Safe");
-        gadgetList.Add("Door");
+        //"key" used to open already opened doors
+        keyList.Add(-1);
         gameManager = GameManager.instance;
 
         //initializing player raycast
@@ -67,6 +81,8 @@ public class PlayerController : MonoBehaviour {
 		if (!gameManager.gameOver && !gameManager.win) {
 			Move ();
 			Raycast ();
+            ActivateGadget();
+            UpdateCooldowns();
 		} 
 		else {
 			animator.SetBool ("Saw", true);
@@ -102,12 +118,12 @@ public class PlayerController : MonoBehaviour {
             lastMovement = new Vector2(horizontal, 0f);
             if (horizontal > 0f)
             {
-                lineEndEast.Set(gameObject.transform.position.x + interactionRadius, gameObject.transform.position.y);
+                lineEndEast.Set(gameObject.transform.position.x + interactionRadius / 2, gameObject.transform.position.y);
                 lineEnd = lineEndEast;
             }
             else
             {
-                lineEndWest.Set(gameObject.transform.position.x - interactionRadius, gameObject.transform.position.y);
+                lineEndWest.Set(gameObject.transform.position.x - interactionRadius / 2, gameObject.transform.position.y);
                 lineEnd = lineEndWest;
             }
         }
@@ -154,19 +170,46 @@ public class PlayerController : MonoBehaviour {
         {
             hitObject = Physics2D.Linecast(lineStart, lineEnd, 1 << LayerMask.NameToLayer("Interactable"));
             InteractableObject myObject = hitObject.collider.gameObject.GetComponent<InteractableObject>();
+            bool hitWall;
+
+            if (Physics2D.Linecast(lineStart, lineEnd, 1 << LayerMask.NameToLayer("Wall")))
+                hitWall = true;
+            else
+                hitWall = false;
+            
+
+            float myObjectY = myObject.transform.position.y;
+            float nancyY = transform.position.y;
+
             if (checkGadgetPresence(myObject) == 0)
             {
-                gameManager.ActivateInteractionText();
-                interact = true;
+                if ((hitWall && nancyY < myObjectY) || (!hitWall))
+                {
+                    gameManager.ActivateInteractionText();
+                    interact = true;
+                }
+                nearADoor = false;
+                nearASafe = false;
+
             }
             else if (checkGadgetPresence(myObject) == 1)
-                gameManager.ActivateNoGadgetText();
+            {
+                gameManager.ActivateSafeText();
+                nearADoor = false;
+                nearASafe = true;
+            }
             else if (checkGadgetPresence(myObject) == 2)
+            {
                 gameManager.ActivateNoKeyText();
+                nearADoor = true;
+                nearASafe = false;
+            }
             else if (checkGadgetPresence(myObject) == 3)
             {
                 gameManager.ActivateExitText();
                 interact = true;
+                nearADoor = false;
+                nearASafe = false;
             }
 
         }
@@ -199,14 +242,28 @@ public class PlayerController : MonoBehaviour {
             }
         }
 
+        if(Input.GetKeyDown(KeyCode.Mouse1) && interact == false && nearADoor == true && gameManager.currentGadget.name == "Lock Pick")
+        {
+            InteractableObject myObject = hitObject.collider.gameObject.GetComponent<InteractableObject>();
+            myObject.Interact();
+        }
+
+        if(Input.GetKeyDown(KeyCode.Mouse1) && interact == false && nearASafe == true && gameManager.currentGadget.name == "Electronic Safe Opener")
+        {
+            InteractableObject myObject = hitObject.collider.gameObject.GetComponent<InteractableObject>();
+            gameManager.AddMoney(myObject.Interact(), myObject.tag);
+        }
+
     }
+
+
 
     private int checkGadgetPresence(InteractableObject myObject)
     {
         //0 you can interact with the object
-        //1 you are missing a gadget
+        //1 you need to use a safe opener
         //2 you are missing a key
-        //3 you still need to steal an object to exit
+        //3 you stole at least an object and are near an exit
 
         // if the object is a door, check that the player has the key if he does return 0, else return 1
         if (myObject.getObjectType() == "Door")
@@ -227,18 +284,56 @@ public class PlayerController : MonoBehaviour {
         else if (myObject.getObjectType() == "Endgame")
             return 3;
         //if we are here, the interacted object is neither a door, a key or a mat. We must check if the player has the right gadget
-        else
+        else if (myObject.getObjectType() == "Safe")
         {
-            foreach (string gadget in gadgetList)
-            {
-                if (myObject.getObjectType() == gadget)
-                    return 0;
-            }
             return 1;
         }
-
+        return 0;
 
 
     }
 
+    private void ActivateGadget()
+    {
+        if(Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            if(gameManager.currentGadget.name == "Turbo Shoes" && boostCoolDownTimer == 0)
+            {
+                speed = boostedSpeed;
+                boostDurationTimer = boostDuration;
+                boostCoolDownTimer = boostCooldown;
+            }
+        }
+    }
+
+    void UpdateCooldowns()
+    {
+        if (boostCoolDownTimer > 0)
+        {
+            boostCoolDownTimer -= Time.deltaTime;
+            if (gameManager.currentGadget.name == "Turbo Shoes")
+            {
+                gameManager.gadgetImage.color = new Color(0.2f, 0.2f, 0.2f);
+                gameManager.coolDownText.text = Mathf.Ceil(boostCoolDownTimer).ToString();
+            }
+        }
+
+        if (boostCoolDownTimer < 0)
+        {
+            gameManager.gadgetImage.color = new Color(1f, 1f, 1f);
+            boostCoolDownTimer = 0;
+        }
+
+        if(boostDurationTimer > 0)
+            boostDurationTimer -= Time.deltaTime;
+
+        if (boostDurationTimer < 0)
+        {
+            boostDurationTimer = 0;
+            speed = 3;
+        }
+
+        
+
+    }
 }

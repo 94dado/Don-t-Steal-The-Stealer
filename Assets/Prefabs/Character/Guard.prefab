@@ -183,12 +183,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fae25d81cd05049969059698db2426c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FOVAngle: 45
-  pos: 0
-  overlapRadius: 3.5
+  FOVAngle: 35
+  overlapRadius: 3
   FSMDelay: 0.1
-  idleTime: 4
-  speed: 3
+  idleTime: 4.5
+  speed: 2
   pointsMask:
     serializedVersion: 2
     m_Bits: 131072
