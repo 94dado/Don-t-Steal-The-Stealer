@@ -84,7 +84,8 @@ public class FSMEnemy : SpriteOffset {
     // moves the player
     void Moving() {
         // move player to next position until it will reach it
-        if (Vector2.Distance(transform.position, nextPosition.position) > 0f) {
+        Debug.Log(Vector2.Distance(transform.position, nextPosition.position));
+        if (Vector2.Distance(transform.position, nextPosition.position) > 0.01f) {
             // move
             transform.position = Vector2.MoveTowards(transform.position, nextPosition.position, currentSpeed * Time.deltaTime);
         }
