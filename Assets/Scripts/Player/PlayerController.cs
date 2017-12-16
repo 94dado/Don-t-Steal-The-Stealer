@@ -24,11 +24,8 @@ public class PlayerController : SpriteOffset {
 
     //boosted speed variables
     [SerializeField]
-    private float boostedSpeed;
-    [SerializeField]
-    List<float> boostDurationTimers;
-    List<float> cooldownTimers;
-
+    public float boostedSpeed;
+    
     Animator animator;
     // where the last movemement is
     Vector2 lastMovement;
@@ -56,14 +53,7 @@ public class PlayerController : SpriteOffset {
         //"key" used to open already opened doors
         keyList.Add(-1);
         gameManager = GameManager.instance;
-        cooldownTimers = new List<float>();
-        boostDurationTimers = new List<float>();
 
-        for(int i = 0; i < gameManager.gadgetList.Count; i++)
-        {
-            cooldownTimers.Add(0);
-            boostDurationTimers.Add(0);
-        }
 
         //initializing player raycast
         lineEndWest = new Vector2(gameObject.transform.position.x - interactionRadius, gameObject.transform.position.y) ;
@@ -307,24 +297,7 @@ public class PlayerController : SpriteOffset {
     {
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
-            if (gameManager.currentGadget.positionCountInSceneArray == 4 && cooldownTimers[4] == 0)
-            {
-                speed = boostedSpeed;
-                boostDurationTimers[4] = gameManager.gadgetList[4].boostDuration;
-                cooldownTimers[4] = gameManager.gadgetList[4].coolDown;
-            }
-
-            if (gameManager.currentGadget.positionCountInSceneArray == 3 && cooldownTimers[3] == 0)
-            {
-
-                boostDurationTimers[3] = gameManager.gadgetList[3].boostDuration;
-                cooldownTimers[3] = gameManager.gadgetList[3].coolDown;
-            }
-        }
-
-        if (boostDurationTimers[4] == 0)
-        {
-            speed = 3;
+            gameManager.currentGadget.activateGadget();
         }
     }
 
@@ -333,32 +306,10 @@ public class PlayerController : SpriteOffset {
         //update all the cooldown timers and duration timers
         for (int i = 0; i < gameManager.gadgetList.Count; i++)
         {
-            if (cooldownTimers[i] > 0)
-            {
-                cooldownTimers[i] -= Time.deltaTime;
-            }
-
-            if (cooldownTimers[i] < 0)
-            {
-                cooldownTimers[i] = 0;
-            }
-
-
-            if (boostDurationTimers[i] > 0)
-                boostDurationTimers[i] -= Time.deltaTime;
-
-            if (boostDurationTimers[i] < 0)
-            {
-                boostDurationTimers[i] = 0;
-
-            }
-
+            gameManager.gadgetList[i].UpdateCooldown(Time.deltaTime);
         }
 
     }
 
-    public float cooldownTimer(int positionInScene)
-    {
-        return cooldownTimers[positionInScene];
-    }
+
 }
