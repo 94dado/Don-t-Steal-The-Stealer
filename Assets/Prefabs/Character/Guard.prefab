@@ -183,6 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fae25d81cd05049969059698db2426c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteOffset: 0
   FOVAngle: 35
   overlapRadius: 3
   FSMDelay: 0.1

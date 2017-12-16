@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4308079060622758}
   - component: {fileID: 108335567328109702}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Spotlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 4202525180124012}
   - component: {fileID: 212428899741725440}
   - component: {fileID: 114606130239888248}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Lamp8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
