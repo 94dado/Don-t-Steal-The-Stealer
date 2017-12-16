@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using System.IO;
 
-public class DataManager : MonoBehaviour {
+public class DataManager : SpriteOffset {
 
 	// started game data
 	[SerializeField]
