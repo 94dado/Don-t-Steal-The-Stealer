@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212047227426837726}
   - component: {fileID: 61144273675116944}
   m_Layer: 10
-  m_Name: Furniture_Left 1
+  m_Name: Furniture_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -16,10 +16,7 @@ public class GameManager : MonoBehaviour {
     public Text coolDownText;
     public Image gadgetImage;
     public Text gadgetText;
-
-    
-    
-    
+    private PlayerController player;
 
     [HideInInspector]
     // check if we are in game over
@@ -30,11 +27,14 @@ public class GameManager : MonoBehaviour {
 
     //gadget variables
     [HideInInspector]
-    public List<Gadget> gadgetList;
+    public List<Gadgets> gadgetList;
     [HideInInspector]
     public int currentGadgetNumber;
-    public Gadget currentGadget;
+    
+    public Gadgets currentGadget;
     private int gadgetNumber;
+
+    private bool activeCooldownText;
 
     [HideInInspector]
     public int oldObtainedMoney;
@@ -72,21 +72,9 @@ public class GameManager : MonoBehaviour {
         obtainedObjects = 0;
         obtainableObjects = getInteractableObjectsNumber(LayerMask.NameToLayer("Interactable"));
 
-        DataManager dataManager = GameObject.FindGameObjectWithTag("DataManager").GetComponent<DataManager>();
-        gadgetList = new List<Gadget>();
-        Gadget[] allGadgets;
-        allGadgets = dataManager.Gadgets;
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();        
 
-        foreach(Gadget g in allGadgets)
-        {
-            if(!g.isLocked)
-            {
-                gadgetList.Add(g);
-            }
-        }
-
-        gadgetNumber = gadgetList.Count;
-        currentGadget = gadgetList[0];
+        InitializeGadgets();
 
     }
 
@@ -105,6 +93,7 @@ public class GameManager : MonoBehaviour {
 
         MapUpdate();
         ShowGadget();
+        UpdateCoolDownText();
     }
 
     //activate the "press E to interact" text
@@ -273,21 +262,58 @@ public class GameManager : MonoBehaviour {
     if(scroll != 0)
         {
             currentGadget = gadgetList[currentGadgetNumber];
-            gadgetImage.sprite = currentGadget.image;
-            if (currentGadget.name != "Turbo Shoes")
-            {
-                gadgetImage.color = new Color(1, 1, 1);
-                coolDownText.text = "";
-            }
+            gadgetImage.sprite = currentGadget.sprite;
             gadgetText.text = currentGadget.name;
         }
-        
-        
-            
-           
-        
-            
-        
+       
+    }
+
+    void UpdateCoolDownText()
+    {
+        if(currentGadget.cooldownTimer != 0)
+        {
+            gadgetImage.color = new Color(0.2f, 0.2f, 0.2f);
+            coolDownText.text = Mathf.Ceil(currentGadget.cooldownTimer).ToString();
+        }
+        else
+        {
+            gadgetImage.color = new Color(1, 1, 1);
+            coolDownText.text = "";
+        }
+    }
+
+    void InitializeGadgets()
+    {
+        DataManager dataManager = GameObject.FindGameObjectWithTag("DataManager").GetComponent<DataManager>();
+        gadgetList = new List<Gadgets>();
+        Gadget[] allGadgets;
+        allGadgets = dataManager.Gadgets;
+
+
+        foreach (Gadget g in allGadgets)
+        {
+            if (!g.isLocked)
+            {
+                if (g.name == "Turbo Boots")
+                    gadgetList.Add(new Turbo_boots(g.name, g.image, g.coolDown, g.boostDuration, player));
+                else if (g.name == "Rock")
+                    gadgetList.Add(new Rock(g.name, g.image, g.coolDown, g.boostDuration, player));
+                else if (g.name == "Lock Pick")
+                    gadgetList.Add(new Lock_pick(g.name, g.image, g.coolDown, g.boostDuration, player));
+                else if(g.name == "Electronic Safe Opener")
+                    gadgetList.Add(new Electronic_safe_opener(g.name, g.image, g.coolDown, g.boostDuration, player));
+                else
+                    gadgetList.Add(new Gadgets(g.name, g.image, g.coolDown, g.boostDuration, player));
+            }
+        }
+
+        gadgetNumber = gadgetList.Count;
+        currentGadget = gadgetList[0];
+
+        gadgetImage.sprite = currentGadget.sprite;
+        gadgetText.text = currentGadget.name;
+
+
     }
 
 }

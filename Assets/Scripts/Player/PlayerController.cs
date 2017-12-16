@@ -17,23 +17,19 @@ public class PlayerController : SpriteOffset {
     private List<int> keyList;
 
     //variables user in player interaction with objects
-    RaycastHit2D hitObject;
-    bool interact = false;
-    bool nearADoor = false;
-    bool nearASafe = false;
+    [HideInInspector]
+    public RaycastHit2D hitObject;
+    [HideInInspector]
+    public bool interact = false;
+    public bool nearADoor = false;
+    [HideInInspector]
+    public bool nearASafe = false;
+    
 
     //boosted speed variables
     [SerializeField]
-    private float boostedSpeed;
-    [SerializeField]
-    private float boostCooldown;
-    [SerializeField]
-    private float boostDuration;
-    [SerializeField]
-    private float boostCoolDownTimer;
-    [SerializeField]
-    private float boostDurationTimer;
-
+    public float boostedSpeed;
+    
     Animator animator;
     // where the last movemement is
     Vector2 lastMovement;
@@ -61,6 +57,7 @@ public class PlayerController : SpriteOffset {
         //"key" used to open already opened doors
         keyList.Add(-1);
         gameManager = GameManager.instance;
+
 
         //initializing player raycast
         lineEndWest = new Vector2(gameObject.transform.position.x - interactionRadius, gameObject.transform.position.y) ;
@@ -226,6 +223,8 @@ public class PlayerController : SpriteOffset {
         else
         {
             interact = false;
+            nearADoor = false;
+            nearASafe = false;
             gameManager.deactivateText();
 
         }
@@ -249,18 +248,6 @@ public class PlayerController : SpriteOffset {
             {
                 keyList.Add(((Key)myObject).getKeyID());
             }
-        }
-
-        if(Input.GetKeyDown(KeyCode.Mouse1) && interact == false && nearADoor == true && gameManager.currentGadget.name == "Lock Pick")
-        {
-            InteractableObject myObject = hitObject.collider.gameObject.GetComponent<InteractableObject>();
-            myObject.Interact();
-        }
-
-        if(Input.GetKeyDown(KeyCode.Mouse1) && interact == false && nearASafe == true && gameManager.currentGadget.name == "Electronic Safe Opener")
-        {
-            InteractableObject myObject = hitObject.collider.gameObject.GetComponent<InteractableObject>();
-            gameManager.AddMoney(myObject.Interact(), myObject.tag);
         }
 
     }
@@ -304,45 +291,21 @@ public class PlayerController : SpriteOffset {
 
     private void ActivateGadget()
     {
-        if(Input.GetKeyDown(KeyCode.Mouse1))
+        if (Input.GetKeyDown(KeyCode.Mouse1))
         {
-            if(gameManager.currentGadget.name == "Turbo Shoes" && boostCoolDownTimer == 0)
-            {
-                speed = boostedSpeed;
-                boostDurationTimer = boostDuration;
-                boostCoolDownTimer = boostCooldown;
-            }
+            gameManager.currentGadget.activateGadget();
         }
     }
 
     void UpdateCooldowns()
     {
-        if (boostCoolDownTimer > 0)
+        //update all the cooldown timers and duration timers
+        for (int i = 0; i < gameManager.gadgetList.Count; i++)
         {
-            boostCoolDownTimer -= Time.deltaTime;
-            if (gameManager.currentGadget.name == "Turbo Shoes")
-            {
-                gameManager.gadgetImage.color = new Color(0.2f, 0.2f, 0.2f);
-                gameManager.coolDownText.text = Mathf.Ceil(boostCoolDownTimer).ToString();
-            }
+            gameManager.gadgetList[i].UpdateCooldown(Time.deltaTime);
         }
-
-        if (boostCoolDownTimer < 0)
-        {
-            gameManager.gadgetImage.color = new Color(1f, 1f, 1f);
-            boostCoolDownTimer = 0;
-        }
-
-        if(boostDurationTimer > 0)
-            boostDurationTimer -= Time.deltaTime;
-
-        if (boostDurationTimer < 0)
-        {
-            boostDurationTimer = 0;
-            speed = 3;
-        }
-
-        
 
     }
+
+
 }
