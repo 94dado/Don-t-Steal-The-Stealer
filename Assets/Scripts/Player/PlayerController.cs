@@ -83,7 +83,6 @@ public class PlayerController : SpriteOffset {
 		else {
 			animator.SetBool ("Saw", true);
             Cursor.visible = true;
-            GetComponent<AudioSource>().Stop();
 		}
         // aim controller
         AimInteraction();
