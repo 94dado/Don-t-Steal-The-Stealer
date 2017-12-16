@@ -221,6 +221,8 @@ public class PlayerController : SpriteOffset {
         else
         {
             interact = false;
+            nearADoor = false;
+            nearASafe = false;
             gameManager.deactivateText();
 
         }
