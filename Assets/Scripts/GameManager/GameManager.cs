@@ -18,10 +18,6 @@ public class GameManager : MonoBehaviour {
     public Text gadgetText;
     private PlayerController player;
 
-    
-    
-    
-
     [HideInInspector]
     // check if we are in game over
     public bool gameOver;
@@ -76,17 +72,9 @@ public class GameManager : MonoBehaviour {
         obtainedObjects = 0;
         obtainableObjects = getInteractableObjectsNumber(LayerMask.NameToLayer("Interactable"));
 
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();        
 
-        DataManager dataManager = GameObject.FindGameObjectWithTag("DataManager").GetComponent<DataManager>();
-        gadgetList = new List<Gadgets>();
-        Gadget[] allGadgets;
-        allGadgets = dataManager.Gadgets;
-
-        InitializeGadgets(allGadgets);
-
-        gadgetNumber = gadgetList.Count;
-        currentGadget = gadgetList[0];
+        InitializeGadgets();
 
     }
 
@@ -294,8 +282,14 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    void InitializeGadgets(Gadget[] allGadgets)
+    void InitializeGadgets()
     {
+        DataManager dataManager = GameObject.FindGameObjectWithTag("DataManager").GetComponent<DataManager>();
+        gadgetList = new List<Gadgets>();
+        Gadget[] allGadgets;
+        allGadgets = dataManager.Gadgets;
+
+
         foreach (Gadget g in allGadgets)
         {
             if (!g.isLocked)
@@ -312,6 +306,14 @@ public class GameManager : MonoBehaviour {
                     gadgetList.Add(new Gadgets(g.name, g.image, g.coolDown, g.boostDuration, player));
             }
         }
+
+        gadgetNumber = gadgetList.Count;
+        currentGadget = gadgetList[0];
+
+        gadgetImage.sprite = currentGadget.sprite;
+        gadgetText.text = currentGadget.name;
+
+
     }
 
 }
