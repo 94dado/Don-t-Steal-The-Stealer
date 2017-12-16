@@ -304,6 +304,10 @@ public class GameManager : MonoBehaviour {
                     gadgetList.Add(new Turbo_boots(g.name, g.image, g.coolDown, g.boostDuration, player));
                 else if (g.name == "Rock")
                     gadgetList.Add(new Rock(g.name, g.image, g.coolDown, g.boostDuration, player));
+                else if (g.name == "Lock Pick")
+                    gadgetList.Add(new Lock_pick(g.name, g.image, g.coolDown, g.boostDuration, player));
+                else if(g.name == "Electronic Safe Opener")
+                    gadgetList.Add(new Electronic_safe_opener(g.name, g.image, g.coolDown, g.boostDuration, player));
                 else
                     gadgetList.Add(new Gadgets(g.name, g.image, g.coolDown, g.boostDuration, player));
             }

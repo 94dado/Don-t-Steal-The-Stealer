@@ -17,10 +17,14 @@ public class PlayerController : SpriteOffset {
     private List<int> keyList;
 
     //variables user in player interaction with objects
-    RaycastHit2D hitObject;
-    bool interact = false;
-    bool nearADoor = false;
-    bool nearASafe = false;
+    [HideInInspector]
+    public RaycastHit2D hitObject;
+    [HideInInspector]
+    public bool interact = false;
+    public bool nearADoor = false;
+    [HideInInspector]
+    public bool nearASafe = false;
+    
 
     //boosted speed variables
     [SerializeField]
@@ -240,18 +244,6 @@ public class PlayerController : SpriteOffset {
             {
                 keyList.Add(((Key)myObject).getKeyID());
             }
-        }
-
-        if(Input.GetKeyDown(KeyCode.Mouse1) && interact == false && nearADoor == true && gameManager.currentGadget.name == "Lock Pick")
-        {
-            InteractableObject myObject = hitObject.collider.gameObject.GetComponent<InteractableObject>();
-            myObject.Interact();
-        }
-
-        if(Input.GetKeyDown(KeyCode.Mouse1) && interact == false && nearASafe == true && gameManager.currentGadget.name == "Electronic Safe Opener")
-        {
-            InteractableObject myObject = hitObject.collider.gameObject.GetComponent<InteractableObject>();
-            gameManager.AddMoney(myObject.Interact(), myObject.tag);
         }
 
     }
