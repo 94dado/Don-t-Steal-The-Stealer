@@ -36,8 +36,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1118832982774138}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -51.24, y: -74.55, z: 0}
-  m_LocalScale: {x: 0.14957266, y: 0.35, z: 1}
+  m_LocalPosition: {x: -0.481, y: 1.999, z: -0.1}
+  m_LocalScale: {x: 0.2534024, y: 0.37371886, z: 1.0677682}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d274ca9f4e1aa694fb367b1f2e7ec0cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 200
+  value: 400
   stolenSprite: {fileID: 21300000, guid: 70759b44b40f38a46a7197737d3310d3, type: 3}
   objectType: Painting
 --- !u!212 &212394255808120790
