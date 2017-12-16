@@ -8,20 +8,25 @@ public class AimController : MonoBehaviour {
     public LayerMask notTargetableMask;
     public LayerMask obstacleMask;
     public Transform player;
+    public SpriteRenderer dot;
+    public Color dotHighlightColor;
+    [Range(50, 200)] public int aimRotationSpeed;
+
+    [HideInInspector]
+    public bool isActive;
     [HideInInspector]
     public bool isThrowable;
 
-    Color originalColor;
-    Camera viewCamera;
+    Vector2 mousePoint;
     SpriteRenderer sprite;
+    Color originalDotColor;
 
 	// Use this for initialization
 	void Start () {
-        viewCamera = Camera.main;
         sprite = GetComponent<SpriteRenderer>();
-        originalColor = sprite.color;
         // at start the game object is disabled
-        transform.gameObject.SetActive(false);
+        DisableSprites();
+        originalDotColor = dot.color;
 	}
 	
 	// Update is called once per frame
@@ -32,10 +37,13 @@ public class AimController : MonoBehaviour {
     // target the mouse
     void Targeting() {
         // little animation of rotation each frame
-        transform.Rotate(Vector2.right * -40 * Time.deltaTime);
+        transform.Rotate(Vector3.forward * -aimRotationSpeed * Time.deltaTime);
         // crosshairs point to the mouse cursor
-        transform.position = Input.mousePosition;
-        DetectTarget();
+        mousePoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        transform.position = new Vector3(mousePoint.x, mousePoint.y, 0f);
+        if (isActive) {
+            DetectTarget();
+        }
     }
 
     // select the target
@@ -44,21 +52,35 @@ public class AimController : MonoBehaviour {
         // if we hit something
         if (hitPoint.collider == null || (hitPoint.collider != null && notTargetableMask != (notTargetableMask | (1 << hitPoint.collider.transform.gameObject.layer)))) {
             // if we hit something
-            if (!Physics2D.Raycast(transform.position, (transform.position - player.position).normalized, Vector2.Distance(transform.position, player.position), obstacleMask)) {
+            if (!Physics2D.Raycast(player.position, (mousePoint - new Vector2(player.position.x, player.position.y)).normalized, Vector2.Distance(mousePoint, player.position), obstacleMask)) {
                 // show aim
-                sprite.color = originalColor;
+                dot.color = dotHighlightColor;
                 isThrowable = true;
             }
             else {
                 // hide aim
-                sprite.color = new Color(0f, 0f, 0f, 0f);
+                dot.color = originalDotColor;
                 isThrowable = false;
             }
         }
         else {
             // hide aim
-            sprite.color = new Color(0f, 0f, 0f, 0f);
+            dot.color = originalDotColor;
             isThrowable = false;
         }
+    }
+
+    // disable the aim sprite
+    public void DisableSprites() {
+        sprite.enabled = false;
+        dot.enabled = false;
+        isThrowable = false;
+    }
+
+    // enable the aim sprite
+    public void EnableSprites() {
+        sprite.enabled = true;
+        dot.enabled = true;
+        isThrowable = false;
     }
 }

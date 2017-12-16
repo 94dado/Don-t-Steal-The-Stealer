@@ -21,15 +21,15 @@ TagManager:
   - 
   - 
   - Player
-  - Background
-  - Foreground
+  - Point
+  - SceneObject
   - Enemies
   - Objects
   - Interactable
   - Interacted
   - Door
   - Wall
-  - Point
+  - 
   - 
   - 
   - 

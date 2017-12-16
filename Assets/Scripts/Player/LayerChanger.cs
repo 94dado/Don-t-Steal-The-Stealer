@@ -56,7 +56,7 @@ public class LayerChanger : MonoBehaviour {
                 characterSprites.Add(sprite);
             }
             //it's a fixed object, but not background
-            else if (sprite.sortingLayerName != "Background" && sprite.transform.parent.GetComponent<SpriteRenderer>() == null) {
+            else if (sprite.sortingLayerName != "Background" && sprite.sortingLayerName != "Default" && sprite.transform.parent != null && sprite.transform.parent.GetComponent<SpriteRenderer>() == null) {
                 fixedSprites.Add(sprite);
             }
         }

@@ -94,16 +94,18 @@ public class PlayerController : SpriteOffset {
         if (aimController != null) {
             // if player press aim appear
             if (Input.GetMouseButton(1)) {
+                aimController.isActive = true;
                 // activate crosshair
-                aimController.gameObject.SetActive(true);
+                aimController.EnableSprites();
             }
             // if it release the button thrown an object
             if (Input.GetMouseButtonUp(1)) {
                 // deactivate crosshair
-                aimController.gameObject.SetActive(false);
                 if (aimController.isThrowable) {
                     // TODO: thrown
                 }
+                aimController.isActive = false;
+                aimController.DisableSprites();
             }
         }
     }
