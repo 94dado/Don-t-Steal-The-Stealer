@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour {
     public Text coolDownText;
     public Image gadgetImage;
     public Text gadgetText;
+    private PlayerController player;
 
     
     
@@ -33,8 +34,11 @@ public class GameManager : MonoBehaviour {
     public List<Gadget> gadgetList;
     [HideInInspector]
     public int currentGadgetNumber;
+    
     public Gadget currentGadget;
     private int gadgetNumber;
+
+    private bool activeCooldownText;
 
     [HideInInspector]
     public int oldObtainedMoney;
@@ -72,10 +76,13 @@ public class GameManager : MonoBehaviour {
         obtainedObjects = 0;
         obtainableObjects = getInteractableObjectsNumber(LayerMask.NameToLayer("Interactable"));
 
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+
         DataManager dataManager = GameObject.FindGameObjectWithTag("DataManager").GetComponent<DataManager>();
         gadgetList = new List<Gadget>();
         Gadget[] allGadgets;
         allGadgets = dataManager.Gadgets;
+        
 
         foreach(Gadget g in allGadgets)
         {
@@ -105,6 +112,7 @@ public class GameManager : MonoBehaviour {
 
         MapUpdate();
         ShowGadget();
+        UpdateCoolDownText();
     }
 
     //activate the "press E to interact" text
@@ -274,20 +282,23 @@ public class GameManager : MonoBehaviour {
         {
             currentGadget = gadgetList[currentGadgetNumber];
             gadgetImage.sprite = currentGadget.image;
-            if (currentGadget.name != "Turbo Shoes")
-            {
-                gadgetImage.color = new Color(1, 1, 1);
-                coolDownText.text = "";
-            }
             gadgetText.text = currentGadget.name;
         }
-        
-        
-            
-           
-        
-            
-        
+       
+    }
+
+    void UpdateCoolDownText()
+    {
+        if(player.cooldownTimer(currentGadgetNumber) != 0)
+        {
+            gadgetImage.color = new Color(0.2f, 0.2f, 0.2f);
+            coolDownText.text = Mathf.Ceil(player.cooldownTimer(currentGadgetNumber)).ToString();
+        }
+        else
+        {
+            gadgetImage.color = new Color(1, 1, 1);
+            coolDownText.text = "";
+        }
     }
 
 }
