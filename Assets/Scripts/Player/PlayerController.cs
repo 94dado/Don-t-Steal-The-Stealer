@@ -7,16 +7,12 @@ public class PlayerController : SpriteOffset {
 
     // these variables are used for interactions with interactable objects
     public float interactionRadius;
-    // aim
-    public GameObject crosshair;
     // speed of the player
     public float speed;
 
     private Vector2 lineEndWest, lineEndEast, lineEndSouth, lineEndNorth;
     private Vector2 lineEnd, lineStart;
     private GameManager gameManager;
-
-    
 
     private List<int> keyList;
 
@@ -46,12 +42,18 @@ public class PlayerController : SpriteOffset {
     // used for diagonals
     float currentSpeed;
     Rigidbody2D myRigidbody;
+    // aim controller for crosshair
+    AimController aimController;
 
     // Use this for initialization
     void Start() {
         animator = GetComponent<Animator>();
         myRigidbody = GetComponent<Rigidbody2D>();
-
+        // aim
+        GameObject crosshair = GameObject.FindWithTag("Crosshair");
+        if (crosshair != null) {
+            aimController = crosshair.GetComponent<AimController>();
+        }
         
         keyList = new List<int>();
 
@@ -86,17 +88,25 @@ public class PlayerController : SpriteOffset {
             Cursor.visible = true;
             GetComponent<AudioSource>().Stop();
 		}
-        // if player press aim appear
-        if (Input.GetMouseButton(1)) {
-            // activate crosshair
-            crosshair.gameObject.SetActive(true);
-        }
-        // if it release the button thrown an object
-        if (Input.GetMouseButtonUp(1)) {
-            // deactivate crosshair
-            crosshair.gameObject.SetActive(false);
-            if (crosshair.isThrowable) {
-                // TODO: thrown
+        // aim controller
+        AimInteraction();
+    }
+
+    // interact with crosshair if it exists
+    void AimInteraction() {
+        if (aimController != null) {
+            // if player press aim appear
+            if (Input.GetMouseButton(1)) {
+                // activate crosshair
+                aimController.gameObject.SetActive(true);
+            }
+            // if it release the button thrown an object
+            if (Input.GetMouseButtonUp(1)) {
+                // deactivate crosshair
+                aimController.gameObject.SetActive(false);
+                if (aimController.isThrowable) {
+                    // TODO: thrown
+                }
             }
         }
     }
