@@ -40,6 +40,8 @@ public class PlayerController : SpriteOffset {
     Rigidbody2D myRigidbody;
     // aim controller for crosshair
     AimController aimController;
+    // check if player want to remove the aim
+    bool removeAim;
 
     // Use this for initialization
     void Start() {
@@ -79,18 +81,25 @@ public class PlayerController : SpriteOffset {
 			Raycast ();
             ActivateGadget();
             UpdateCooldowns();
+            // aim controller
+            AimInteraction();
 		} 
 		else {
 			animator.SetBool ("Saw", true);
             Cursor.visible = true;
 		}
-        // aim controller
-        AimInteraction();
     }
 
     // interact with crosshair if it exists
     void AimInteraction() {
         if (aimController != null) {
+            // remove aim
+            if (Input.GetMouseButton(0) && Input.GetMouseButton(1) && !removeAim) {
+                aimController.isActive = false;
+                // activate crosshair
+                aimController.DisableSprites();
+                removeAim = true;
+            }
             // if player press aim appear
             if (Input.GetMouseButton(1)) {
                 aimController.isActive = true;
@@ -98,13 +107,16 @@ public class PlayerController : SpriteOffset {
                 aimController.EnableSprites();
             }
             // if it release the button thrown an object
-            if (Input.GetMouseButtonUp(1)) {
+            if (Input.GetMouseButtonUp(1) && !removeAim) {
                 // deactivate crosshair
                 if (aimController.isThrowable) {
                     // TODO: thrown
                 }
                 aimController.isActive = false;
                 aimController.DisableSprites();
+            }
+            if (Input.GetMouseButtonUp(1) && removeAim) {
+                removeAim = false;
             }
         }
     }
