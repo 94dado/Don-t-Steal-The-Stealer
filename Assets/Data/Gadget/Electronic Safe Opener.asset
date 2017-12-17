@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: Electronic Safe Opener
   m_EditorClassIdentifier: 
   gadgetName: Electronic Safe Opener
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 320ff83ed058ee649baf0bbd8f07c1d5, type: 3}
   positionCountInSceneArray: 1
   coolDown: 0
   boostDuration: 0

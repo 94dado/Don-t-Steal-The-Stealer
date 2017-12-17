@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4813159943662340}
   - component: {fileID: 212422607528931834}
   - component: {fileID: 95309910383130558}
+  - component: {fileID: 114869838877036094}
+  - component: {fileID: 61684806099800372}
   m_Layer: 13
   m_Name: Rock
   m_TagString: Throwable
@@ -37,7 +39,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4454002392842940}
   - component: {fileID: 212654016451712592}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Wave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,6 +73,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &61684806099800372
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1296650813600104}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 9.48, y: 10.76}
+    newSize: {x: 9.48, y: 10.76}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 9.48, y: 10.76}
+  m_EdgeRadius: 0
 --- !u!95 &95309910383130558
 Animator:
   serializedVersion: 3
@@ -88,6 +115,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114869838877036094
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1296650813600104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39f80710b3fa2e34db4340deeea3ff8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 0
 --- !u!212 &212422607528931834
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -82,7 +82,12 @@ public class GameManager : MonoBehaviour {
     {
         //keep increasing timer untill the game has finished
         if (!gameOver && !win)
+        {
             showTimer();
+            MapUpdate();
+            ShowGadget();
+            UpdateCoolDownText();
+        }
         else if (gameOver)
             gameOverManager.activateGameOverMenu();
         else
@@ -91,9 +96,9 @@ public class GameManager : MonoBehaviour {
         if(oldObtainedMoney < newObtainedMoney)
             updateMoney();
 
-        MapUpdate();
-        ShowGadget();
-        UpdateCoolDownText();
+        
+        
+        
     }
 
     //activate the "press E to interact" text
@@ -243,15 +248,17 @@ public class GameManager : MonoBehaviour {
     {
 
         
-     float scroll = Input.GetAxis("Mouse ScrollWheel");
-    if (scroll > 0)
+    float scroll = Input.GetAxis("Mouse ScrollWheel");
+        if (!Input.GetMouseButton(1))
+        {
+            if (scroll > 0)
             {
                 if (currentGadgetNumber == gadgetNumber - 1)
                     currentGadgetNumber = 0;
                 else
                     currentGadgetNumber++;
             }
-    if (scroll < 0)
+            if (scroll < 0)
             {
                 if (currentGadgetNumber == 0)
                     currentGadgetNumber = gadgetNumber - 1;
@@ -259,13 +266,13 @@ public class GameManager : MonoBehaviour {
                     currentGadgetNumber--;
             }
 
-    if(scroll != 0)
-        {
-            currentGadget = gadgetList[currentGadgetNumber];
-            gadgetImage.sprite = currentGadget.sprite;
-            gadgetText.text = currentGadget.name;
+            if (scroll != 0)
+            {
+                currentGadget = gadgetList[currentGadgetNumber];
+                gadgetImage.sprite = currentGadget.sprite;
+                gadgetText.text = currentGadget.name;
+            }
         }
-       
     }
 
     void UpdateCoolDownText()
@@ -300,8 +307,10 @@ public class GameManager : MonoBehaviour {
                     gadgetList.Add(new Rock(g.name, g.image, g.coolDown, g.boostDuration, player));
                 else if (g.name == "Lock Pick")
                     gadgetList.Add(new Lock_pick(g.name, g.image, g.coolDown, g.boostDuration, player));
-                else if(g.name == "Electronic Safe Opener")
+                else if (g.name == "Electronic Safe Opener")
                     gadgetList.Add(new Electronic_safe_opener(g.name, g.image, g.coolDown, g.boostDuration, player));
+                else if (g.name == "Banana")
+                    gadgetList.Add(new Banana(g.name, g.image, g.coolDown, g.boostDuration, player));
                 else
                     gadgetList.Add(new Gadgets(g.name, g.image, g.coolDown, g.boostDuration, player));
             }

@@ -10,6 +10,8 @@ public class Gadgets  {
     public float cooldownTimer;
     public float boostDuration;
     public float boostDurationTimer;
+    [HideInInspector]
+    public ProjectilePool projectiles;
     protected PlayerController player;
 
     

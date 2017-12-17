@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Name: Rock
   m_EditorClassIdentifier: 
   gadgetName: Rock
-  image: {fileID: 21300000, guid: 79d06ead831969d49a4c7d3ea9612e0d, type: 3}
+  image: {fileID: 21300000, guid: 5d84dc238eba5414681e2c5cc65e3405, type: 3}
   positionCountInSceneArray: 3
-  coolDown: 40
+  coolDown: 20
   boostDuration: 0
   isLocked: 0
   price: 400

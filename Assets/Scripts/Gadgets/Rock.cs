@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Rock : Gadgets {
 
+    
+
     public Rock(string name, Sprite sprite, float cooldown, float boostDuration, PlayerController player) : base(name, sprite, cooldown, boostDuration, player)
     {
-
+       projectiles =  GameObject.FindWithTag("RockPool").GetComponent<ProjectilePool>();
     }
 
     override
@@ -14,9 +16,14 @@ public class Rock : Gadgets {
     {
         if (cooldownTimer == 0)
         {
-            boostDurationTimer = boostDuration;
-            cooldownTimer = cooldown;
+            player.isAiming = true;
         }
+    }
+
+    override
+    public void deactivateGadget()
+    {
+        cooldownTimer = cooldown;
     }
 
 

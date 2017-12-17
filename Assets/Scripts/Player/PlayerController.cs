@@ -21,10 +21,12 @@ public class PlayerController : SpriteOffset {
     public RaycastHit2D hitObject;
     [HideInInspector]
     public bool interact = false;
+    [HideInInspector]
     public bool nearADoor = false;
     [HideInInspector]
     public bool nearASafe = false;
-    
+    [HideInInspector]
+    public bool isAiming = false;
 
     //boosted speed variables
     [SerializeField]
@@ -99,18 +101,23 @@ public class PlayerController : SpriteOffset {
                 // activate crosshair
                 aimController.DisableSprites();
                 removeAim = true;
+                isAiming = false;
             }
             // if player press aim appear
-            if (Input.GetMouseButton(1)) {
+            if (Input.GetMouseButton(1) && isAiming && !removeAim) {
                 aimController.isActive = true;
                 // activate crosshair
                 aimController.EnableSprites();
             }
             // if it release the button thrown an object
-            if (Input.GetMouseButtonUp(1) && !removeAim) {
+            if (Input.GetMouseButtonUp(1) && !removeAim && isAiming) {
                 // deactivate crosshair
+                isAiming = false;
                 if (aimController.isThrowable) {
-                    // TODO: thrown
+                    Vector2 mousePoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    Vector3 point = new Vector3(mousePoint.x, mousePoint.y, 0);
+                    gameManager.currentGadget.projectiles.getNextProjectile().Spawn(transform.position, point);
+                    gameManager.currentGadget.deactivateGadget();
                 }
                 aimController.isActive = false;
                 aimController.DisableSprites();
@@ -198,7 +205,12 @@ public class PlayerController : SpriteOffset {
             float myObjectY = myObject.transform.position.y;
             float nancyY = transform.position.y;
 
-            if (checkGadgetPresence(myObject) == 0)
+            if(checkGadgetPresence(myObject) == -1)
+            {
+                gameManager.deactivateText();
+            }
+
+            else if (checkGadgetPresence(myObject) == 0)
             {
                 if ((hitWall && nancyY < myObjectY) || (!hitWall))
                 {
@@ -267,10 +279,15 @@ public class PlayerController : SpriteOffset {
 
     private int checkGadgetPresence(InteractableObject myObject)
     {
+        //-1 can't interact with this object
         //0 you can interact with the object
         //1 you need to use a safe opener
         //2 you are missing a key
         //3 you stole at least an object and are near an exit
+
+        
+        if (myObject.getObjectType() == "Rock" || myObject.getObjectType() == "Banana")
+            return -1;
 
         // if the object is a door, check that the player has the key if he does return 0, else return 1
         if (myObject.getObjectType() == "Door")
