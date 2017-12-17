@@ -12,6 +12,9 @@ TagManager:
   - DataManager
   - Crosshair
   - AudioManager
+  - RockPool
+  - BananaPool
+  - Laser
   layers:
   - Default
   - TransparentFX

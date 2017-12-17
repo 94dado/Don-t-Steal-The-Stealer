@@ -311,6 +311,8 @@ public class GameManager : MonoBehaviour {
                     gadgetList.Add(new Electronic_safe_opener(g.name, g.image, g.coolDown, g.boostDuration, player));
                 else if (g.name == "Banana")
                     gadgetList.Add(new Banana(g.name, g.image, g.coolDown, g.boostDuration, player));
+                else if (g.name == "Laser Visor")
+                    gadgetList.Add(new Laser_visor(g.name, g.image, g.coolDown, g.boostDuration, player));
                 else
                     gadgetList.Add(new Gadgets(g.name, g.image, g.coolDown, g.boostDuration, player));
             }
