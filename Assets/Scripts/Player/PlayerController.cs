@@ -204,6 +204,8 @@ public class PlayerController : SpriteOffset {
 
             float myObjectY = myObject.transform.position.y;
             float nancyY = transform.position.y;
+            
+            
 
             if(checkGadgetPresence(myObject) == -1)
             {
@@ -216,6 +218,12 @@ public class PlayerController : SpriteOffset {
                 {
                     gameManager.ActivateInteractionText();
                     interact = true;
+                    
+                }
+                else
+                {
+                    gameManager.deactivateText();
+                    interact = false;
                 }
                 nearADoor = false;
                 nearASafe = false;
