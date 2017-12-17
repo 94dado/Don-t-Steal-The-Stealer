@@ -11,6 +11,7 @@ TagManager:
   - Carpet
   - DataManager
   - Crosshair
+  - AudioManager
   layers:
   - Default
   - TransparentFX
