@@ -22,11 +22,10 @@ GameObject:
   - component: {fileID: 212422607528931834}
   - component: {fileID: 95309910383130558}
   - component: {fileID: 114869838877036094}
-  - component: {fileID: 114666869646947172}
   - component: {fileID: 61684806099800372}
-  m_Layer: 13
+  m_Layer: 17
   m_Name: Rock
-  m_TagString: Throwable
+  m_TagString: RockPool
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40,7 +39,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4454002392842940}
   - component: {fileID: 212654016451712592}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Wave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,20 +115,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114666869646947172
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1296650813600104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d274ca9f4e1aa694fb367b1f2e7ec0cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  value: 0
-  stolenSprite: {fileID: 0}
-  objectType: Rock
 --- !u!114 &114869838877036094
 MonoBehaviour:
   m_ObjectHideFlags: 1

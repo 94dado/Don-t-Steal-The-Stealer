@@ -22,9 +22,9 @@ GameObject:
   - component: {fileID: 212950660070979848}
   - component: {fileID: 114612094677296718}
   - component: {fileID: 61244847096355130}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Banana
-  m_TagString: Untagged
+  m_TagString: BananaPool
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

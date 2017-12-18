@@ -185,22 +185,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteOffset: 0
   FOVAngle: 35
-  overlapRadius: 3
+  overlapRadiusPlayer: 3
+  overlapRadiusThrowable: 6
   FSMDelay: 0.1
   idleTime: 4.5
+  fallRange: 0.3
   speed: 2
   pointsMask:
     serializedVersion: 2
-    m_Bits: 131072
+    m_Bits: 512
   obstaclesMask:
     serializedVersion: 2
     m_Bits: 65536
+  throwableMask:
+    serializedVersion: 2
+    m_Bits: 131072
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 256
   interactableMask:
     serializedVersion: 2
     m_Bits: 8192
-  collisionMask:
-    serializedVersion: 2
-    m_Bits: 8448
 --- !u!212 &212758065006250040
 SpriteRenderer:
   m_ObjectHideFlags: 1

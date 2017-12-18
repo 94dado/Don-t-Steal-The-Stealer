@@ -1,28 +1,36 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 public class FSMEnemy : SpriteOffset {
 
 	// field of view of the guard
-	[Range(0f, 180f)] public float FOVAngle;
-    // radious of overlap circle
-    public float overlapRadius;
+	[Range(0f, 179.99f)] public float FOVAngle;
+    // radious of overlap circle for player
+    public float overlapRadiusPlayer;
+    // radious of overlap circle for throwable
+    public float overlapRadiusThrowable;
     // patrol time
     [Range(0.01f, 1f)] public float FSMDelay;
     // time to wait before move to the next point
     [Range(1f, 10f)] public float idleTime;
+    // distance cuz banana make to fall IA
+    [Range(0.1f, 0.5f)] public float fallRange;
     // spped of enemy
     public float speed;
     // point mask
     public LayerMask pointsMask;
     // wall mask
     public LayerMask obstaclesMask;
+    // collision with interactable
+    public LayerMask throwableMask;
+	// collision wih player
+	public LayerMask playerMask;
+    // collision wih door closed
     public LayerMask interactableMask;
-	// collision wih player and iteractable object
-	public LayerMask collisionMask;
 
     FSM fsmMachine;
     FSMMovement movement;
@@ -64,8 +72,10 @@ public class FSMEnemy : SpriteOffset {
 				isFSMStarted = false;
 			}
 			else {
-				// checks collision with player or object
-				CheckCollision();
+                // check collisions with gadgets
+                CheckGadgetAround();
+                // check player position
+                PlayerIsVisible();
 				// check if we have to move
 				if(movement.isRunning || isReachingThrowable) {
 					Moving();
@@ -109,34 +119,62 @@ public class FSMEnemy : SpriteOffset {
         }
     }
 
-    // checks enter collision
-    void CheckCollision() {
-        // get all the colliders in a certain radius
-		Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, overlapRadius, collisionMask);
-        for (int i = 0; i < colliders.Length; i++) {
-            // check if player is visible
-            if (colliders[i].transform.tag == "Player") {
-                // check position
-				PlayerIsVisible(colliders[i].transform.position);
+	// checks if player is visible from the IA
+	void PlayerIsVisible() {
+        // check the player
+        Collider2D playerCollider = Physics2D.OverlapCircle(transform.position, overlapRadiusPlayer, playerMask);
+        if (playerCollider != null) {
+            Vector2 playerDirection = (playerCollider.transform.position - transform.position).normalized;
+            // if guard facing player and there are no wall between them
+            if (IsFacingPlayer(playerDirection) && !CheckLayerWithRaycast(transform.position, playerCollider.transform.position, obstaclesMask, true)) {
+                // game over
+                GameManager.instance.gameOver = true;
             }
-            if (colliders[i].transform.tag == "Throwable") {
-                throwablePosition = colliders[i].transform;
+        }
+	}
+
+    // check which gadget the IA has in its radius
+    void CheckGadgetAround() {
+        // get all the colliders in a certain radius with layer throwable
+        Collider2D[] throwableColliders = Physics2D.OverlapCircleAll(transform.position, overlapRadiusThrowable, throwableMask);
+        Dictionary<float, Transform> bananas = new Dictionary<float, Transform>();
+        Dictionary<float, Transform> rocks = new Dictionary<float, Transform>();
+        // list each throwable
+        for (int i = 0; i < throwableColliders.Length; i++) {
+            // rock
+            if (throwableColliders[i].transform.tag == "RockPool") {
+                bananas.Add(Vector2.Distance(transform.position, throwableColliders[i].transform.position), throwableColliders[i].transform);
+            }
+            // banana
+            else if (throwableColliders[i].transform.tag == "BananaPool") {
+                rocks.Add(Vector2.Distance(transform.position, throwableColliders[i].transform.position), throwableColliders[i].transform);
+            }
+        }
+        // banana behaviour
+        if (bananas.Count > 0) {
+            foreach (KeyValuePair<float, Transform> pair in bananas) {
+                if (pair.Key <= fallRange) {
+                    // TODO: fall of IA
+                }
+            }
+        }
+        // rocks behaviour
+        if (rocks.Count > 0) {
+            // get the first order for distance from IA
+            if (rocks.Count > 1) {
+                List<float> distances = rocks.Keys.ToList();
+                distances.Sort();
+                throwablePosition = rocks[distances.First()];
+            }
+            // get the first
+            else {
+                throwablePosition = rocks.First().Value;
             }
         }
     }
 
-	// checks if player is visible from the IA
-	void PlayerIsVisible(Vector3 playerPosition) {
-		Vector2 playerDirection = (playerPosition - transform.position).normalized;
-		// if guard facing player and there are no wall between them
-		if (IsFacingPlayer(playerDirection) && !CheckLayerWithRaycast(transform.position, playerPosition, obstaclesMask, true)) {
-			// game over
-			GameManager.instance.gameOver = true;
-		}
-	}
-		
-	// checks the face to face between player and IA
-	bool IsFacingPlayer(Vector2 direction) {
+    // checks the face to face between player and IA
+    bool IsFacingPlayer(Vector2 direction) {
 		// check the face to face with dot, convert the dot product value into a 180 degree representation and check the view angle
 		if (((1 - Vector2.Dot(movement.lastDir, direction)) * 180f) <= Mathf.Min(FOVAngle,359.99f)) {
 			return true;
@@ -244,7 +282,7 @@ public class FSMEnemy : SpriteOffset {
         }
         else {
             // // get all the point near throwable
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, overlapRadius, pointsMask);
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, overlapRadiusThrowable, pointsMask);
             Transform min = null;
             for (int i = 0; i < colliders.Length; i++) {
                 // check if a wall is not between the point and the enemy
@@ -265,7 +303,7 @@ public class FSMEnemy : SpriteOffset {
     // returns the min point near the throwable
     Transform GetMinBetweenThrowableAndPoints() {
         // get all the point near throwable
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(throwablePosition.position, overlapRadius, pointsMask);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(throwablePosition.position, overlapRadiusThrowable, pointsMask);
         Transform min = null;
         for (int i = 0; i < colliders.Length; i++) {
             // check if a wall is not between the point and the throwable
