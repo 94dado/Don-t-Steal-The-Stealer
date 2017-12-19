@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class InteractableObject : MonoBehaviour
 {
     protected Animator animator;
     public int value;
-    private GameObject child;
+    protected GameObject child;
     public Sprite stolenSprite;
     public string objectType;
 
