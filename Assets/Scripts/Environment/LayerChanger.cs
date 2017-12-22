@@ -1,37 +1,29 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
-public class LayerChanger : MonoBehaviour {
-
-    //sprites attributes
-    private List<SpriteRenderer> fixedSprites, characterSprites;
-    public LayerMask interactionLayer;
+public class LayerChanger {
+    //list of all sprites
+    protected List<SpriteRenderer> sprites;
+    //layer to recognize player/AI
     int characterLayer;
     //map dimensions
-    public Transform min;
-    public Transform max;
+    protected Transform min, max;
     //values for computing
-    public int sensitivity;
+    int sensitivity;
     float yMin, yMax, fittingConstant;
 
-    void Awake() {
-        fixedSprites = new List<SpriteRenderer>();
-        characterSprites = new List<SpriteRenderer>();
-        characterLayer = Mathf.RoundToInt(Mathf.Log(interactionLayer,2f));
+    public LayerChanger(LayerMask interactionLayer, Transform min, Transform max, int sensitivity) {
+        this.min = min;
+        this.max = max;
+        this.sensitivity = sensitivity;
+
+        //setup variables
+        sprites = new List<SpriteRenderer>();
+        characterLayer = Mathf.RoundToInt(Mathf.Log(interactionLayer, 2f));
         GetAllSpritesRenderer();
         //setup fixed values for this scene
         SetupValues();
-        //set the correct order in layer for static objects
-        UpdateOrder(fixedSprites);
     }
-
-    // Update is called once per frame
-    void Update () {
-        //update order in layer only for characters
-        UpdateOrder(characterSprites);
-	}
 
     //round float to sensitivity decimals
     float RoundFloat(float val, int decimals) {
@@ -39,35 +31,38 @@ public class LayerChanger : MonoBehaviour {
     }
 
     //setup constant values for this scene
-    void SetupValues() {
+    protected void SetupValues() {
         //get the min and max y values, rounded to sensitivity decimals
         yMin = RoundFloat(min.position.y, sensitivity);
         yMax = RoundFloat(max.position.y, sensitivity);
         fittingConstant = 1f / (yMax - yMin);
     }
 
+    //update values to change floor correctly
+    public void ChangeFloor(Transform min, Transform max) {
+        this.min = min;
+        this.max = max;
+        SetupValues();
+    }
+
     //search and saves all sprites renderer in the scene
-    void GetAllSpritesRenderer() {
+    virtual protected void GetAllSpritesRenderer() {
         //get all the objects from the scene
-        SpriteRenderer[] sprites = FindObjectsOfType(typeof(SpriteRenderer)) as SpriteRenderer[];
-        foreach(SpriteRenderer sprite in sprites) {
+        SpriteRenderer[] sprites = GameObject.FindObjectsOfType(typeof(SpriteRenderer)) as SpriteRenderer[];
+        foreach(SpriteRenderer sprite in sprites){ 
             //if it's a moving object
             if (sprite.gameObject.layer == characterLayer) {
-                characterSprites.Add(sprite);
-            }
-            //it's a fixed object, but not background
-            else if (sprite.sortingLayerName != "Background" && sprite.sortingLayerName != "Default" && sprite.transform.parent != null && sprite.transform.parent.GetComponent<SpriteRenderer>() == null) {
-                fixedSprites.Add(sprite);
+                this.sprites.Add(sprite);
             }
         }
     }
 
     //update sprites order for every sprite in the list
-    void UpdateOrder(List<SpriteRenderer> sprites) {
+    public void UpdateOrder() {
         foreach (SpriteRenderer sprite in sprites) {
             int layer = CalculateLayer(sprite);
             sprite.sortingOrder = layer;
-            foreach(Transform son in sprite.transform) {
+            foreach (Transform son in sprite.transform) {
                 SpriteRenderer sonRender = son.GetComponent<SpriteRenderer>();
                 if (sonRender != null) {
                     sonRender.sortingOrder = layer + 1;
@@ -89,11 +84,12 @@ public class LayerChanger : MonoBehaviour {
         float fit = fittingConstant * (actualY - yMin);
         //invert the fitness value
         fit = 1f - fit;
-        //Debug.Log(fit);
         //round fit to sensitivity decimal
         fit = RoundFloat(fit, sensitivity);
         //calculate the order in layer removing floating point to fit value
         float orderInLayer = fit * Mathf.Pow(10f, sensitivity);
         return (int)RoundFloat(orderInLayer, 0);
     }
+
+
 }
