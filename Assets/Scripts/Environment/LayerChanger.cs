@@ -5,12 +5,16 @@ public class LayerChanger {
     //list of all sprites
     protected List<SpriteRenderer> sprites;
     //layer to recognize player/AI
-    int characterLayer;
+    protected int characterLayer;
     //map dimensions
     protected Transform min, max;
     //values for computing
-    int sensitivity;
-    float yMin, yMax, fittingConstant;
+    protected int sensitivity;
+    protected float yMin, yMax, fittingConstant;
+
+    public LayerChanger() {
+
+    }
 
     public LayerChanger(LayerMask interactionLayer, Transform min, Transform max, int sensitivity) {
         this.min = min;
