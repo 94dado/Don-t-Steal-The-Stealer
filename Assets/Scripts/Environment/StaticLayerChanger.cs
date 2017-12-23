@@ -1,10 +1,21 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class StaticLayerChanger : LayerChanger {
     private Transform floor;
 
-    public StaticLayerChanger(Transform floor, LayerMask interactionLayer, Transform min, Transform max, int sensitivity) : base(interactionLayer, min, max, sensitivity) {
+    public StaticLayerChanger(Transform floor, LayerMask interactionLayer, Transform min, Transform max, int sensitivity){
         this.floor = floor;
+        this.min = min;
+        this.max = max;
+        this.sensitivity = sensitivity;
+
+        //setup variables
+        sprites = new List<SpriteRenderer>();
+        characterLayer = Mathf.RoundToInt(Mathf.Log(interactionLayer, 2f));
+        GetAllSpritesRenderer();
+        //setup fixed values for this scene
+        SetupValues();
     }
 
     protected override void GetAllSpritesRenderer() {
