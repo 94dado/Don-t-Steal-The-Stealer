@@ -6,6 +6,7 @@ public class LayerChanger {
     protected List<SpriteRenderer> sprites;
     //layer to recognize player/AI
     protected int characterLayer;
+    protected int aiLayer;
     //map dimensions
     protected Transform min, max;
     //values for computing
@@ -16,7 +17,7 @@ public class LayerChanger {
 
     }
 
-    public LayerChanger(LayerMask interactionLayer, Transform min, Transform max, int sensitivity) {
+    public LayerChanger(LayerMask interactionLayer, LayerMask aiInteractionLayer, Transform min, Transform max, int sensitivity) {
         this.min = min;
         this.max = max;
         this.sensitivity = sensitivity;
@@ -24,6 +25,7 @@ public class LayerChanger {
         //setup variables
         sprites = new List<SpriteRenderer>();
         characterLayer = Mathf.RoundToInt(Mathf.Log(interactionLayer, 2f));
+        aiLayer = Mathf.RoundToInt(Mathf.Log(aiInteractionLayer, 2f));
         GetAllSpritesRenderer();
         //setup fixed values for this scene
         SetupValues();
@@ -55,7 +57,7 @@ public class LayerChanger {
         SpriteRenderer[] sprites = GameObject.FindObjectsOfType(typeof(SpriteRenderer)) as SpriteRenderer[];
         foreach(SpriteRenderer sprite in sprites){ 
             //if it's a moving object
-            if (sprite.gameObject.layer == characterLayer) {
+            if (sprite.gameObject.layer == characterLayer || sprite.gameObject.layer == aiLayer) {
                 this.sprites.Add(sprite);
             }
         }

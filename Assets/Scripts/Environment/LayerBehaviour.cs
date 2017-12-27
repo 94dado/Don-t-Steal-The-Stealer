@@ -3,7 +3,8 @@
 public class LayerBehaviour : MonoBehaviour {
 
     //parameters for LayerChanger
-    public LayerMask interactionLayer;
+    public LayerMask playerLayer;
+    public LayerMask AILayer;
     public Transform min;
     public Transform max;
     public int sensitivity = 3;
@@ -12,7 +13,7 @@ public class LayerBehaviour : MonoBehaviour {
     private LayerChanger lc;
 
     void Start() {
-        lc = new LayerChanger(interactionLayer, min, max, sensitivity);
+        lc = new LayerChanger(playerLayer, AILayer, min, max, sensitivity);
     }
 
     // Update is called once per frame

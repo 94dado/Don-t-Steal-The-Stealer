@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 61072746471660088}
   - component: {fileID: 95899053124005740}
   - component: {fileID: 114334174727970680}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Guard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fae25d81cd05049969059698db2426c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteOffset: 0
+  spriteOffset: 0.07
   FOVAngle: 35
   overlapRadiusPlayer: 3
   overlapRadiusThrowable: 6

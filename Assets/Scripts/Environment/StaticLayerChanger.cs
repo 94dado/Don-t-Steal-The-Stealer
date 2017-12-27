@@ -4,7 +4,7 @@ using UnityEngine;
 public class StaticLayerChanger : LayerChanger {
     private Transform floor;
 
-    public StaticLayerChanger(Transform floor, LayerMask interactionLayer, Transform min, Transform max, int sensitivity){
+    public StaticLayerChanger(Transform floor, Transform min, Transform max, int sensitivity){
         this.floor = floor;
         this.min = min;
         this.max = max;
@@ -12,7 +12,6 @@ public class StaticLayerChanger : LayerChanger {
 
         //setup variables
         sprites = new List<SpriteRenderer>();
-        characterLayer = Mathf.RoundToInt(Mathf.Log(interactionLayer, 2f));
         GetAllSpritesRenderer();
         //setup fixed values for this scene
         SetupValues();

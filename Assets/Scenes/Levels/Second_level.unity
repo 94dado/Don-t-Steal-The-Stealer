@@ -2899,9 +2899,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a1db5a064241be4090ad8358dd8f005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactionLayer:
+  playerLayer:
     serializedVersion: 2
     m_Bits: 256
+  AILayer:
+    serializedVersion: 2
+    m_Bits: 2048
   min: {fileID: 63624737}
   max: {fileID: 63624736}
   sensitivity: 3

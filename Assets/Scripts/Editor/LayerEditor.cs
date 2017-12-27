@@ -5,7 +5,6 @@ using UnityEngine;
 public class LayerEditor : EditorWindow {
     //parameters for LayerChanger
     private Transform floor;
-    private LayerMask interactionLayer;
     private Transform min;
     private Transform max;
     private int sensitivity = 3;
@@ -20,11 +19,6 @@ public class LayerEditor : EditorWindow {
         GUILayout.Label("Sprite Layer Setup", EditorStyles.boldLabel);
         //floor
         floor = EditorGUILayout.ObjectField("Floor", floor, typeof(Transform), true) as Transform;
-        //layer
-        EditorGUILayout.PrefixLabel("Player/AI layer");
-        LayerMask tempMask = EditorGUILayout.MaskField(InternalEditorUtility.LayerMaskToConcatenatedLayersMask(interactionLayer),
-            InternalEditorUtility.layers);
-        interactionLayer = InternalEditorUtility.ConcatenatedLayersMaskToLayerMask(tempMask);
         //min e max
         min = EditorGUILayout.ObjectField("Min", min, typeof(Transform), true) as Transform;
         max = EditorGUILayout.ObjectField("Max", max, typeof(Transform), true) as Transform;
@@ -32,7 +26,7 @@ public class LayerEditor : EditorWindow {
         sensitivity = EditorGUILayout.IntField(sensitivity);
         //button to bake layer
         if (GUILayout.Button("Bake")) {
-            StaticLayerChanger lc = new StaticLayerChanger(floor, interactionLayer, min, max, sensitivity);
+            StaticLayerChanger lc = new StaticLayerChanger(floor, min, max, sensitivity);
             lc.UpdateOrder();
         }
     }
