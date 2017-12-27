@@ -132,9 +132,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83ab2cbe951cf1647a92555225fcecf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuAudio: {fileID: 0}
-  winAudio: {fileID: 0}
-  gameoverAudio: {fileID: 0}
+  menuAudio: {fileID: 8300000, guid: f02b253531b292940b797da1b5b75c36, type: 3}
+  winAudio: {fileID: 8300000, guid: 8f25cb34b4e8fa2438b1270e1fec4ff9, type: 3}
+  gameoverAudio: {fileID: 8300000, guid: bf76998986c726647b1e598021fd1158, type: 3}
   levelAudios:
   - {fileID: 8300000, guid: 9c992800b0b4da5488cba09c9d4c4415, type: 3}
   - {fileID: 8300000, guid: 2e240ce1dabbbef4095cad15ff00f312, type: 3}

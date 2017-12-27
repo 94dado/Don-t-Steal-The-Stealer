@@ -20,7 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4108248088025046}
   - component: {fileID: 212344168186364948}
-  m_Layer: 0
+  - component: {fileID: 114391828544069984}
+  - component: {fileID: 61555269392611484}
+  m_Layer: 13
   m_Name: Paint_Pino_Swag 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,12 +36,51 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1544731716122320}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.46044, y: -2.2080536, z: -9.021463}
-  m_LocalScale: {x: 0.08, y: 0.08, z: 1}
+  m_LocalPosition: {x: 0.8888995, y: 0.5782837, z: 0}
+  m_LocalScale: {x: 0.34246576, y: 0.5517336, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &61555269392611484
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1544731716122320}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 15.36, y: 20.04}
+    newSize: {x: 15.36, y: 20.04}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 15.36, y: 20.04}
+  m_EdgeRadius: 0
+--- !u!114 &114391828544069984
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1544731716122320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d274ca9f4e1aa694fb367b1f2e7ec0cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: 200
+  stolenSprite: {fileID: 21300000, guid: 70759b44b40f38a46a7197737d3310d3, type: 3}
+  objectType: Painting
 --- !u!212 &212344168186364948
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -73,7 +114,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1498403391
   m_SortingLayer: 2
-  m_SortingOrder: 1
+  m_SortingOrder: 431
   m_Sprite: {fileID: 21300000, guid: b4bc6e01cdaa1b34fa624ce99077e56e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
