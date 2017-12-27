@@ -55,7 +55,8 @@ MonoBehaviour:
   data:
     money: 0
     levels:
-    - {fileID: 0}
+    - {fileID: 11400000, guid: ddd47d1ff466a4ff4bce8a8f716c862c, type: 2}
+    - {fileID: 11400000, guid: 9d5765b367e082b43b576228866d5e3a, type: 2}
     gadgets:
     - {fileID: 11400000, guid: 4031be66ee579f94fb083bac7681f90b, type: 2}
     - {fileID: 11400000, guid: 9ac67dc8c93c74c4fbcbe558223fa97d, type: 2}

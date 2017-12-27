@@ -192,6 +192,7 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -294,7 +295,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83ab2cbe951cf1647a92555225fcecf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioList:
+  menuAudio: {fileID: 0}
+  winAudio: {fileID: 0}
+  gameoverAudio: {fileID: 0}
+  levelAudios:
   - {fileID: 8300000, guid: 9c992800b0b4da5488cba09c9d4c4415, type: 3}
   - {fileID: 8300000, guid: 2e240ce1dabbbef4095cad15ff00f312, type: 3}
   startOffset: 1

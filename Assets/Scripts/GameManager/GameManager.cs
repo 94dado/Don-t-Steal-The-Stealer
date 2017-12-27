@@ -149,7 +149,8 @@ public class GameManager : MonoBehaviour {
         List<GameObject> filtered = new List<GameObject>(goArray.Where(x => x.layer == layer));
         foreach (GameObject obj in filtered)
         {
-            if((obj.GetComponent<InteractableObject>()).getObjectType() == "Key")
+            InteractableObject io = obj.GetComponent<InteractableObject>();
+            if(io != null && io.getObjectType() == "Key")
             {
                 keyNumber++;
             }

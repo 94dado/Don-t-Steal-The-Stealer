@@ -10,8 +10,8 @@ public class FloorManager : MonoBehaviour {
     public Transform[] floors;
     //list of min/max bounds for each floor
     public Transform[] cameraLimits;
-    //list of all spawn points for Nancy
-    public Transform[] nancySpawns;
+    //list of all spawn points
+    public Transform[] spawnPoints;
 
     //layer behaviour script
     LayerBehaviour layerHandler;
@@ -21,7 +21,7 @@ public class FloorManager : MonoBehaviour {
 
     public void ChangeFloor(int floor) {
         //move Nancy to the second floor
-        player.transform.position = nancySpawns[floor].position;
+        player.transform.position = spawnPoints[floor].position;
         //update camera limits
         Transform min = cameraLimits[floor].GetChild(0);
         Transform max = cameraLimits[floor].GetChild(1);
