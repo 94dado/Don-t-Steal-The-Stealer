@@ -13,7 +13,7 @@ public class GameOverManager : MonoBehaviour {
     public Text gameOverObjectsText;
     public Text gameOverObjectsCountText;
     public Text gameOverTimeCountText;
-   
+    private DataManager dataManager;
 
     public Text victoryTimeLimitText;
     public Text victoryObjectsText;
@@ -21,11 +21,13 @@ public class GameOverManager : MonoBehaviour {
     public Text victoryTimeCountText;
     public GameObject objectStar;
     public GameObject timeStar;
+   
 
     private bool gameOverActivated;
     private bool winActivated;
 
     public int timeLimit;
+    public int level;
 
     private GameManager gameManager;
 
@@ -36,6 +38,7 @@ public class GameOverManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
         gameManager = GameManager.instance;
+        dataManager = GameObject.FindGameObjectWithTag("DataManager").GetComponent<DataManager>();
 	}
 
 
@@ -44,20 +47,28 @@ public class GameOverManager : MonoBehaviour {
     {
         if (!winActivated)
         {
+            dataManager.Levels[level].levelCompleted = true;
+            dataManager.Levels[level].objectsScore = gameManager.obtainedObjects;
+            dataManager.Levels[level].timeScore = (int)gameManager.time;
+            dataManager.MoneyData = dataManager.MoneyData + gameManager.newObtainedMoney;
             victoryTimeCountText.text = calculateTime((int)gameManager.time);
             victoryObjectsCountText.text = gameManager.obtainedObjects + "/" + gameManager.obtainableObjects;
             victoryTimeLimitText.text = "\nSteal all objects in less \nthan " + calculateTime(timeLimit);
+            
             if (gameManager.obtainedObjects == gameManager.obtainableObjects)
             {
                 victoryObjectsText.color = new Color(0, 1, 0, 1);
                 victoryObjectsCountText.color = new Color(0, 1, 0, 1);
                 objectStar.GetComponent<Image>().enabled = true;
 
+
                 if (gameManager.time < timeLimit + 1)
                 {
                     victoryTimeLimitText.color = new Color(0, 1, 0, 1);
                     victoryTimeCountText.color = new Color(0, 1, 0, 1);
                     timeStar.GetComponent<Image>().enabled = true;
+                    
+
                 }
             }
 

@@ -88,7 +88,6 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaDirect: 0.5
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
-    m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -3682,12 +3681,12 @@ Prefab:
     - target: {fileID: 224819868793194064, guid: 4cf5311a161280b49986d9340e752b21,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 659
+      value: 251.5
       objectReference: {fileID: 0}
     - target: {fileID: 224819868793194064, guid: 4cf5311a161280b49986d9340e752b21,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 450
+      value: 167.5
       objectReference: {fileID: 0}
     - target: {fileID: 224819868793194064, guid: 4cf5311a161280b49986d9340e752b21,
         type: 2}
@@ -4798,7 +4797,6 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -10309,12 +10307,12 @@ Prefab:
     - target: {fileID: 224294912487908714, guid: d859c6ebe9923074ca06eb774848079c,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 659
+      value: 251.5
       objectReference: {fileID: 0}
     - target: {fileID: 224294912487908714, guid: d859c6ebe9923074ca06eb774848079c,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 450
+      value: 167.5
       objectReference: {fileID: 0}
     - target: {fileID: 224294912487908714, guid: d859c6ebe9923074ca06eb774848079c,
         type: 2}
@@ -10692,6 +10690,16 @@ Prefab:
     - target: {fileID: 1330080796196500, guid: d859c6ebe9923074ca06eb774848079c, type: 2}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114578929952563534, guid: d859c6ebe9923074ca06eb774848079c,
+        type: 2}
+      propertyPath: levelString
+      value: Level_select
+      objectReference: {fileID: 0}
+    - target: {fileID: 114973518511002766, guid: d859c6ebe9923074ca06eb774848079c,
+        type: 2}
+      propertyPath: levelString
+      value: Level_select
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d859c6ebe9923074ca06eb774848079c, type: 2}
