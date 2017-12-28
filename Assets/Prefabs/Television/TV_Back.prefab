@@ -146,7 +146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   value: 400
   stolenSprite: {fileID: 0}
-  objectType: Televiosion
+  objectType: Television
 --- !u!212 &212868875122210882
 SpriteRenderer:
   m_ObjectHideFlags: 1
