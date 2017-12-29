@@ -17,5 +17,5 @@ MonoBehaviour:
   coolDown: 20
   boostDuration: 0
   isLocked: 1
-  price: 0
+  price: 400
   description: 

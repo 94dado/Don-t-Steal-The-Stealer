@@ -7,6 +7,7 @@ public class GadgetShopManager : MonoBehaviour {
 
     private Button[] buttons;
     private Image[] images;
+    private Text[] nameAndPrice;
     private DataManager dataManager;
     public GameObject[] gadgets;
     public Text description;
@@ -21,6 +22,7 @@ public class GadgetShopManager : MonoBehaviour {
         dataManager = GameObject.FindGameObjectWithTag("DataManager").GetComponent<DataManager>();
         buttons = new Button[dataManager.Gadgets.Length];
         images = new Image[dataManager.Gadgets.Length];
+        nameAndPrice = new Text[dataManager.Gadgets.Length];
         gadgetBuyer = buyButton.GetComponent<GadgetBuyer>();
 
 
@@ -29,7 +31,9 @@ public class GadgetShopManager : MonoBehaviour {
             gadgets[i].SetActive(true);
             buttons[i] = gadgets[i].GetComponentInChildren<Button>();
             images[i] = gadgets[i].transform.GetChild(0).GetComponent<Image>();
+            nameAndPrice[i] = gadgets[i].GetComponentInChildren<Text>();
             images[i].sprite = dataManager.Gadgets[i].image;
+            nameAndPrice[i].text = dataManager.Gadgets[i].gadgetName + "\n" + dataManager.Gadgets[i].price + " $";
         }
         
 	}

@@ -827,7 +827,7 @@ Prefab:
     - target: {fileID: 224794287765586726, guid: aa9ecd90d1459854a9cf282092ffffa3,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 40
+      value: -770.518
       objectReference: {fileID: 0}
     - target: {fileID: 114203144751016192, guid: aa9ecd90d1459854a9cf282092ffffa3,
         type: 2}
@@ -1421,7 +1421,7 @@ Prefab:
     - target: {fileID: 224794287765586726, guid: aa9ecd90d1459854a9cf282092ffffa3,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 40
+      value: -770.518
       objectReference: {fileID: 0}
     - target: {fileID: 114203144751016192, guid: aa9ecd90d1459854a9cf282092ffffa3,
         type: 2}
@@ -2350,7 +2350,7 @@ Prefab:
     - target: {fileID: 224794287765586726, guid: aa9ecd90d1459854a9cf282092ffffa3,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 40
+      value: -770.518
       objectReference: {fileID: 0}
     - target: {fileID: 114203144751016192, guid: aa9ecd90d1459854a9cf282092ffffa3,
         type: 2}
@@ -2466,7 +2466,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1091722260}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1091722259}
+        m_MethodName: SwitchScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1091722259
