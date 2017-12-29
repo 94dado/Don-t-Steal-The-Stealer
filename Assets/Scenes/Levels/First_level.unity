@@ -88,7 +88,6 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaDirect: 0.5
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
-    m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -1798,6 +1797,11 @@ Transform:
   m_PrefabParentObject: {fileID: 4673720701898778, guid: ea9f5f95fe9b6b64794c8f3675444a75,
     type: 2}
   m_PrefabInternal: {fileID: 459354198}
+--- !u!1 &492025767 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1055322859035174, guid: 4cf5311a161280b49986d9340e752b21,
+    type: 2}
+  m_PrefabInternal: {fileID: 834508805}
 --- !u!114 &492489884 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114845089227426290, guid: d859c6ebe9923074ca06eb774848079c,
@@ -3682,7 +3686,7 @@ Prefab:
     - target: {fileID: 224819868793194064, guid: 4cf5311a161280b49986d9340e752b21,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 251.5
+      value: 268
       objectReference: {fileID: 0}
     - target: {fileID: 224819868793194064, guid: 4cf5311a161280b49986d9340e752b21,
         type: 2}
@@ -3862,6 +3866,11 @@ Prefab:
       propertyPath: m_LocalPosition.y
       value: 4.800003
       objectReference: {fileID: 0}
+    - target: {fileID: 114317823374350030, guid: 4cf5311a161280b49986d9340e752b21,
+        type: 2}
+      propertyPath: gadgetPanel
+      value: 
+      objectReference: {fileID: 492025767}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4cf5311a161280b49986d9340e752b21, type: 2}
   m_IsPrefabParent: 0
@@ -4798,7 +4807,6 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -10304,7 +10312,7 @@ Prefab:
     - target: {fileID: 224294912487908714, guid: d859c6ebe9923074ca06eb774848079c,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 251.5
+      value: 268
       objectReference: {fileID: 0}
     - target: {fileID: 224294912487908714, guid: d859c6ebe9923074ca06eb774848079c,
         type: 2}
