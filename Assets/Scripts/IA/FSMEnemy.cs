@@ -19,6 +19,8 @@ public class FSMEnemy : SpriteOffset {
     [Range(1f, 10f)] public float idleTime;
     // distance cuz banana make to fall IA
     [Range(0.1f, 0.5f)] public float fallRange;
+    // time banana stun IA
+    [Range(1f, 10f)] public float bananaStunTime;
     // spped of enemy
     public float speed;
     // point mask
@@ -68,7 +70,7 @@ public class FSMEnemy : SpriteOffset {
 			if(GameManager.instance.gameOver) {
 				// stop moving
 				movement.isRunning = false;
-				movement.isSpot = true;
+				movement.isSpotted = true;
 				isFSMStarted = false;
 			}
 			else {
@@ -108,6 +110,8 @@ public class FSMEnemy : SpriteOffset {
                 // you are arrived
                 if (nextPosition == throwablePosition) {
                     isReachingThrowable = false;
+                    // remove the throwable from scene
+                    Destroy(throwablePosition.gameObject);
                     throwablePosition = null;
                     throwableIsReached = true;
                 }
@@ -154,7 +158,8 @@ public class FSMEnemy : SpriteOffset {
         if (bananas.Count > 0) {
             foreach (KeyValuePair<float, Transform> pair in bananas) {
                 if (pair.Key <= fallRange) {
-                    // TODO: fall of IA
+                    // IA stunned
+                    StartCoroutine(BananaWait(pair.Value));
                 }
             }
         }
@@ -181,6 +186,22 @@ public class FSMEnemy : SpriteOffset {
 		}
 		return false;
 	}
+
+    // IA stuns after contact with banana
+    IEnumerator BananaWait(Transform banana) {
+        isFSMStarted = false;
+        // remove banana
+        Destroy(banana.gameObject);
+        throwablePosition = null;
+        // active animation
+        movement.isStunned = true;
+        movement.isRunning = false;
+        yield return new WaitForSeconds(bananaStunTime);
+        // IA restart to move
+        movement.isStunned = false;
+        throwableIsReached = true;
+        isFSMStarted = true;
+    }
 
     void StartFSM() {
 

@@ -327,9 +327,12 @@ public class PlayerController : SpriteOffset {
 
     private void ActivateGadget()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse1))
+        if (gameManager.gadgetList.Count > 0)
         {
-            gameManager.currentGadget.activateGadget();
+            if (Input.GetKeyDown(KeyCode.Mouse1))
+            {
+                gameManager.currentGadget.activateGadget();
+            }
         }
     }
 

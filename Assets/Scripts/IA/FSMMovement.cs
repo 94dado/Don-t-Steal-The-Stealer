@@ -4,8 +4,10 @@ public class FSMMovement {
 
     // check if player is in movement
     public bool isRunning;
-    // check if player is spot
-    public bool isSpot;
+    // check if player is spotted
+    public bool isSpotted;
+    // check if player is stuned
+    public bool isStunned;
 	// direction of the IA movement
 	public Vector2 direction;
 	// last movement direction
@@ -29,7 +31,7 @@ public class FSMMovement {
     // move the IA using animator
 	public float Move(Vector2 position) {
         // if IA is moving and player hasn't seen
-        if (isRunning && !isSpot) {
+        if (isRunning && !isSpotted && !isSpotted) {
 			// get the shift
 			direction = (position - lastPosition).normalized;
             // set position like the last
@@ -50,7 +52,8 @@ public class FSMMovement {
 		animator.SetFloat("RunX", direction.x);
 		animator.SetFloat("RunY", direction.y);
 		animator.SetBool("Running", isRunning);
-		animator.SetBool("Spotting", isSpot);
+		animator.SetBool("Spotting", isSpotted);
+        animator.SetBool("Stunning", isStunned);
 		// return the speed of the IA
         return newSpeed;
     }

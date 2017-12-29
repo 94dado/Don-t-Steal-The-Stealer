@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour {
     public Text coolDownText;
     public Image gadgetImage;
     public Text gadgetText;
+    public GameObject gadgetPanel;
     private PlayerController player;
 
     [HideInInspector]
@@ -85,8 +86,11 @@ public class GameManager : MonoBehaviour {
         {
             showTimer();
             MapUpdate();
-            ShowGadget();
-            UpdateCoolDownText();
+            if (gadgetList.Count > 0)
+            {
+                ShowGadget();
+                UpdateCoolDownText();
+            }
         }
         else if (gameOver)
             gameOverManager.activateGameOverMenu();
@@ -320,10 +324,19 @@ public class GameManager : MonoBehaviour {
         }
 
         gadgetNumber = gadgetList.Count;
-        currentGadget = gadgetList[0];
+        if (gadgetList.Count > 0)
+        {
+            gadgetPanel.SetActive(true);
+            currentGadget = gadgetList[0];
 
-        gadgetImage.sprite = currentGadget.sprite;
-        gadgetText.text = currentGadget.name;
+            gadgetImage.sprite = currentGadget.sprite;
+            gadgetText.text = currentGadget.name;
+        }
+        else
+        {
+            gadgetPanel.SetActive(false);
+
+        }
 
 
     }

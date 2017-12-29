@@ -16,6 +16,6 @@ MonoBehaviour:
   positionCountInSceneArray: 0
   coolDown: 0
   boostDuration: 0
-  isLocked: 0
+  isLocked: 1
   price: 0
   description: 

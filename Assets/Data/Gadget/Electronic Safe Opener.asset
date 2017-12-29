@@ -16,6 +16,6 @@ MonoBehaviour:
   positionCountInSceneArray: 1
   coolDown: 0
   boostDuration: 0
-  isLocked: 0
+  isLocked: 1
   price: 1000
-  description: 
+  description: 'Object 1: long description --------------fmismivmieowmivmioewmoivmeiwmvioemiwmvewmiovmiewmvioewmiovmewiomvioewiovewuinvrdfunuisvmdjkfnbuivnreunuienivnevuireuibnernbuieuibnerubnuiernbuireuibnreunburnbuiernuibreuinbreuinbuernbuineruinbuernuibneruinbuernbuiernuibrenuibruinbrenbrenbuenubireuibruienbuirenuibnreuinbrenbrenbuienunbruienbuienuibruibne'
