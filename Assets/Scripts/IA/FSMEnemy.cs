@@ -74,8 +74,10 @@ public class FSMEnemy : SpriteOffset {
 				isFSMStarted = false;
 			}
 			else {
-                // check collisions with gadgets
-                CheckGadgetAround();
+                // check collisions with gadgets if one is not already setted
+                if (throwablePosition == null) {
+                    CheckGadgetAround();
+                }
                 // check player position
                 PlayerIsVisible();
 				// check if we have to move
@@ -114,6 +116,9 @@ public class FSMEnemy : SpriteOffset {
                     Destroy(throwablePosition.gameObject);
                     throwablePosition = null;
                     throwableIsReached = true;
+                    movement.isRunning = false;
+                    // remove the position of the gadget destroyed
+                    toThrowableAndBack.Dequeue();
                 }
                 else {
                     // find the next position near the throwable
@@ -147,11 +152,11 @@ public class FSMEnemy : SpriteOffset {
         for (int i = 0; i < throwableColliders.Length; i++) {
             // rock
             if (throwableColliders[i].transform.tag == "RockPool") {
-                bananas.Add(Vector2.Distance(transform.position, throwableColliders[i].transform.position), throwableColliders[i].transform);
+                rocks.Add(Vector2.Distance(transform.position, throwableColliders[i].transform.position), throwableColliders[i].transform);
             }
             // banana
             else if (throwableColliders[i].transform.tag == "BananaPool") {
-                rocks.Add(Vector2.Distance(transform.position, throwableColliders[i].transform.position), throwableColliders[i].transform);
+                bananas.Add(Vector2.Distance(transform.position, throwableColliders[i].transform.position), throwableColliders[i].transform);
             }
         }
         // banana behaviour
@@ -159,7 +164,7 @@ public class FSMEnemy : SpriteOffset {
             foreach (KeyValuePair<float, Transform> pair in bananas) {
                 if (pair.Key <= fallRange) {
                     // IA stunned
-                    StartCoroutine(BananaWait(pair.Value));
+                    StartCoroutine(StunWait(pair.Value));
                 }
             }
         }
@@ -188,18 +193,18 @@ public class FSMEnemy : SpriteOffset {
 	}
 
     // IA stuns after contact with banana
-    IEnumerator BananaWait(Transform banana) {
+    IEnumerator StunWait(Transform stunObject) {
         isFSMStarted = false;
         // remove banana
-        Destroy(banana.gameObject);
-        throwablePosition = null;
+        Destroy(stunObject.gameObject);
         // active animation
         movement.isStunned = true;
         movement.isRunning = false;
+        movement.Move(transform.position);
         yield return new WaitForSeconds(bananaStunTime);
         // IA restart to move
         movement.isStunned = false;
-        throwableIsReached = true;
+        movement.isRunning = true;
         isFSMStarted = true;
     }
 

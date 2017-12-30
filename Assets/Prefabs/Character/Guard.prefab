@@ -190,6 +190,7 @@ MonoBehaviour:
   FSMDelay: 0.1
   idleTime: 4.5
   fallRange: 0.3
+  bananaStunTime: 5
   speed: 2
   pointsMask:
     serializedVersion: 2

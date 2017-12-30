@@ -22,9 +22,9 @@ GameObject:
   - component: {fileID: 212174377071790118}
   - component: {fileID: 114658786284653724}
   - component: {fileID: 61750209047080308}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Banana (1)
-  m_TagString: Untagged
+  m_TagString: BananaPool
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38,7 +38,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4896336686183166}
   - component: {fileID: 114810129656434884}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: RockPool
   m_TagString: RockPool
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4753449717550388}
   - component: {fileID: 212868013847335892}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Wave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,9 +72,9 @@ GameObject:
   - component: {fileID: 212055663458323018}
   - component: {fileID: 114582487768686214}
   - component: {fileID: 61783793370971064}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Banana
-  m_TagString: Untagged
+  m_TagString: BananaPool
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -92,9 +92,9 @@ GameObject:
   - component: {fileID: 114808555460702592}
   - component: {fileID: 114068966554506732}
   - component: {fileID: 61111733736528862}
-  m_Layer: 13
+  m_Layer: 17
   m_Name: Rock (1)
-  m_TagString: Throwable
+  m_TagString: RockPool
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -112,9 +112,9 @@ GameObject:
   - component: {fileID: 114593956549075582}
   - component: {fileID: 114663097693538054}
   - component: {fileID: 61979514061444474}
-  m_Layer: 13
+  m_Layer: 17
   m_Name: Rock (2)
-  m_TagString: Throwable
+  m_TagString: RockPool
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -145,9 +145,9 @@ GameObject:
   - component: {fileID: 212189153714898178}
   - component: {fileID: 114399441954552254}
   - component: {fileID: 61385290443592262}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Banana (2)
-  m_TagString: Untagged
+  m_TagString: BananaPool
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -165,9 +165,9 @@ GameObject:
   - component: {fileID: 114170804163592658}
   - component: {fileID: 114452972657777956}
   - component: {fileID: 61678093773526140}
-  m_Layer: 13
+  m_Layer: 17
   m_Name: Rock
-  m_TagString: Throwable
+  m_TagString: RockPool
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -181,7 +181,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4753254100065882}
   - component: {fileID: 114500145356575848}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: BananaPool
   m_TagString: BananaPool
   m_Icon: {fileID: 0}
@@ -197,7 +197,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4958046770836088}
   - component: {fileID: 212687014158863770}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Wave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -213,7 +213,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4824898706768562}
   - component: {fileID: 212604861159419560}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Wave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
