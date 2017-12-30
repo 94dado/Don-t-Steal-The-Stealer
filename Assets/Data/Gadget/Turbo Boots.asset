@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Name: Turbo Boots
   m_EditorClassIdentifier: 
   gadgetName: Turbo Boots
-  image: {fileID: 21300000, guid: 79d06ead831969d49a4c7d3ea9612e0d, type: 3}
+  image: {fileID: 21300000, guid: f8259c45c6be13840a6c3992f7c2658f, type: 3}
   positionCountInSceneArray: 4
   coolDown: 100
   boostDuration: 10
-  isLocked: 1
+  isLocked: 0
   price: 2400
   description: 
