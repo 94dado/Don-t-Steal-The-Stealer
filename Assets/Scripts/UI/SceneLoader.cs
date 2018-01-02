@@ -38,6 +38,11 @@ public class SceneLoader : MonoBehaviour {
 
         }
 
+        foreach(Intelligence i in dataManager.Intelligence)
+        {
+            i.isLocked = true;
+        }
+
         dataManager.Levels[0].isLocked = false;
 
         SwitchScene();
