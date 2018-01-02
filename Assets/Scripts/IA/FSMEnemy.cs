@@ -33,6 +33,8 @@ public class FSMEnemy : SpriteOffset {
 	public LayerMask playerMask;
     // collision wih door closed
     public LayerMask interactableMask;
+    // used to wait rise animation after fall
+    public AnimationClip riseAnimation;
 
     FSM fsmMachine;
     FSMMovement movement;
@@ -205,6 +207,9 @@ public class FSMEnemy : SpriteOffset {
         // IA restart to move
         movement.isStunned = false;
         movement.isRunning = true;
+        movement.Move(transform.position);
+        // wait to rise before move
+        yield return new WaitForSeconds(riseAnimation.length);
         isFSMStarted = true;
     }
 

@@ -207,6 +207,7 @@ MonoBehaviour:
   interactableMask:
     serializedVersion: 2
     m_Bits: 8192
+  riseAnimation: {fileID: 7400000, guid: 60536468d6e92fe47b9dfa3fd8099007, type: 2}
 --- !u!212 &212758065006250040
 SpriteRenderer:
   m_ObjectHideFlags: 1
