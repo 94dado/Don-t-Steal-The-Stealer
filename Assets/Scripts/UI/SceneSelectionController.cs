@@ -28,6 +28,7 @@ public class SceneSelectionController : MonoBehaviour {
     public Text firstText;
     public Text secondText;
     public Text thirdText;
+    private Button thisButton;
 
 
     public void Start()
@@ -37,12 +38,20 @@ public class SceneSelectionController : MonoBehaviour {
         sceneLoader = startButtonGameObject.GetComponent<SceneLoader>();
         startButton = startButtonGameObject.GetComponent<Button>();
         dataManager = GameObject.FindGameObjectWithTag("DataManager").GetComponent<DataManager>();
-
+        thisButton = gameObject.GetComponent<Button>();
         
 
 
         loadStars();
         
+    }
+
+    public void Update()
+    {
+        if(!dataManager.Levels[level-2].isLocked && thisButton.interactable == false)
+        {
+            thisButton.interactable = true;
+        }
     }
 
     public void SwitchScene()

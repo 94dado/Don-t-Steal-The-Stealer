@@ -14,6 +14,7 @@ public class GadgetShopManager : MonoBehaviour {
     public GameObject buyButton;
     private GadgetBuyer gadgetBuyer;
     private int currentGadget = -1;
+    public Text yourMoney;
 
 
 
@@ -53,7 +54,7 @@ public class GadgetShopManager : MonoBehaviour {
 
         updateDescription();
 
-
+        yourMoney.text = "Money: " + dataManager.MoneyData + "$";
     }
 
     private void updateDescription()
