@@ -2393,7 +2393,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 1
-  levelString: 
+  levelString: Level_select
 --- !u!1001 &1719387261
 Prefab:
   m_ObjectHideFlags: 0

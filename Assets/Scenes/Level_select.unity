@@ -146,8 +146,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1, y: -32.887573}
-  m_SizeDelta: {x: -6, y: -73.8}
+  m_AnchoredPosition: {x: 1, y: -35.54}
+  m_SizeDelta: {x: -6, y: -79.18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &48036225
 MonoBehaviour:
@@ -897,7 +897,7 @@ Prefab:
     - target: {fileID: 224731993472471154, guid: aa9ecd90d1459854a9cf282092ffffa3,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: -10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224794287765586726, guid: aa9ecd90d1459854a9cf282092ffffa3,
         type: 2}
@@ -1574,7 +1574,7 @@ Prefab:
     - target: {fileID: 224731993472471154, guid: aa9ecd90d1459854a9cf282092ffffa3,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: -10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224794287765586726, guid: aa9ecd90d1459854a9cf282092ffffa3,
         type: 2}
@@ -1812,7 +1812,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 0
-  levelString: 
+  levelString: Home
 --- !u!224 &691985061 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224446221301727466, guid: aa9ecd90d1459854a9cf282092ffffa3,
@@ -2558,7 +2558,7 @@ Prefab:
     - target: {fileID: 224731993472471154, guid: aa9ecd90d1459854a9cf282092ffffa3,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: -10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224794287765586726, guid: aa9ecd90d1459854a9cf282092ffffa3,
         type: 2}
@@ -2747,8 +2747,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eae4f717462cf8f49a506afa74c32039, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 3
-  levelString: 
+  level: 0
+  levelString: Gadget_menu
 --- !u!114 &1091722260
 MonoBehaviour:
   m_ObjectHideFlags: 0
