@@ -93,7 +93,9 @@ public class GameManager : MonoBehaviour {
             }
         }
         else if (gameOver)
+        {
             gameOverManager.activateGameOverMenu();
+        }
         else
             gameOverManager.activateVictoryMenu();
             

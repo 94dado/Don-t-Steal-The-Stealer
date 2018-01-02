@@ -6,6 +6,7 @@ public class Intelligence : ScriptableObject {
 	public Level[] levels;
 	public int positionCountInSceneArray;
 	public int price;
+    public bool isLocked;
 	[TextArea(10,10)]
 	public string description;
 

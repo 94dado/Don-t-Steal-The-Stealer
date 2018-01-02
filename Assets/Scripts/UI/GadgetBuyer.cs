@@ -16,10 +16,16 @@ public class GadgetBuyer : MonoBehaviour {
 
     public void buyGadget()
     {
-        if(dataManager.MoneyData >= dataManager.Gadgets[gadgetID].price)
+        if(gadgetID < dataManager.Gadgets.Length && dataManager.MoneyData >= dataManager.Gadgets[gadgetID].price)
         {
             dataManager.MoneyData = dataManager.MoneyData - dataManager.Gadgets[gadgetID].price;
             dataManager.Gadgets[gadgetID].isLocked = false;
+        }
+        else if (dataManager.MoneyData >= dataManager.Intelligence[gadgetID - dataManager.Gadgets.Length].price && gadgetID >= dataManager.Gadgets.Length)
+        {
+            dataManager.MoneyData = dataManager.MoneyData - dataManager.Intelligence[gadgetID - dataManager.Gadgets.Length].price;
+            dataManager.Intelligence[gadgetID - dataManager.Gadgets.Length].isLocked = false;
+            dataManager.Intelligence[gadgetID - dataManager.Gadgets.Length].Buy();
         }
     }
 

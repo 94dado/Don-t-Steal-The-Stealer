@@ -14,15 +14,16 @@ public class GadgetShopManager : MonoBehaviour {
     public GameObject buyButton;
     private GadgetBuyer gadgetBuyer;
     private int currentGadget = -1;
+    public Text yourMoney;
 
 
 
     // Use this for initialization
     void Start () {
         dataManager = GameObject.FindGameObjectWithTag("DataManager").GetComponent<DataManager>();
-        buttons = new Button[dataManager.Gadgets.Length];
-        images = new Image[dataManager.Gadgets.Length];
-        nameAndPrice = new Text[dataManager.Gadgets.Length];
+        buttons = new Button[dataManager.Gadgets.Length + dataManager.Intelligence.Length];
+        images = new Image[dataManager.Gadgets.Length + dataManager.Intelligence.Length];
+        nameAndPrice = new Text[dataManager.Gadgets.Length + dataManager.Intelligence.Length];
         gadgetBuyer = buyButton.GetComponent<GadgetBuyer>();
 
 
@@ -35,8 +36,18 @@ public class GadgetShopManager : MonoBehaviour {
             images[i].sprite = dataManager.Gadgets[i].image;
             nameAndPrice[i].text = dataManager.Gadgets[i].gadgetName + "\n" + dataManager.Gadgets[i].price + " $";
         }
-        
-	}
+
+        for (int i = dataManager.Gadgets.Length; i < dataManager.Gadgets.Length + dataManager.Intelligence.Length; i++)
+        {
+            gadgets[i].SetActive(true);
+            buttons[i] = gadgets[i].GetComponentInChildren<Button>();
+            images[i] = gadgets[i].transform.GetChild(0).GetComponent<Image>();
+            nameAndPrice[i] = gadgets[i].GetComponentInChildren<Text>();
+            nameAndPrice[i].text = dataManager.Intelligence[i - dataManager.Gadgets.Length].name + "\n" + dataManager.Intelligence[i- dataManager.Gadgets.Length].price + " $";
+        }
+
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -44,16 +55,26 @@ public class GadgetShopManager : MonoBehaviour {
 
         for(int i = 0; i < dataManager.Gadgets.Length; i++)
         {
-            if (!dataManager.Gadgets[i].isLocked)
+            if (!dataManager.Gadgets[i].isLocked && buttons[i].interactable == true)
             {
                 buttons[i].interactable = false;
                 images[i].color = new Color(0.2f, 0.2f, 0.2f);
             }
         }
 
-        updateDescription();
+        for (int i = dataManager.Gadgets.Length; i < dataManager.Gadgets.Length + dataManager.Intelligence.Length; i++)
+        {
+            if (!dataManager.Intelligence[i - dataManager.Gadgets.Length].isLocked && buttons[i].interactable == true)
+            {
+                buttons[i].interactable = false;
+                images[i].color = new Color(0.2f, 0.2f, 0.2f);
+            }
+        }
 
 
+            updateDescription();
+
+        yourMoney.text = "Money: " + dataManager.MoneyData + "$";
     }
 
     private void updateDescription()
@@ -61,7 +82,10 @@ public class GadgetShopManager : MonoBehaviour {
         if (currentGadget != gadgetBuyer.getGadget())
         {
             currentGadget = gadgetBuyer.getGadget();
-            description.text = dataManager.Gadgets[currentGadget].description;
+            if(currentGadget < dataManager.Gadgets.Length)
+                description.text = dataManager.Gadgets[currentGadget].description;
+            else
+                description.text = dataManager.Intelligence[currentGadget- dataManager.Gadgets.Length].description;
         }
     }
 
