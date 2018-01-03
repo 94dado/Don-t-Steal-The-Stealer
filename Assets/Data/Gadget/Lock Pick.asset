@@ -16,7 +16,7 @@ MonoBehaviour:
   positionCountInSceneArray: 2
   coolDown: 0
   boostDuration: 0
-  isLocked: 1
+  isLocked: 0
   price: 3500
   description: 'Very old school, but with these lock picks you can open every door
     you will find. Don''t worry anymore to leave some treasure behind for a silly

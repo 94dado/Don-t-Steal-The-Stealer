@@ -30,6 +30,7 @@ public class GameOverManager : MonoBehaviour {
     public int level;
 
     private GameManager gameManager;
+    MusicManager musicManager;
 
     //remove this variables
     [HideInInspector]
@@ -39,6 +40,7 @@ public class GameOverManager : MonoBehaviour {
     void Start () {
         gameManager = GameManager.instance;
         dataManager = GameObject.FindGameObjectWithTag("DataManager").GetComponent<DataManager>();
+        musicManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<MusicManager>();
 	}
 
 
@@ -47,6 +49,8 @@ public class GameOverManager : MonoBehaviour {
     {
         if (!winActivated)
         {
+            // play music of winning
+            musicManager.PlaySound(musicManager.winningSongName);
             dataManager.Levels[level].levelCompleted = true;
             dataManager.Levels[level].objectsScore = gameManager.obtainedObjects;
             dataManager.Levels[level].timeScore = (int)gameManager.time;
@@ -83,15 +87,10 @@ public class GameOverManager : MonoBehaviour {
     //call this method to activate game over menu
     public void activateGameOverMenu()
     {
-        StartCoroutine(GameOver());
-        
-    }
-
-    IEnumerator GameOver()
-    {
-        yield return new WaitForSeconds(2);
         if (!gameOverActivated)
         {
+            // playe music of gameover song
+            musicManager.PlaySound(musicManager.gameoverSongName);
             gameOverObjectsCountText.text = gameManager.obtainedObjects + "/" + gameManager.obtainableObjects;
             gameOverTimeCountText.text = calculateTime((int)gameManager.time);
             gameOverTimeLimitText.text = "\nSteal all objects in less \nthan " + calculateTime(timeLimit);
@@ -111,7 +110,9 @@ public class GameOverManager : MonoBehaviour {
             gameOverMenu.SetActive(true);
             gameOverActivated = true;
         }
+
     }
+
 
     //this method turns time in seconds into time in HH:MM:SS
     private string calculateTime(int timeInSeconds)
