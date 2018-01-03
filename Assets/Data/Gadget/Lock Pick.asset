@@ -18,4 +18,8 @@ MonoBehaviour:
   boostDuration: 0
   isLocked: 1
   price: 3500
-  description: 
+  description: 'Very old school, but with these lock picks you can open every door
+    you will find. Don''t worry anymore to leave some treasure behind for a silly
+    hidden key.
+
+    To use lock pick, use gadget button when interacting with a door.'

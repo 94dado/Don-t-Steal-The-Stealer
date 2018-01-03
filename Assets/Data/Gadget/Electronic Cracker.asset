@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cef8995aceada4239b8ca55306dde93b, type: 3}
+  m_Name: Electronic Cracker
+  m_EditorClassIdentifier: 
+  gadgetName: Electronic Cracker
+  image: {fileID: 21300000, guid: 0a8c2a1e24039d2478ce7bfe36e19d4a, type: 3}
+  positionCountInSceneArray: 1
+  coolDown: 0
+  boostDuration: 0
+  isLocked: 1
+  price: 1000
+  description: 'This high tech gadget give you the possibility to hack everoy electronic
+    device. It''s very expensive, but it''s worth every cents it costs!
+
+    Press the gadget button when interacting with an electronic device to use the
+    electronic cracker.'

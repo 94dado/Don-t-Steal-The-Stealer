@@ -83,13 +83,6 @@ public class GameOverManager : MonoBehaviour {
     //call this method to activate game over menu
     public void activateGameOverMenu()
     {
-        StartCoroutine(GameOver());
-        
-    }
-
-    IEnumerator GameOver()
-    {
-        yield return new WaitForSeconds(2);
         if (!gameOverActivated)
         {
             gameOverObjectsCountText.text = gameManager.obtainedObjects + "/" + gameManager.obtainableObjects;
@@ -111,7 +104,9 @@ public class GameOverManager : MonoBehaviour {
             gameOverMenu.SetActive(true);
             gameOverActivated = true;
         }
+
     }
+
 
     //this method turns time in seconds into time in HH:MM:SS
     private string calculateTime(int timeInSeconds)

@@ -189,7 +189,7 @@ MonoBehaviour:
   overlapRadiusThrowable: 6
   FSMDelay: 0.1
   idleTime: 4.5
-  fallRange: 0.3
+  fallRange: 0.5
   bananaStunTime: 5
   speed: 2
   pointsMask:
