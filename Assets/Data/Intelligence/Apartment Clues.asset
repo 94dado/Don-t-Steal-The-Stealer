@@ -16,5 +16,6 @@ MonoBehaviour:
   positionCountInSceneArray: 0
   price: 500
   isLocked: 1
+  image: {fileID: 21300000, guid: aba3d6b1a9b89c2428a47384d8f1fb71, type: 3}
   description: First of all, you need to check if the stealer left some clues in your
     apartment. To do it, you need a very specialized team of experts.

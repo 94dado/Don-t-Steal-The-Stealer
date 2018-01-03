@@ -11,10 +11,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14cbf2f39dcd942d0a0fdade4e9f8dc0, type: 3}
   m_Name: Asking Neighbours
   m_EditorClassIdentifier: 
-  levels: []
+  levels:
+  - {fileID: 11400000, guid: d439e8c9b41ae41a7b3f5463f9617f4b, type: 2}
   positionCountInSceneArray: 1
   price: 0
-  isLocked: 0
+  isLocked: 1
+  image: {fileID: 21300000, guid: a3ddc3f87dee28e449da29ca0e634e85, type: 3}
   description: No clues in your apartment, but some neighbour could have seen someone
     suspicious, but there are too many people that lives near you. It's necessary
     that you pay a team of person able to be persuasive that asks to everyone.
