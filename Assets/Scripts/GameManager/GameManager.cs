@@ -310,11 +310,11 @@ public class GameManager : MonoBehaviour {
             {
                 if (g.name == "Turbo Boots")
                     gadgetList.Add(new Turbo_boots(g.name, g.image, g.coolDown, g.boostDuration, player));
-                else if (g.name == "Rock")
+                else if (g.name == "Vibrating Rock")
                     gadgetList.Add(new Rock(g.name, g.image, g.coolDown, g.boostDuration, player));
                 else if (g.name == "Lock Pick")
                     gadgetList.Add(new Lock_pick(g.name, g.image, g.coolDown, g.boostDuration, player));
-                else if (g.name == "Electronic Safe Opener")
+                else if (g.name == "Electronic Cracker")
                     gadgetList.Add(new Electronic_safe_opener(g.name, g.image, g.coolDown, g.boostDuration, player));
                 else if (g.name == "Banana")
                     gadgetList.Add(new Banana(g.name, g.image, g.coolDown, g.boostDuration, player));
