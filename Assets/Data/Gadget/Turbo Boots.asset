@@ -16,6 +16,11 @@ MonoBehaviour:
   positionCountInSceneArray: 4
   coolDown: 100
   boostDuration: 10
-  isLocked: 0
+  isLocked: 1
   price: 2400
-  description: 
+  description: 'Have you ever tried to walk fast in some uncomfortable shoes? Never
+    mind, now you can have the best running shoes to make some sprint without even
+    sweat!
+
+    To use the turbo boots, use the gadget button. You will have a sprint only for
+    a limited amount of time.'

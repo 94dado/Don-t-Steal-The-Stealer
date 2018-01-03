@@ -18,4 +18,7 @@ MonoBehaviour:
   boostDuration: 0
   isLocked: 1
   price: 550
-  description: This is Object 0
+  description: 'The skin''s of a banana: as simple as effective! If a guard step on
+    it, he will fall down!
+
+    Long press the gadget button to aim and release the button to throw it.'
