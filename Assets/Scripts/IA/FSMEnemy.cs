@@ -54,6 +54,8 @@ public class FSMEnemy : SpriteOffset {
     bool throwableIsReached;
 	// start FSM
 	bool isFSMStarted;
+    // check if IA is stunned
+    bool isStun;
 
 	// initialize the FSM of the guard with points to follow and the start position
 	public void InitializeFSM(Transform[] allPoints, int startPos) {
@@ -67,7 +69,7 @@ public class FSMEnemy : SpriteOffset {
     }
 
     void Update() {
-		if(isFSMStarted) {
+        if(isFSMStarted && !isStun) {
 			// checks the movement boolean
 			if(GameManager.instance.gameOver) {
 				// stop moving
@@ -196,7 +198,7 @@ public class FSMEnemy : SpriteOffset {
 
     // IA stuns after contact with banana
     IEnumerator StunWait(Transform stunObject) {
-        isFSMStarted = false;
+        isStun = true;
         // remove banana
         Destroy(stunObject.gameObject);
         // active animation
@@ -205,12 +207,12 @@ public class FSMEnemy : SpriteOffset {
         movement.Move(transform.position);
         yield return new WaitForSeconds(bananaStunTime);
         // IA restart to move
-        movement.isStunned = false;
         movement.isRunning = true;
+        movement.isStunned = false;
         movement.Move(transform.position);
         // wait to rise before move
         yield return new WaitForSeconds(riseAnimation.length);
-        isFSMStarted = true;
+        isStun = false;
     }
 
     void StartFSM() {
