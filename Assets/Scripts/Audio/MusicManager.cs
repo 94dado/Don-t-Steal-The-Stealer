@@ -62,7 +62,7 @@ public class MusicManager : MonoBehaviour {
     }
 
     // play an audio
-    void PlaySound(string songName) {
+    public void PlaySound(string songName) {
         for (int i = 0; i < sounds.Length; i++) {
             if (sounds[i].name == songName) {
                 sounds[i].Play();
@@ -120,14 +120,6 @@ public class MusicManager : MonoBehaviour {
             StopCoroutine("LevelMusic");
             StopSounds();
             PlaySound(menuSongName);
-        }
-        // if gameover
-        if (GameManager.instance.gameOver && !backgroundSounds.Contains(GetSound(gameoverSongName))) {
-            PlaySound(gameoverSongName);
-        }
-        // if win
-        if (GameManager.instance.win && !backgroundSounds.Contains(GetSound(winningSongName))) {
-            PlaySound(winningSongName);
         }
 	}
 

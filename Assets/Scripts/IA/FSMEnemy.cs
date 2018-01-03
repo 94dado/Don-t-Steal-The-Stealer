@@ -308,6 +308,8 @@ public class FSMEnemy : SpriteOffset {
 
     // finds position to be reached
     void FindPosition() {
+        // add first position
+        toThrowableAndBack.Enqueue(nextPosition);
         Transform minBetweenThrowableAndPoints = GetMinBetweenThrowableAndPoints();
         // if there are no point the nearest is the throwable itself
         if (minBetweenThrowableAndPoints == null) {
@@ -329,7 +331,6 @@ public class FSMEnemy : SpriteOffset {
             nextPosition = min;
         }
         // added position of point
-        toThrowableAndBack.Enqueue(nextPosition);
         isReachingThrowable = true;
     }
 
