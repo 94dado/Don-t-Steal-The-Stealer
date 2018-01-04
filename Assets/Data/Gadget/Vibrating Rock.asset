@@ -16,7 +16,7 @@ MonoBehaviour:
   positionCountInSceneArray: 3
   coolDown: 20
   boostDuration: 0
-  isLocked: 1
+  isLocked: 0
   price: 400
   description: 'This incredible rock has the property to vibrate and emit a simple
     and not very loud sound: perfect to distract someone.

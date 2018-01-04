@@ -115,7 +115,7 @@ public class GameManager : MonoBehaviour {
     //activate the "missing gadget" text
     public void ActivateSafeText()
     {
-        screenText.text = "You need an Electronic Safe Opener";
+        screenText.text = "You need an Electronic Cracker";
     }
 
     public void ActivateNoKeyText()
@@ -223,7 +223,7 @@ public class GameManager : MonoBehaviour {
     //update money in order to display it incrementally
     private void updateMoney()
     {
-        oldObtainedMoney = oldObtainedMoney + 3;
+        oldObtainedMoney = oldObtainedMoney + 10;
         if (oldObtainedMoney > newObtainedMoney)
             oldObtainedMoney = newObtainedMoney;
         moneyText.text = "Money: " + oldObtainedMoney + "$";

@@ -316,7 +316,7 @@ public class PlayerController : SpriteOffset {
         else if (myObject.getObjectType() == "Endgame")
             return 3;
         //if we are here, the interacted object is neither a door, a key or a mat. We must check if the player has the right gadget
-        else if (myObject.getObjectType() == "Safe")
+        else if (myObject.getObjectType() == "Safe" || myObject.getObjectType() == "Atm")
         {
             return 1;
         }

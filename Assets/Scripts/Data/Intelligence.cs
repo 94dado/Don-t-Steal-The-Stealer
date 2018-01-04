@@ -7,7 +7,8 @@ public class Intelligence : ScriptableObject {
 	public int positionCountInSceneArray;
 	public int price;
     public bool isLocked;
-	[TextArea(10,10)]
+    public Sprite image;
+    [TextArea(10,10)]
 	public string description;
 
 	// buy the information and unlock the information
