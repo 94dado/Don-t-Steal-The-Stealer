@@ -32,6 +32,12 @@ public class ProjectileBehaviour : MonoBehaviour {
         {
             despawnTimer = 0;
             gameObject.SetActive(false);
+            gameObject.layer = LayerMask.NameToLayer("Default");
+        }
+
+        if(transform.position == endPosition && gameObject.layer != LayerMask.NameToLayer("Throwable"))
+        {
+            gameObject.layer = LayerMask.NameToLayer("Throwable");
         }
     }
 
