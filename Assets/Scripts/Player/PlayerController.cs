@@ -298,7 +298,7 @@ public class PlayerController : SpriteOffset {
             return -1;
 
         // if the object is a door, check that the player has the key if he does return 0, else return 1
-        if (myObject.getObjectType() == "Door")
+        if (myObject.getObjectType() == "Door" || myObject.getObjectType() == "Caveau")
         {
             foreach (int keyId in keyList)
             {

@@ -12,9 +12,9 @@ public class Lock_pick : Gadgets {
     override
     public void activateGadget()
     {
-        if(player.interact == false && player.nearADoor == true)
+        InteractableObject myObject = player.hitObject.collider.gameObject.GetComponent<InteractableObject>();
+        if (player.interact == false && player.nearADoor == true && myObject.getObjectType() == "Door")
         {
-            InteractableObject myObject = player.hitObject.collider.gameObject.GetComponent<InteractableObject>();
             myObject.Interact();
         }
     }
