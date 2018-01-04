@@ -121,8 +121,6 @@ public class FSMEnemy : SpriteOffset {
                     throwablePosition = null;
                     throwableIsReached = true;
                     movement.isRunning = false;
-                    // remove the position of the gadget destroyed
-                    toThrowableAndBack.Dequeue();
                 }
                 else {
                     // find the next position near the throwable
