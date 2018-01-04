@@ -1,10 +1,6 @@
 ﻿using UnityEngine;
 
-public class Caveau : InteractableObject {
-
-    void Start() {
-        animator = GetComponent<Animator>();
-    }
+public class Caveau : Door {
 
     public override int Interact() {
         animator.SetBool("interacted", true);
