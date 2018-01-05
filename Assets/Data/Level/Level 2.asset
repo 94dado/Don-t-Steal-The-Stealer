@@ -14,7 +14,7 @@ MonoBehaviour:
   levelName: Villa
   positionCountInSceneArray: 0
   timeLimit: 0
-  maxObject: 0
+  maxObject: 15
   isLocked: 1
   description: 
   objectsScore: 0

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameOverManager : MonoBehaviour {
@@ -41,7 +42,9 @@ public class GameOverManager : MonoBehaviour {
         gameManager = GameManager.instance;
         dataManager = GameObject.FindGameObjectWithTag("DataManager").GetComponent<DataManager>();
         musicManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<MusicManager>();
-	}
+        level = SceneManager.GetActiveScene().buildIndex - 2;
+
+    }
 
 
     //call this method to activate victory menu

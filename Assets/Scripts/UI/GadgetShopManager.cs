@@ -20,6 +20,7 @@ public class GadgetShopManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        description.text = "";
         dataManager = GameObject.FindGameObjectWithTag("DataManager").GetComponent<DataManager>();
         buttons = new Button[dataManager.Gadgets.Length + dataManager.Intelligence.Length];
         images = new Image[dataManager.Gadgets.Length + dataManager.Intelligence.Length];
