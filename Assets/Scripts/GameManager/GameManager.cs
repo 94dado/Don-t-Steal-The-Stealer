@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -17,6 +18,8 @@ public class GameManager : MonoBehaviour {
     public Image gadgetImage;
     public Text gadgetText;
     public GameObject gadgetPanel;
+    [HideInInspector]
+    public bool gadgetPanelActive = false;
     private PlayerController player;
 
     [HideInInspector]
@@ -59,7 +62,8 @@ public class GameManager : MonoBehaviour {
     //map variables
     private bool mapActive;
     public GameObject map;
-
+    private int sceneIndex;
+    private int homeScene;
 
     public static GameManager instance;
 
@@ -72,10 +76,14 @@ public class GameManager : MonoBehaviour {
         newObtainedMoney = 0;
         obtainedObjects = 0;
         obtainableObjects = getInteractableObjectsNumber(LayerMask.NameToLayer("Interactable"));
+        sceneIndex = SceneManager.GetActiveScene().buildIndex;
+        homeScene = SceneManager.GetSceneByName("Home").buildIndex;
 
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();        
 
+        
         InitializeGadgets();
+
 
     }
 
@@ -85,8 +93,9 @@ public class GameManager : MonoBehaviour {
         if (!gameOver && !win)
         {
             showTimer();
-            MapUpdate();
-            if (gadgetList.Count > 0)
+            if(sceneIndex != homeScene)
+                MapUpdate();
+            if (gadgetPanelActive)
             {
                 ShowGadget();
                 UpdateCoolDownText();
@@ -326,17 +335,19 @@ public class GameManager : MonoBehaviour {
         }
 
         gadgetNumber = gadgetList.Count;
-        if (gadgetList.Count > 0)
+        if (gadgetList.Count > 0 && sceneIndex != homeScene)
         {
             gadgetPanel.SetActive(true);
             currentGadget = gadgetList[0];
 
             gadgetImage.sprite = currentGadget.sprite;
             gadgetText.text = currentGadget.name;
+            gadgetPanelActive = true;
         }
         else
         {
             gadgetPanel.SetActive(false);
+            gadgetPanelActive = false;
 
         }
 
