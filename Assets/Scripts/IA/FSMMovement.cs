@@ -31,7 +31,7 @@ public class FSMMovement {
     // move the IA using animator
 	public float Move(Vector2 position) {
         // if IA is moving and player hasn't seen
-        if (isRunning && !isSpotted && !isSpotted) {
+        if (isRunning && !isSpotted && !isStunned) {
 			// get the shift
 			direction = (position - lastPosition).normalized;
             // set position like the last

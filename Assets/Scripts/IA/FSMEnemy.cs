@@ -108,7 +108,7 @@ public class FSMEnemy : SpriteOffset {
         }
         else {
             // stop moving and came back to idle
-			if (movement.isRunning) {
+            if (throwablePosition == null) {
 				movement.isRunning = false;
 				isIdle = true;
             }
@@ -369,7 +369,7 @@ public class FSMEnemy : SpriteOffset {
     bool CheckNearObject() {
         if (throwablePosition != null) {
             isIdle = false;
-			movement.isRunning = false;
+			movement.isRunning = true;
             return true;
         }
         return false;

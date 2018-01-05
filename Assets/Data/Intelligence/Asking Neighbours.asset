@@ -17,6 +17,9 @@ MonoBehaviour:
   price: 0
   isLocked: 1
   image: {fileID: 21300000, guid: a3ddc3f87dee28e449da29ca0e634e85, type: 3}
-  description: No clues in your apartment, but some neighbour could have seen someone
-    suspicious, but there are too many people that lives near you. It's necessary
+  description: 'No clues in your apartment, but some neighbour could have seen someone
+    suspicious, but there are too many people that lives near you. It''s necessary
     that you pay a team of person able to be persuasive that asks to everyone.
+
+
+    Unlocks the "Bank" level.'
