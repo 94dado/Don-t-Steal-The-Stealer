@@ -8,7 +8,12 @@ public class Level : ScriptableObject {
 	public int timeLimit;
 	public int maxObject;
 	public bool isLocked;
-	[TextArea(10,10)]
+    public int firstStarPrize;
+    public int secondStarPrize;
+    public int thirdStarPrize;
+   
+
+    [TextArea(10,10)]
 	public string description;
 
 	[HideInInspector]

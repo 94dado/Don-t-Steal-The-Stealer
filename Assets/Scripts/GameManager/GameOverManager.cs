@@ -22,7 +22,9 @@ public class GameOverManager : MonoBehaviour {
     public Text victoryTimeCountText;
     public GameObject objectStar;
     public GameObject timeStar;
-   
+    public GameObject firstStarPrize;
+    public GameObject secondStarPrize;
+    public GameObject thirdStarPrize;
 
     private bool gameOverActivated;
     private bool winActivated;
@@ -43,7 +45,9 @@ public class GameOverManager : MonoBehaviour {
         dataManager = GameObject.FindGameObjectWithTag("DataManager").GetComponent<DataManager>();
         musicManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<MusicManager>();
         level = SceneManager.GetActiveScene().buildIndex - 2;
-
+        firstStarPrize.GetComponent<Text>().text = "+" + dataManager.Levels[level].firstStarPrize + "$";
+        secondStarPrize.GetComponent<Text>().text = "+" + dataManager.Levels[level].secondStarPrize + "$";
+        thirdStarPrize.GetComponent<Text>().text = "+" + dataManager.Levels[level].thirdStarPrize + "$";
     }
 
 
@@ -52,12 +56,30 @@ public class GameOverManager : MonoBehaviour {
     {
         if (!winActivated)
         {
+            bool firstStarAlreadyObtained = false;
+            bool secondStarAlreadyObtained = false;
+            bool thirdStarAlreadyObtained = false;
+
+            if (dataManager.Levels[level].StarsScore >= 1)
+                firstStarAlreadyObtained = true;
+            if (dataManager.Levels[level].StarsScore >= 2)
+                secondStarAlreadyObtained = true;
+            if (dataManager.Levels[level].StarsScore >= 3)
+                thirdStarAlreadyObtained = true;
+
             // play music of winning
             musicManager.PlaySound(musicManager.winningSongName);
             dataManager.Levels[level].levelCompleted = true;
             dataManager.Levels[level].objectsScore = gameManager.obtainedObjects;
             dataManager.Levels[level].timeScore = (int)gameManager.time;
             dataManager.MoneyData = dataManager.MoneyData + gameManager.newObtainedMoney;
+            if (!firstStarAlreadyObtained)
+            {
+                dataManager.MoneyData = dataManager.MoneyData + dataManager.Levels[level].firstStarPrize;
+                firstStarPrize.SetActive(true);
+                
+            }
+
             victoryTimeCountText.text = calculateTime((int)gameManager.time);
             victoryObjectsCountText.text = gameManager.obtainedObjects + "/" + gameManager.obtainableObjects;
             victoryTimeLimitText.text = "\nSteal all objects in less \nthan " + calculateTime(timeLimit);
@@ -67,15 +89,23 @@ public class GameOverManager : MonoBehaviour {
                 victoryObjectsText.color = new Color(0, 1, 0, 1);
                 victoryObjectsCountText.color = new Color(0, 1, 0, 1);
                 objectStar.GetComponent<Image>().enabled = true;
-
+                if(!secondStarAlreadyObtained)
+                {
+                    dataManager.MoneyData = dataManager.MoneyData + dataManager.Levels[level].secondStarPrize;
+                    secondStarPrize.SetActive(true);
+                }
 
                 if (gameManager.time < timeLimit + 1)
                 {
                     victoryTimeLimitText.color = new Color(0, 1, 0, 1);
                     victoryTimeCountText.color = new Color(0, 1, 0, 1);
                     timeStar.GetComponent<Image>().enabled = true;
-                    
 
+                    if (!thirdStarAlreadyObtained)
+                    {
+                        dataManager.MoneyData = dataManager.MoneyData + dataManager.Levels[level].thirdStarPrize;
+                        thirdStarPrize.SetActive(true);
+                    }
                 }
             }
 
