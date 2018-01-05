@@ -52,13 +52,11 @@ public class GadgetShopManager : MonoBehaviour {
 
         for (int i = 0; i < dataManager.Intelligence.Length; i++)
         {
-            Debug.Log("hey");
             intelligence[i].SetActive(true);
             intelligenceButtons[i] = intelligence[i].GetComponentInChildren<Button>();
             intelligenceImages[i] = intelligence[i].transform.GetChild(0).GetComponent<Image>();
             nameAndPriceIntelligence[i] = intelligence[i].GetComponentInChildren<Text>();
             intelligenceImages[i].sprite = dataManager.Intelligence[i].image;
-            Debug.Log(nameAndPriceIntelligence[i].text);
             nameAndPriceIntelligence[i].text = dataManager.Intelligence[i].name + "\n" + dataManager.Intelligence[i].price + " $";
         }
 
@@ -96,20 +94,25 @@ public class GadgetShopManager : MonoBehaviour {
     private void updateDescription()
     {
         
-            if (currentGadget != gadgetBuyer.getGadget() && gadgetPanelActive == true)
+            if (currentGadget != gadgetBuyer.getGadget() && gadgetPanelActive == true )
             {
-                currentGadget = gadgetBuyer.getGadget();         
+                currentGadget = gadgetBuyer.getGadget();
+            if (currentGadget != -1)
                 description.text = dataManager.Gadgets[currentGadget].description;
-                
+            else
+                description.text = "";
+
+
             }
 
-        Debug.Log("curr " + currentIntelligence);
-        Debug.Log("int " + gadgetBuyer.getIntelligence());
 
         if (currentIntelligence != gadgetBuyer.getIntelligence() && intelligencePanelActive == true)
             {
                 currentIntelligence = gadgetBuyer.getIntelligence();
+            if (currentIntelligence != -1)
                 description.text = dataManager.Intelligence[currentIntelligence].description;
+            else
+                description.text = "";
             }
          
     }
@@ -118,14 +121,20 @@ public class GadgetShopManager : MonoBehaviour {
     {
         if(gadgetPanelActive)
         {
+            gadgetBuyer.setIntelligence(-1);
             gadgetPanelActive = false;
             intelligencePanelActive = true;
+            
         }
         else
         {
+            gadgetBuyer.setGadget(-1);
             gadgetPanelActive = true;
             intelligencePanelActive = false;
         }
         description.text = "";
+        
     }
+
+    
 }

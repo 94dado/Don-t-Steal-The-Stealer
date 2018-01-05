@@ -319,7 +319,7 @@ public class GameManager : MonoBehaviour {
             {
                 if (g.name == "Turbo Boots")
                     gadgetList.Add(new Turbo_boots(g.name, g.image, g.coolDown, g.boostDuration, player));
-                else if (g.name == "Vibrating Rock")
+                else if (g.name == "Vibrating Stone")
                     gadgetList.Add(new Rock(g.name, g.image, g.coolDown, g.boostDuration, player));
                 else if (g.name == "Lock Pick")
                     gadgetList.Add(new Lock_pick(g.name, g.image, g.coolDown, g.boostDuration, player));

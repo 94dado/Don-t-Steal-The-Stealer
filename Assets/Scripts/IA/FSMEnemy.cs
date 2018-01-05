@@ -117,7 +117,7 @@ public class FSMEnemy : SpriteOffset {
                 if (nextPosition == throwablePosition) {
                     isReachingThrowable = false;
                     // remove the throwable from scene
-                    Destroy(throwablePosition.gameObject);
+                    throwablePosition.gameObject.SetActive(false);
                     throwablePosition = null;
                     throwableIsReached = true;
                     movement.isRunning = false;
@@ -198,7 +198,7 @@ public class FSMEnemy : SpriteOffset {
     IEnumerator StunWait(Transform stunObject) {
         isStun = true;
         // remove banana
-        Destroy(stunObject.gameObject);
+        stunObject.gameObject.SetActive(false);
         // active animation
         movement.isStunned = true;
         movement.isRunning = false;

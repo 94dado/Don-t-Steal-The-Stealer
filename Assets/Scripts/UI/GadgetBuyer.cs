@@ -31,14 +31,14 @@ public class GadgetBuyer : MonoBehaviour {
 
     public void buyGadget()
     {
-        if(activeGadgetPanel && dataManager.Gadgets[gadgetID].isLocked && dataManager.MoneyData >= dataManager.Gadgets[gadgetID].price)
+        if(gadgetID != -1 && activeGadgetPanel && dataManager.Gadgets[gadgetID].isLocked && dataManager.MoneyData >= dataManager.Gadgets[gadgetID].price)
         {
             dataManager.MoneyData = dataManager.MoneyData - dataManager.Gadgets[gadgetID].price;
             dataManager.Gadgets[gadgetID].isLocked = false;
         }
 
         
-        else if (activeIntelligencePanel&& dataManager.Intelligence[intelligenceID].isLocked && dataManager.MoneyData >= dataManager.Intelligence[intelligenceID].price)
+        else if (intelligenceID != -1 && activeIntelligencePanel&& dataManager.Intelligence[intelligenceID].isLocked && dataManager.MoneyData >= dataManager.Intelligence[intelligenceID].price)
         {
             dataManager.MoneyData = dataManager.MoneyData - dataManager.Intelligence[intelligenceID].price;
             dataManager.Intelligence[intelligenceID].isLocked = false;
