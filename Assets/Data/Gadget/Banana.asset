@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gadgetName: Banana
   image: {fileID: 21300000, guid: e53dac7bd3731a64396e705ebd3cea19, type: 3}
-  positionCountInSceneArray: 0
+  positionCountInSceneArray: 1
   coolDown: 20
   boostDuration: 0
   isLocked: 0

@@ -16,8 +16,8 @@ MonoBehaviour:
   positionCountInSceneArray: 0
   coolDown: 0
   boostDuration: 0
-  isLocked: 0
-  price: 0
+  isLocked: 1
+  price: 5000
   description: 'This amazing night visor it''s been modified to become a laser visor!
     No laser alarm will interfere with your heists anymore!
 

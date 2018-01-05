@@ -16,7 +16,7 @@ MonoBehaviour:
   positionCountInSceneArray: 1
   coolDown: 0
   boostDuration: 0
-  isLocked: 0
+  isLocked: 1
   price: 1000
   description: 'This high tech gadget give you the possibility to hack everoy electronic
     device. It''s very expensive, but it''s worth every cents it costs!

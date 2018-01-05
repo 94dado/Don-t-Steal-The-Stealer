@@ -14,7 +14,7 @@ MonoBehaviour:
   levelName: Bank
   positionCountInSceneArray: 0
   timeLimit: 0
-  maxObject: 0
+  maxObject: 17
   isLocked: 1
   description: 
   objectsScore: 0

@@ -14,7 +14,7 @@ MonoBehaviour:
   levels:
   - {fileID: 11400000, guid: d439e8c9b41ae41a7b3f5463f9617f4b, type: 2}
   positionCountInSceneArray: 1
-  price: 0
+  price: 3000
   isLocked: 1
   image: {fileID: 21300000, guid: a3ddc3f87dee28e449da29ca0e634e85, type: 3}
   description: 'No clues in your apartment, but some neighbour could have seen someone

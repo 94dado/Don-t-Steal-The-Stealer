@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gadgetName: Vibrating Stone
   image: {fileID: 21300000, guid: 5d84dc238eba5414681e2c5cc65e3405, type: 3}
-  positionCountInSceneArray: 3
+  positionCountInSceneArray: 0
   coolDown: 20
   boostDuration: 0
   isLocked: 1

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gadgetName: Lock Pick
   image: {fileID: 21300000, guid: 9432bb3ad39b4a44e8f6b2a528741c9c, type: 3}
-  positionCountInSceneArray: 2
+  positionCountInSceneArray: 4
   coolDown: 0
   boostDuration: 0
-  isLocked: 0
+  isLocked: 1
   price: 3500
   description: 'Very old school, but with these lock picks you can open every door
     you will find. Don''t worry anymore to leave some treasure behind for a silly
