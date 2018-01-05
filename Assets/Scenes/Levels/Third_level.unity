@@ -18031,6 +18031,12 @@ Prefab:
       propertyPath: notStealable.Array.data[3]
       value: Caveau
       objectReference: {fileID: 0}
+    - target: {fileID: 114466190746982666, guid: 4cf5311a161280b49986d9340e752b21,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2a7cfe94896550948b1b8ea60d00cb41,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4cf5311a161280b49986d9340e752b21, type: 2}
   m_IsPrefabParent: 0
