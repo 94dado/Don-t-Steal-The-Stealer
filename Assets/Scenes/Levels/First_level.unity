@@ -88,7 +88,6 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaDirect: 0.5
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
-    m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -2457,12 +2456,12 @@ Prefab:
     - target: {fileID: 224294912487908714, guid: d859c6ebe9923074ca06eb774848079c,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 268
+      value: 355
       objectReference: {fileID: 0}
     - target: {fileID: 224294912487908714, guid: d859c6ebe9923074ca06eb774848079c,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 167.5
+      value: 208
       objectReference: {fileID: 0}
     - target: {fileID: 224294912487908714, guid: d859c6ebe9923074ca06eb774848079c,
         type: 2}
@@ -3710,7 +3709,7 @@ Prefab:
     - target: {fileID: 114741762390521646, guid: 95f5efd493f7f4bcdbdf5b4faaa582f4,
         type: 2}
       propertyPath: keyID
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4995364650846618, guid: 95f5efd493f7f4bcdbdf5b4faaa582f4, type: 2}
       propertyPath: m_LocalScale.x
@@ -3881,12 +3880,12 @@ Prefab:
     - target: {fileID: 224819868793194064, guid: 4cf5311a161280b49986d9340e752b21,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 268
+      value: 355
       objectReference: {fileID: 0}
     - target: {fileID: 224819868793194064, guid: 4cf5311a161280b49986d9340e752b21,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 167.5
+      value: 208
       objectReference: {fileID: 0}
     - target: {fileID: 224819868793194064, guid: 4cf5311a161280b49986d9340e752b21,
         type: 2}
@@ -4920,7 +4919,6 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -8259,7 +8257,7 @@ Prefab:
     - target: {fileID: 114220645883805564, guid: abdadd6ed948c4d3ea2318935b940cbc,
         type: 2}
       propertyPath: keyID
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4062332106012000, guid: abdadd6ed948c4d3ea2318935b940cbc, type: 2}
       propertyPath: m_LocalScale.x
