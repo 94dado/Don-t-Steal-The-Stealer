@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 092cf72d89443e443bccc28a0b7a3ece, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 100
+  value: 150
   stolenSprite: {fileID: 0}
   objectType: Ring
 --- !u!212 &212324420668335394

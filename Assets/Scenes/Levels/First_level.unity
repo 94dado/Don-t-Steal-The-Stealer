@@ -88,6 +88,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaDirect: 0.5
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
+    m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -729,6 +730,11 @@ Prefab:
       propertyPath: m_SortingOrder
       value: 66
       objectReference: {fileID: 0}
+    - target: {fileID: 114138338542045770, guid: a4378b9970bfb4f4a98832f8a9de8cc3,
+        type: 2}
+      propertyPath: value
+      value: 250
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a4378b9970bfb4f4a98832f8a9de8cc3, type: 2}
   m_IsPrefabParent: 0
@@ -780,6 +786,11 @@ Prefab:
         type: 2}
       propertyPath: m_SortingOrder
       value: 671
+      objectReference: {fileID: 0}
+    - target: {fileID: 114551290895645240, guid: 578f9490cc3cb0b46b8268cfffbe16e6,
+        type: 2}
+      propertyPath: value
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 578f9490cc3cb0b46b8268cfffbe16e6, type: 2}
@@ -3257,6 +3268,11 @@ Prefab:
       propertyPath: m_SortingOrder
       value: 66
       objectReference: {fileID: 0}
+    - target: {fileID: 114019300712347756, guid: bc425e8f4ef9d4a569df85a1a5a91bf2,
+        type: 2}
+      propertyPath: value
+      value: 350
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bc425e8f4ef9d4a569df85a1a5a91bf2, type: 2}
   m_IsPrefabParent: 0
@@ -4126,6 +4142,11 @@ Prefab:
       propertyPath: m_SortingOrder
       value: 231
       objectReference: {fileID: 0}
+    - target: {fileID: 114322305857835394, guid: cc7d9eb1b2d919240b24b4ae27ad35d8,
+        type: 2}
+      propertyPath: value
+      value: 50
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cc7d9eb1b2d919240b24b4ae27ad35d8, type: 2}
   m_IsPrefabParent: 0
@@ -4894,6 +4915,7 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -5863,6 +5885,11 @@ Prefab:
         type: 2}
       propertyPath: m_SortingOrder
       value: 335
+      objectReference: {fileID: 0}
+    - target: {fileID: 114374080143480622, guid: 3ba82c6da773c4380b3e524986326c1c,
+        type: 2}
+      propertyPath: value
+      value: 250
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ba82c6da773c4380b3e524986326c1c, type: 2}
@@ -7555,6 +7582,11 @@ Prefab:
       propertyPath: m_SortingOrder
       value: 503
       objectReference: {fileID: 0}
+    - target: {fileID: 114594232054554768, guid: 10d95300bd9c459489a446eb945f01b5,
+        type: 2}
+      propertyPath: value
+      value: 50
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 10d95300bd9c459489a446eb945f01b5, type: 2}
   m_IsPrefabParent: 0
@@ -8664,6 +8696,11 @@ Prefab:
       propertyPath: m_SortingOrder
       value: 361
       objectReference: {fileID: 0}
+    - target: {fileID: 114028582394279448, guid: 7cb54a8d6fe6b424d8a89f292c3af3e3,
+        type: 2}
+      propertyPath: value
+      value: 300
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7cb54a8d6fe6b424d8a89f292c3af3e3, type: 2}
   m_IsPrefabParent: 0
@@ -9242,6 +9279,11 @@ Prefab:
         type: 2}
       propertyPath: m_SortingOrder
       value: 66
+      objectReference: {fileID: 0}
+    - target: {fileID: 114138338542045770, guid: a4378b9970bfb4f4a98832f8a9de8cc3,
+        type: 2}
+      propertyPath: value
+      value: 250
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a4378b9970bfb4f4a98832f8a9de8cc3, type: 2}
