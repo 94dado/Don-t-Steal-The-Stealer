@@ -13,13 +13,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelName: Bank
   positionCountInSceneArray: 0
-  timeLimit: 0
+  timeLimit: 420
   maxObject: 17
-  isLocked: 1
+  isLocked: 0
   firstStarPrize: 0
   secondStarPrize: 400
   thirdStarPrize: 850
   description: 
-  objectsScore: 0
-  timeScore: 0
-  levelCompleted: 0
+  objectsScore: 17
+  timeScore: 414
+  levelCompleted: 1
