@@ -3973,6 +3973,12 @@ Prefab:
       propertyPath: gameOverManager
       value: 
       objectReference: {fileID: 871987035}
+    - target: {fileID: 114466190746982666, guid: 4cf5311a161280b49986d9340e752b21,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ea08afc9713b7384fa16b81a621ad35f,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4cf5311a161280b49986d9340e752b21, type: 2}
   m_IsPrefabParent: 0

@@ -13,13 +13,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelName: Villa
   positionCountInSceneArray: 0
-  timeLimit: 0
+  timeLimit: 240
   maxObject: 15
-  isLocked: 1
+  isLocked: 0
   firstStarPrize: 0
   secondStarPrize: 200
   thirdStarPrize: 550
   description: 
-  objectsScore: 0
-  timeScore: 0
-  levelCompleted: 0
+  objectsScore: 15
+  timeScore: 196
+  levelCompleted: 1
