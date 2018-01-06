@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class ContinueButtonActivator : MonoBehaviour {
@@ -9,7 +7,8 @@ public class ContinueButtonActivator : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        if (PlayerPrefs.GetInt("GameStarted") == 1)
+        DataManager dataManager = GameObject.FindGameObjectWithTag("DataManager").GetComponent<DataManager>();
+        if (dataManager.AlreadyStarted == true)
             this.GetComponent<Button>().interactable = true;
 	}
 	

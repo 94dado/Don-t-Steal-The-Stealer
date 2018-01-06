@@ -46,7 +46,7 @@ public class SceneLoader : MonoBehaviour {
         dataManager.Levels[0].isLocked = false;
 
         SwitchScene();
-        PlayerPrefs.SetInt("GameStarted", 1);
+        dataManager.AlreadyStarted = true;
     }
 
 }
