@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 using System.IO;
 
@@ -12,9 +10,13 @@ public class DataManager : SpriteOffset {
 	// path to save data
 	string dataPath;
 
+    void SetDataPath() {
+        dataPath = Path.Combine(Application.persistentDataPath, "data.json");
+    }
+
 	void Awake () {
-		// data are stored on this path
-		dataPath = Path.Combine(Application.persistentDataPath, "data.json");
+        // data are stored on this path
+        SetDataPath();
 		MakePersistent();
 	}
 
@@ -50,7 +52,8 @@ public class DataManager : SpriteOffset {
 
 	// save the scene in a path
 	void SaveData() {
-		// create the file if not exist
+        // create the file if not exist
+        if (dataPath == null) SetDataPath();
 		File.CreateText(dataPath).Close();
 		// create the json from the scene and add to the file created
 		File.WriteAllText(dataPath, JsonUtility.ToJson(data));
@@ -89,6 +92,16 @@ public class DataManager : SpriteOffset {
 		}
 	}
 
+    public bool AlreadyStarted {
+        get {
+            return data.alreadyStarted;
+        }
+        set {
+            data.alreadyStarted = value;
+            SaveData();
+        }
+    }
+
 	// get or set the money of game
 	public int MoneyData {
 		get { 
@@ -108,4 +121,5 @@ public class GameData {
 	public Level[] levels;
 	public Gadget[] gadgets;
 	public Intelligence[] intelligence;
+    public bool alreadyStarted;
 }

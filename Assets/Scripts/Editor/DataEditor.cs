@@ -8,9 +8,7 @@ public class DataEditor {
 		string dataPath = Path.Combine(Application.persistentDataPath,"data.json");
         Debug.Log(dataPath);
 		File.Delete(dataPath);
-        PlayerPrefs.SetInt("GameStarted", 0);
         DataManager dataManager = GameObject.FindGameObjectWithTag("DataManager").GetComponent<DataManager>();
-
         
         foreach (Gadget g in dataManager.Gadgets)
         {
@@ -30,6 +28,6 @@ public class DataEditor {
         {
             i.isLocked = true;
         }
-
+        dataManager.AlreadyStarted = false;
     }
 }
