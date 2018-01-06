@@ -125,9 +125,11 @@ public class MusicManager : MonoBehaviour {
 
     // play a song until the end and after pass to next
     IEnumerator LevelMusic() {
-        PlaySound(levelSongsName[currentLevelSong]);
-        yield return new WaitForSeconds(GetSound(levelSongsName[currentLevelSong]).clip.length);
-        currentLevelSong = (currentLevelSong + 1) % (levelSongsName.Length - 1);
+        while (true) {
+            PlaySound(levelSongsName[currentLevelSong]);
+            yield return new WaitForSeconds(GetSound(levelSongsName[currentLevelSong]).clip.length);
+            currentLevelSong = (currentLevelSong + 1) % levelSongsName.Length;
+        }
     }
 
     // check playing audio
