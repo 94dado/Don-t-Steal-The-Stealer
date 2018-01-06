@@ -18,7 +18,7 @@ MonoBehaviour:
   boostDuration: 0
   isLocked: 1
   price: 1000
-  description: 'This high tech gadget give you the possibility to hack everoy electronic
+  description: 'This high tech gadget give you the possibility to hack every electronic
     device. It''s very expensive, but it''s worth every cents it costs!
 
     Press the gadget button when interacting with an electronic device to use the
