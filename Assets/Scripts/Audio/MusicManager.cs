@@ -101,7 +101,7 @@ public class MusicManager : MonoBehaviour {
         for (int i = 0; i < sounds.Length; i++) {
             GameObject go = new GameObject("Sound_" + i + "_" + sounds[i].name);
             sounds[i].SetSource(go.AddComponent<AudioSource>());
-            DontDestroyOnLoad(go);
+            go.transform.parent = transform;
         }
     }
 
