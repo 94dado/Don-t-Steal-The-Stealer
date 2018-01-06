@@ -7158,7 +7158,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4374258421195538, guid: 98950940b8020374fb160b924d6555a7, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.9
+      value: 1.26
       objectReference: {fileID: 0}
     - target: {fileID: 4374258421195538, guid: 98950940b8020374fb160b924d6555a7, type: 2}
       propertyPath: m_LocalPosition.z
@@ -7186,11 +7186,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4374258421195538, guid: 98950940b8020374fb160b924d6555a7, type: 2}
       propertyPath: m_LocalScale.x
-      value: 0.16
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4374258421195538, guid: 98950940b8020374fb160b924d6555a7, type: 2}
       propertyPath: m_LocalScale.y
-      value: 0.16
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 212062507415236228, guid: 98950940b8020374fb160b924d6555a7,
         type: 2}
@@ -17973,20 +17973,15 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114317823374350030, guid: 4cf5311a161280b49986d9340e752b21,
-        type: 2}
-      propertyPath: notStealable.Array.size
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 224819868793194064, guid: 4cf5311a161280b49986d9340e752b21,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 432
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224819868793194064, guid: 4cf5311a161280b49986d9340e752b21,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 208
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224819868793194064, guid: 4cf5311a161280b49986d9340e752b21,
         type: 2}
@@ -18068,22 +18063,6 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114317823374350030, guid: 4cf5311a161280b49986d9340e752b21,
-        type: 2}
-      propertyPath: gameOverManager
-      value: 
-      objectReference: {fileID: 1782720050}
-    - target: {fileID: 114317823374350030, guid: 4cf5311a161280b49986d9340e752b21,
-        type: 2}
-      propertyPath: notStealable.Array.data[3]
-      value: Caveau
-      objectReference: {fileID: 0}
-    - target: {fileID: 114466190746982666, guid: 4cf5311a161280b49986d9340e752b21,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 2a7cfe94896550948b1b8ea60d00cb41,
-        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4cf5311a161280b49986d9340e752b21, type: 2}
   m_IsPrefabParent: 0
@@ -21111,12 +21090,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4712133167026182, guid: f02263e218df14f34a62af0c1646dc08,
     type: 2}
   m_PrefabInternal: {fileID: 1770969059}
---- !u!114 &1782720050 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114845089227426290, guid: d859c6ebe9923074ca06eb774848079c,
-    type: 2}
-  m_PrefabInternal: {fileID: 1891453469}
-  m_Script: {fileID: 11500000, guid: e999346a2160726468f8b041654e7a85, type: 3}
 --- !u!1001 &1784375559
 Prefab:
   m_ObjectHideFlags: 0
