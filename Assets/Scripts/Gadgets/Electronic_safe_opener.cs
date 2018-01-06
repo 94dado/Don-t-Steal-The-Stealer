@@ -16,7 +16,7 @@ public class Electronic_safe_opener : Gadgets {
         {
             InteractableObject myObject = player.hitObject.collider.gameObject.GetComponent<InteractableObject>();
             GameManager gameManager = GameManager.instance;
-            gameManager.AddMoney(myObject.Interact(), myObject.tag);
+            gameManager.AddMoney(myObject.Interact(), myObject.getObjectType());
         }
     }
 

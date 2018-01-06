@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212497278670065192}
   - component: {fileID: 61371992073512922}
   - component: {fileID: 114191321375539628}
+  - component: {fileID: 114425449444465590}
   m_Layer: 13
   m_Name: Necklace1
   m_TagString: Untagged
@@ -81,6 +82,20 @@ MonoBehaviour:
   value: 150
   stolenSprite: {fileID: 0}
   objectType: Necklace
+--- !u!114 &114425449444465590
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1502152844848288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 092cf72d89443e443bccc28a0b7a3ece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: 0
+  stolenSprite: {fileID: 0}
+  objectType: 
 --- !u!212 &212497278670065192
 SpriteRenderer:
   m_ObjectHideFlags: 1

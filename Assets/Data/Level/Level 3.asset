@@ -16,6 +16,9 @@ MonoBehaviour:
   timeLimit: 0
   maxObject: 17
   isLocked: 1
+  firstStarPrize: 0
+  secondStarPrize: 400
+  thirdStarPrize: 850
   description: 
   objectsScore: 0
   timeScore: 0

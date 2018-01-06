@@ -165,13 +165,13 @@ public class GameManager : MonoBehaviour {
         foreach (GameObject obj in filtered)
         {
             InteractableObject io = obj.GetComponent<InteractableObject>();
-            if(io != null && io.getObjectType() == "Key")
-            {
-                keyNumber++;
-            }
-            if (IsStealable(obj.tag))
-            {
-                interactableObjectNumber = interactableObjectNumber + 1;
+            if(io != null) {
+                if (io.getObjectType() == "Key") {
+                    keyNumber++;
+                }
+                if (IsStealable(io.getObjectType())) {
+                    interactableObjectNumber = interactableObjectNumber + 1;
+                }
             }
         }
         return interactableObjectNumber;

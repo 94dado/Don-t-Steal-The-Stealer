@@ -17,10 +17,10 @@ public class Laser_Button : InteractableObject
     {
         foreach (GameObject l in laser)
         {
-            l.GetComponent<SpriteRenderer>().enabled = true;
+            l.SetActive(false);
         }
         gameObject.layer = LayerMask.NameToLayer("Interacted");
-
+        GetComponent<SpriteRenderer>().sprite = stolenSprite;
         return 0;
     }
 }
