@@ -266,7 +266,7 @@ public class PlayerController : SpriteOffset {
             InteractableObject myObject = hitObject.collider.gameObject.GetComponent<InteractableObject>();
             if (myObject.getObjectType() != "Endgame")
             {
-                gameManager.AddMoney(myObject.Interact(), myObject.tag);
+                gameManager.AddMoney(myObject.Interact(), myObject.getObjectType());
             }
 
             else
