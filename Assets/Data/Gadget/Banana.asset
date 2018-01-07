@@ -16,7 +16,7 @@ MonoBehaviour:
   positionCountInSceneArray: 1
   coolDown: 20
   boostDuration: 0
-  isLocked: 0
+  isLocked: 1
   price: 550
   description: 'The skin''s of a banana: as simple as effective! If a guard step on
     it, he will fall down!

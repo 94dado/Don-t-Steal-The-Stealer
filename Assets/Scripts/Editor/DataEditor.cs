@@ -28,6 +28,6 @@ public class DataEditor {
         {
             i.isLocked = true;
         }
-        dataManager.AlreadyStarted = false;
+        //dataManager.AlreadyStarted = false;
     }
 }

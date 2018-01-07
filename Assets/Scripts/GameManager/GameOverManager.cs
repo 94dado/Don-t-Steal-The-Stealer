@@ -70,8 +70,8 @@ public class GameOverManager : MonoBehaviour {
             // play music of winning
             musicManager.PlaySound(musicManager.winningSongName);
             dataManager.Levels[level].levelCompleted = true;
-            dataManager.Levels[level].objectsScore = gameManager.obtainedObjects;
-            dataManager.Levels[level].timeScore = (int)gameManager.time;
+            if(dataManager.Levels[level].objectsScore < gameManager.obtainedObjects)
+                dataManager.Levels[level].objectsScore = gameManager.obtainedObjects;
             dataManager.MoneyData = dataManager.MoneyData + gameManager.newObtainedMoney;
             if (!firstStarAlreadyObtained)
             {
@@ -97,6 +97,8 @@ public class GameOverManager : MonoBehaviour {
 
                 if (gameManager.time < timeLimit + 1)
                 {
+                    if (dataManager.Levels[level].timeScore > (int)gameManager.time)
+                        dataManager.Levels[level].timeScore = (int)gameManager.time;
                     victoryTimeLimitText.color = new Color(0, 1, 0, 1);
                     victoryTimeCountText.color = new Color(0, 1, 0, 1);
                     timeStar.GetComponent<Image>().enabled = true;
