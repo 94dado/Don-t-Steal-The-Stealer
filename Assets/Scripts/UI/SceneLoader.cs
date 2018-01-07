@@ -24,12 +24,12 @@ public class SceneLoader : MonoBehaviour {
     {
         DataManager dataManager = GameObject.FindGameObjectWithTag("DataManager").GetComponent<DataManager>();
         dataManager.MoneyData = 0;
-        foreach(Gadget g in dataManager.Gadgets)
+        foreach(PersistentGadget g in dataManager.Gadgets)
         {
             g.isLocked = true;
         }
 
-        foreach(Level l in dataManager.Levels)
+        foreach(PersistentLevel l in dataManager.Levels)
         {
             l.isLocked = true;
             l.levelCompleted = false;
@@ -38,7 +38,7 @@ public class SceneLoader : MonoBehaviour {
 
         }
 
-        foreach(Intelligence i in dataManager.Intelligence)
+        foreach(PersistentIntelligence i in dataManager.Intelligence)
         {
             i.isLocked = true;
         }

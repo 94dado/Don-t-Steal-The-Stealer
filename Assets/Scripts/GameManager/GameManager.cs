@@ -309,28 +309,28 @@ public class GameManager : MonoBehaviour {
     {
         DataManager dataManager = GameObject.FindGameObjectWithTag("DataManager").GetComponent<DataManager>();
         gadgetList = new List<Gadgets>();
-        Gadget[] allGadgets;
+        PersistentGadget[] allGadgets;
         allGadgets = dataManager.Gadgets;
 
 
-        foreach (Gadget g in allGadgets)
+        foreach (PersistentGadget g in allGadgets)
         {
             if (!g.isLocked)
             {
-                if (g.name == "Turbo Boots")
-                    gadgetList.Add(new Turbo_boots(g.name, g.image, g.coolDown, g.boostDuration, player));
-                else if (g.name == "Vibrating Stone")
-                    gadgetList.Add(new Rock(g.name, g.image, g.coolDown, g.boostDuration, player));
-                else if (g.name == "Lock Pick")
-                    gadgetList.Add(new Lock_pick(g.name, g.image, g.coolDown, g.boostDuration, player));
-                else if (g.name == "Electronic Cracker")
-                    gadgetList.Add(new Electronic_safe_opener(g.name, g.image, g.coolDown, g.boostDuration, player));
-                else if (g.name == "Banana")
-                    gadgetList.Add(new Banana(g.name, g.image, g.coolDown, g.boostDuration, player));
-                else if (g.name == "Laser Visor")
-                    gadgetList.Add(new Laser_visor(g.name, g.image, g.coolDown, g.boostDuration, player));
+                if (g.gadgetName == "Turbo Boots")
+                    gadgetList.Add(new Turbo_boots(g.gadgetName, g.image, g.coolDown, g.boostDuration, player));
+                else if (g.gadgetName == "Vibrating Stone")
+                    gadgetList.Add(new Rock(g.gadgetName, g.image, g.coolDown, g.boostDuration, player));
+                else if (g.gadgetName == "Lock Pick")
+                    gadgetList.Add(new Lock_pick(g.gadgetName, g.image, g.coolDown, g.boostDuration, player));
+                else if (g.gadgetName == "Electronic Cracker")
+                    gadgetList.Add(new Electronic_safe_opener(g.gadgetName, g.image, g.coolDown, g.boostDuration, player));
+                else if (g.gadgetName == "Banana")
+                    gadgetList.Add(new Banana(g.gadgetName, g.image, g.coolDown, g.boostDuration, player));
+                else if (g.gadgetName == "Laser Visor")
+                    gadgetList.Add(new Laser_visor(g.gadgetName, g.image, g.coolDown, g.boostDuration, player));
                 else
-                    gadgetList.Add(new Gadgets(g.name, g.image, g.coolDown, g.boostDuration, player));
+                    gadgetList.Add(new Gadgets(g.gadgetName, g.image, g.coolDown, g.boostDuration, player));
             }
         }
 

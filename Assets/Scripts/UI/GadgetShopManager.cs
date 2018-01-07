@@ -57,7 +57,7 @@ public class GadgetShopManager : MonoBehaviour {
             intelligenceImages[i] = intelligence[i].transform.GetChild(0).GetComponent<Image>();
             nameAndPriceIntelligence[i] = intelligence[i].GetComponentInChildren<Text>();
             intelligenceImages[i].sprite = dataManager.Intelligence[i].image;
-            nameAndPriceIntelligence[i].text = dataManager.Intelligence[i].name + "\n" + dataManager.Intelligence[i].price + " $";
+            nameAndPriceIntelligence[i].text = dataManager.Intelligence[i].ToString() + "\n" + dataManager.Intelligence[i].price + " $";
         }
 
 

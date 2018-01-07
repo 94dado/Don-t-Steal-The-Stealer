@@ -10,12 +10,12 @@ public class DataEditor {
 		File.Delete(dataPath);
         DataManager dataManager = GameObject.FindGameObjectWithTag("DataManager").GetComponent<DataManager>();
         
-        foreach (Gadget g in dataManager.Gadgets)
+        foreach (PersistentGadget g in dataManager.Gadgets)
         {
             g.isLocked = true;
         }
 
-        foreach (Level l in dataManager.Levels)
+        foreach (PersistentLevel l in dataManager.Levels)
         {
             l.isLocked = true;
             l.levelCompleted = false;
@@ -24,7 +24,7 @@ public class DataEditor {
 
         }
 
-        foreach (Intelligence i in dataManager.Intelligence)
+        foreach (PersistentIntelligence i in dataManager.Intelligence)
         {
             i.isLocked = true;
         }
