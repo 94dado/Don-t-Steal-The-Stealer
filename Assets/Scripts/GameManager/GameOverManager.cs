@@ -72,8 +72,6 @@ public class GameOverManager : MonoBehaviour {
             dataManager.Levels[level].levelCompleted = true;
             if(dataManager.Levels[level].objectsScore < gameManager.obtainedObjects)
                 dataManager.Levels[level].objectsScore = gameManager.obtainedObjects;
-            if(dataManager.Levels[level].timeScore < (int)gameManager.time)
-                dataManager.Levels[level].timeScore = (int)gameManager.time;
             dataManager.MoneyData = dataManager.MoneyData + gameManager.newObtainedMoney;
             if (!firstStarAlreadyObtained)
             {
@@ -99,6 +97,8 @@ public class GameOverManager : MonoBehaviour {
 
                 if (gameManager.time < timeLimit + 1)
                 {
+                    if (dataManager.Levels[level].timeScore > (int)gameManager.time)
+                        dataManager.Levels[level].timeScore = (int)gameManager.time;
                     victoryTimeLimitText.color = new Color(0, 1, 0, 1);
                     victoryTimeCountText.color = new Color(0, 1, 0, 1);
                     timeStar.GetComponent<Image>().enabled = true;
