@@ -42,7 +42,8 @@ public class GadgetBuyer : MonoBehaviour {
         {
             dataManager.MoneyData = dataManager.MoneyData - dataManager.Intelligence[intelligenceID].price;
             dataManager.Intelligence[intelligenceID].isLocked = false;
-            dataManager.Intelligence[intelligenceID].Buy();
+            foreach(int i in dataManager.Intelligence[intelligenceID].unlockedLevels)
+                dataManager.Levels[i].isLocked = false;
         }
     }
 

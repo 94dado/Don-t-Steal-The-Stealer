@@ -223,6 +223,7 @@ public class PersistentGadget {
 public class PersistentIntelligence {
 
     public PersistentLevel[] levels;
+    public int[] unlockedLevels;
     public int positionCountInSceneArray;
     public int price;
     public bool isLocked;
@@ -241,6 +242,13 @@ public class PersistentIntelligence {
         for (int i = 0; i < levels.Length; i++) {
             levels[i] = new PersistentLevel(intelligence.levels[i]);
         }
+
+        unlockedLevels = new int[intelligence.levels.Length];
+        for (int i = 0; i < levels.Length; i++)
+        {
+            unlockedLevels[i] = intelligence.unlockedLevels[i];
+        }
+
     }
 
     // buy the information and unlock the information

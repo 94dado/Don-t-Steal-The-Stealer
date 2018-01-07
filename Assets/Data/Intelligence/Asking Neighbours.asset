@@ -13,6 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levels:
   - {fileID: 11400000, guid: d439e8c9b41ae41a7b3f5463f9617f4b, type: 2}
+  unlockedLevels: 02000000
   positionCountInSceneArray: 1
   price: 3000
   isLocked: 1
