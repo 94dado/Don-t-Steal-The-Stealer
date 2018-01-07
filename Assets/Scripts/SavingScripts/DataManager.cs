@@ -123,6 +123,7 @@ public class DataManager : SpriteOffset {
 }
 
 // store the data of all the scenes
+[Serializable]
 public class GameData {
     public int persistentMoney;
     public PersistentLevel[] persistentLevels;
@@ -147,6 +148,7 @@ public class GameData {
     }
 }
 
+[Serializable]
 public class PersistentLevel {
     public string levelName;
     public int positionCountInSceneArray;
@@ -193,6 +195,7 @@ public class PersistentLevel {
     }
 }
 
+[Serializable]
 public class PersistentGadget {
 
     public string gadgetName;
@@ -216,6 +219,7 @@ public class PersistentGadget {
     }
 }
 
+[Serializable]
 public class PersistentIntelligence {
 
     public PersistentLevel[] levels;
