@@ -13,6 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levels:
   - {fileID: 11400000, guid: 9d5765b367e082b43b576228866d5e3a, type: 2}
+  intelligenceName: Apartment Clues
   unlockedLevels: 01000000
   positionCountInSceneArray: 0
   price: 1500

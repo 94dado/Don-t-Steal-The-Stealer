@@ -4,6 +4,7 @@
 public class Intelligence : ScriptableObject {
 
 	public Level[] levels;
+    public string intelligenceName;
     public int[] unlockedLevels;
 	public int positionCountInSceneArray;
 	public int price;

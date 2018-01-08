@@ -52,19 +52,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteOffset: 0
-  data:
-    money: 0
-    levels:
-    - {fileID: 11400000, guid: ddd47d1ff466a4ff4bce8a8f716c862c, type: 2}
-    - {fileID: 11400000, guid: 9d5765b367e082b43b576228866d5e3a, type: 2}
-    - {fileID: 11400000, guid: d439e8c9b41ae41a7b3f5463f9617f4b, type: 2}
-    gadgets:
-    - {fileID: 11400000, guid: 4031be66ee579f94fb083bac7681f90b, type: 2}
-    - {fileID: 11400000, guid: 9ac67dc8c93c74c4fbcbe558223fa97d, type: 2}
-    - {fileID: 11400000, guid: 48ed9b88a41fae04385cee4f329cf443, type: 2}
-    - {fileID: 11400000, guid: 8fe74c969cb5a2f4884bdd95c7235987, type: 2}
-    - {fileID: 11400000, guid: 94775679ba2212a4e9200be1ac802583, type: 2}
-    - {fileID: 11400000, guid: 79daccf1148991c4f8ee5fb8eeb0f84c, type: 2}
-    intelligence:
-    - {fileID: 11400000, guid: a298c5912b007462aa3cd3cbc8eeae82, type: 2}
-    - {fileID: 11400000, guid: cbf24a4d90fe439419c27f265b7a1060, type: 2}
+  money: 0
+  levels:
+  - {fileID: 11400000, guid: ddd47d1ff466a4ff4bce8a8f716c862c, type: 2}
+  - {fileID: 11400000, guid: 9d5765b367e082b43b576228866d5e3a, type: 2}
+  - {fileID: 11400000, guid: d439e8c9b41ae41a7b3f5463f9617f4b, type: 2}
+  gadgets:
+  - {fileID: 11400000, guid: 4031be66ee579f94fb083bac7681f90b, type: 2}
+  - {fileID: 11400000, guid: 9ac67dc8c93c74c4fbcbe558223fa97d, type: 2}
+  - {fileID: 11400000, guid: 48ed9b88a41fae04385cee4f329cf443, type: 2}
+  - {fileID: 11400000, guid: 8fe74c969cb5a2f4884bdd95c7235987, type: 2}
+  - {fileID: 11400000, guid: 79daccf1148991c4f8ee5fb8eeb0f84c, type: 2}
+  - {fileID: 11400000, guid: 94775679ba2212a4e9200be1ac802583, type: 2}
+  intelligences:
+  - {fileID: 11400000, guid: a298c5912b007462aa3cd3cbc8eeae82, type: 2}
+  - {fileID: 11400000, guid: cbf24a4d90fe439419c27f265b7a1060, type: 2}

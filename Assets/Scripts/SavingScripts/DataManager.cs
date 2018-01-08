@@ -223,6 +223,7 @@ public class PersistentGadget {
 public class PersistentIntelligence {
 
     public PersistentLevel[] levels;
+    public string intelligenceName;
     public int[] unlockedLevels;
     public int positionCountInSceneArray;
     public int price;
@@ -231,6 +232,7 @@ public class PersistentIntelligence {
     public string description;
 
     public PersistentIntelligence(Intelligence intelligence) {
+        intelligenceName = intelligence.intelligenceName;
         positionCountInSceneArray = intelligence.positionCountInSceneArray;
         price = intelligence.price;
         isLocked = intelligence.isLocked;
