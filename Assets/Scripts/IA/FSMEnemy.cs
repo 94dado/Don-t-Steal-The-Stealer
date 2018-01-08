@@ -118,6 +118,7 @@ public class FSMEnemy : SpriteOffset {
                     isReachingThrowable = false;
                     // remove the throwable from scene
                     throwablePosition.gameObject.SetActive(false);
+                    throwablePosition.gameObject.layer = LayerMask.NameToLayer("Default");
                     throwablePosition = null;
                     throwableIsReached = true;
                     movement.isRunning = false;
@@ -199,6 +200,7 @@ public class FSMEnemy : SpriteOffset {
         isStun = true;
         // remove banana
         stunObject.gameObject.SetActive(false);
+        stunObject.gameObject.layer = LayerMask.NameToLayer("Default");
         // active animation
         movement.isStunned = true;
         movement.isRunning = false;
