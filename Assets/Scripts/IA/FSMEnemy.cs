@@ -244,6 +244,7 @@ public class FSMEnemy : SpriteOffset {
 
         // Setup a FSA at initial state
         fsmMachine = new FSM(idleAction);
+        nextPosition = points[currentPos];
 		isFSMStarted = true;
         // Start monitoring
         StartCoroutine("PatrolFSM");
