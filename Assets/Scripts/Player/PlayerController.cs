@@ -348,7 +348,6 @@ public class PlayerController : SpriteOffset {
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(LayerMask.LayerToName(other.gameObject.layer));
         if(LayerMask.LayerToName(other.gameObject.layer) == "Throwable" )
         {
             if (other.gameObject.tag.Equals("BananaPool"))
