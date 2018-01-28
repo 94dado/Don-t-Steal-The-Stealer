@@ -346,5 +346,23 @@ public class PlayerController : SpriteOffset {
 
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(LayerMask.LayerToName(other.gameObject.layer) == "Throwable" )
+        {
+            if (other.gameObject.tag.Equals("BananaPool"))
+            {
+                gameManager.gadgetList[gameManager.bananaPosition].cooldownTimer = 0;
+                other.gameObject.SetActive(false);
+            }
+
+            if (other.gameObject.tag.Equals("RockPool"))
+            {
+                gameManager.gadgetList[gameManager.rockPosition].cooldownTimer = 0;
+                other.gameObject.SetActive(false);
+            }
+        }
+    }
+
 
 }

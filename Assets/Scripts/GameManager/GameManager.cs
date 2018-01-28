@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour {
     [HideInInspector]
     public bool gadgetPanelActive = false;
     private PlayerController player;
+    public int bananaPosition;
+    public int rockPosition;
 
     [HideInInspector]
     // check if we are in game over
@@ -320,18 +322,26 @@ public class GameManager : MonoBehaviour {
                 if (g.gadgetName == "Turbo Boots")
                     gadgetList.Add(new Turbo_boots(g.gadgetName, g.image, g.coolDown, g.boostDuration, player));
                 else if (g.gadgetName == "Vibrating Stone")
+                {
                     gadgetList.Add(new Rock(g.gadgetName, g.image, g.coolDown, g.boostDuration, player));
+                    rockPosition = gadgetList.Count - 1;
+                }
                 else if (g.gadgetName == "Lock Pick")
                     gadgetList.Add(new Lock_pick(g.gadgetName, g.image, g.coolDown, g.boostDuration, player));
                 else if (g.gadgetName == "Electronic Cracker")
                     gadgetList.Add(new Electronic_safe_opener(g.gadgetName, g.image, g.coolDown, g.boostDuration, player));
                 else if (g.gadgetName == "Banana")
+                {
                     gadgetList.Add(new Banana(g.gadgetName, g.image, g.coolDown, g.boostDuration, player));
+                    bananaPosition = gadgetList.Count - 1;
+                }
                 else if (g.gadgetName == "Laser Visor")
                     gadgetList.Add(new Laser_visor(g.gadgetName, g.image, g.coolDown, g.boostDuration, player));
                 else
                     gadgetList.Add(new Gadgets(g.gadgetName, g.image, g.coolDown, g.boostDuration, player));
             }
+
+            
         }
 
         gadgetNumber = gadgetList.Count;
