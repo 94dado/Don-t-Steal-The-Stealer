@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 212722049183711764}
   - component: {fileID: 61704188442379264}
   - component: {fileID: 114461307830196170}
+  - component: {fileID: 61900549967571584}
   m_Layer: 13
   m_Name: Theca_Small_PearCut_Turquoise
   m_TagString: Untagged
@@ -96,6 +97,31 @@ BoxCollider2D:
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 3.6, y: 5.220388}
+  m_EdgeRadius: 0
+--- !u!61 &61900549967571584
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1148112792042568}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.6, y: 10.36}
+    newSize: {x: 3.6, y: 10.36}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 3.6, y: 10.36}
   m_EdgeRadius: 0
 --- !u!114 &114461307830196170
 MonoBehaviour:
