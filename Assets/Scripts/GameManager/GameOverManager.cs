@@ -44,7 +44,7 @@ public class GameOverManager : MonoBehaviour {
         gameManager = GameManager.instance;
         dataManager = GameObject.FindGameObjectWithTag("DataManager").GetComponent<DataManager>();
         musicManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<MusicManager>();
-        level = SceneManager.GetActiveScene().buildIndex - 2;
+        level = SceneManager.GetActiveScene().buildIndex - 3;
         firstStarPrize.GetComponent<Text>().text = "+" + dataManager.Levels[level].firstStarPrize + "$";
         secondStarPrize.GetComponent<Text>().text = "+" + dataManager.Levels[level].secondStarPrize + "$";
         thirdStarPrize.GetComponent<Text>().text = "+" + dataManager.Levels[level].thirdStarPrize + "$";

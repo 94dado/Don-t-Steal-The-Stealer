@@ -48,7 +48,7 @@ public class SceneSelectionController : MonoBehaviour {
 
     public void Update()
     {
-        if(!dataManager.Levels[level-2].isLocked && thisButton.interactable == false)
+        if(!dataManager.Levels[level-3].isLocked && thisButton.interactable == false)
         {
             thisButton.interactable = true;
         }
@@ -69,29 +69,29 @@ public class SceneSelectionController : MonoBehaviour {
     {
         
 
-        if (dataManager.Levels[level - 2].StarsScore >= 1)
+        if (dataManager.Levels[level - 3].StarsScore >= 1)
             firstStar.SetActive(true);
-        if (dataManager.Levels[level - 2].StarsScore >= 2)
+        if (dataManager.Levels[level - 3].StarsScore >= 2)
             secondStar.SetActive(true);
-        if (dataManager.Levels[level - 2].StarsScore >= 3)
+        if (dataManager.Levels[level - 3].StarsScore >= 3)
             thirdStar.SetActive(true);
     }
 
     private void loadInformation()
     {
         firstText.text = "Complete the mission";
-        secondText.text = "Steal " + dataManager.Levels[level - 2].maxObject + " objects"  ;
-        thirdText.text = "Steal all objects in " + calculateTime(dataManager.Levels[level - 2].timeLimit);
+        secondText.text = "Steal " + dataManager.Levels[level - 3].maxObject + " objects"  ;
+        thirdText.text = "Steal all objects in " + calculateTime(dataManager.Levels[level - 3].timeLimit);
 
-        if (dataManager.Levels[level - 2].StarsScore >= 1)
+        if (dataManager.Levels[level - 3].StarsScore >= 1)
             firstStarText.enabled = true;
         else
             firstStarText.enabled = false;
-        if (dataManager.Levels[level - 2].StarsScore >= 2)
+        if (dataManager.Levels[level - 3].StarsScore >= 2)
             secondStarText.enabled = true;
         else
             secondStarText.enabled = false;
-        if (dataManager.Levels[level - 2].StarsScore >= 3)
+        if (dataManager.Levels[level - 3].StarsScore >= 3)
             thirdStarText.enabled = true;
         else
             thirdStarText.enabled = false;
