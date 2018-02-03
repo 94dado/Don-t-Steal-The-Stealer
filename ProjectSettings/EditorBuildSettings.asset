@@ -35,3 +35,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Home.unity
     guid: 2497dd9949ff28b4fb9ee0c8b9589908
+  - enabled: 0
+    path: Assets/Scenes/Home-Disappearing.unity
+    guid: cff5d80915b06fa4686c36428e6d34f9
