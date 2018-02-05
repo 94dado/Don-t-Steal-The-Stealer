@@ -36,6 +36,9 @@ public class FSMEnemy : SpriteOffset {
     // used to wait rise animation after fall
     public AnimationClip riseAnimation;
 
+    //for trailer
+    public bool isTrailer = false;
+
     FSM fsmMachine;
     FSMMovement movement;
     Animator animator;
@@ -66,6 +69,9 @@ public class FSMEnemy : SpriteOffset {
 		currentPos = startPos;
         // initialize FSM
         StartFSM();
+
+        //for trailer
+        if (isTrailer) movement.isTrailer = true;
     }
 
     void Update() {

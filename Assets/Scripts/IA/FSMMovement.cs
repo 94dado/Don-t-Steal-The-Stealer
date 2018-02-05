@@ -10,6 +10,9 @@ public class FSMMovement {
     public bool isStunned;
 	// direction of the IA movement
 	public Vector2 direction;
+
+    //boolean for trailer
+    public bool isTrailer = false;
 	// last movement direction
 	public Vector2 lastDir;
 
@@ -49,6 +52,9 @@ public class FSMMovement {
             newSpeed = speed / Mathf.Sqrt(2f);
         }
 		// set values of the parameters
+        if(isTrailer && direction.x == 0 && direction.y == 0) {
+            direction.y = -1;
+        }
 		animator.SetFloat("RunX", direction.x);
 		animator.SetFloat("RunY", direction.y);
 		animator.SetBool("Running", isRunning);
